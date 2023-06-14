@@ -22,4 +22,8 @@ public class ClienteService {
     public Cliente saveCliente(ClienteRequest clienteRequest){
         return clienteRepository.save(clienteRequest.toEntity());
     }
+
+    public Cliente findById(Long id) {
+        return clienteRepository.findById(id).orElseThrow();
+    }
 }

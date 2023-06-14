@@ -30,4 +30,9 @@ public class ClienteController {
         URI location = uriBuilder.path("/clientes/{id}").buildAndExpand(clienteService.saveCliente(cliente).getId()).toUri();
         return ResponseEntity.created(location).build();
     }
+
+    @GetMapping("/{id}")
+    private Cliente findById(@PathVariable Long id){
+        return clienteService.findById(id);
+    }
 }
