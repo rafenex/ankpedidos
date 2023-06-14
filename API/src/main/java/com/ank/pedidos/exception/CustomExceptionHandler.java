@@ -25,7 +25,7 @@ public class CustomExceptionHandler {
 
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public ApiErrorMessage handleMethodArgumentNotValidException(MethodArgumentNotValidException ex) {
-        return new ApiErrorMessage(HttpStatus.BAD_REQUEST, ex.getAllErrors().stream().map(r -> r.getDefaultMessage()).collect(Collectors.toList()));
+        return new ApiErrorMessage(HttpStatus.BAD_REQUEST, ex.getAllErrors().stream().map(r ->  r.getDefaultMessage()).collect(Collectors.toList()));
     }
 
 }

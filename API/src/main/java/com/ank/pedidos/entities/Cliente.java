@@ -10,7 +10,7 @@ public class Cliente {
     private Long id;
 
     private String nome;
-    @Column(unique = true)
+    @Column(unique = false)
     private String cpf;
     private String endereco;
 
