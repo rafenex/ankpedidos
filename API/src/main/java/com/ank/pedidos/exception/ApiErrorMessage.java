@@ -7,9 +7,11 @@ import java.util.List;
 
 public class ApiErrorMessage {
     private HttpStatus status;
-    private List<String> errors;
+    private List<Object> errors;
 
-    public ApiErrorMessage(HttpStatus status, List<String> errors) {
+
+
+    public ApiErrorMessage(HttpStatus status, List<Object> errors) {
         super();
         this.status = status;
         this.errors = errors;
@@ -29,11 +31,11 @@ public class ApiErrorMessage {
         this.status = status;
     }
 
-    public List<String> getErrors() {
+    public List<Object> getErrors() {
         return errors;
     }
 
-    public void setErrors(List<String> errors) {
+    public void setErrors(List<Object> errors) {
         this.errors = errors;
     }
 }

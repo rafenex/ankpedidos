@@ -1,13 +1,11 @@
 package com.ank.pedidos.controllers;
 
+import com.ank.pedidos.controllers.dto.ClienteRequest;
 import com.ank.pedidos.entities.Cliente;
 import com.ank.pedidos.services.ClienteService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -24,7 +22,7 @@ public class ClienteController {
     }
 
     @PostMapping
-    private Cliente saveCliente(Cliente cliente){
+    private Cliente saveCliente(@RequestBody @Valid ClienteRequest cliente){
         return clienteService.saveCliente(cliente);
     }
 }

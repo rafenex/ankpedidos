@@ -1,5 +1,6 @@
 package com.ank.pedidos.services;
 
+import com.ank.pedidos.controllers.dto.ClienteRequest;
 import com.ank.pedidos.entities.Cliente;
 import com.ank.pedidos.repositories.ClienteRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,7 +19,7 @@ public class ClienteService {
         return clienteRepository.findAll();
     }
 
-    public Cliente saveCliente(Cliente cliente){
-        return clienteRepository.save(cliente);
+    public Cliente saveCliente(ClienteRequest clienteRequest){
+        return clienteRepository.save(clienteRequest.toEntity());
     }
 }
