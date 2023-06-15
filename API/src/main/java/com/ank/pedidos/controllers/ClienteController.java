@@ -1,6 +1,7 @@
 package com.ank.pedidos.controllers;
 
 import com.ank.pedidos.controllers.dto.ClienteRequest;
+import com.ank.pedidos.controllers.dto.ClienteResponse;
 import com.ank.pedidos.entities.Cliente;
 import com.ank.pedidos.services.ClienteService;
 import jakarta.validation.Valid;
@@ -21,18 +22,28 @@ public class ClienteController {
     ClienteService clienteService;
 
     @GetMapping
-    private List<Cliente> findAll (){
-        return clienteService.findAll();
+    private ResponseEntity<List<ClienteResponse>> findAll (){
+        return ResponseEntity.ok(clienteService.findAll());
     }
 
     @PostMapping
-    private ResponseEntity<Void> saveCliente(@RequestBody @Valid ClienteRequest cliente, UriComponentsBuilder uriBuilder) {
-        URI location = uriBuilder.path("/clientes/{id}").buildAndExpand(clienteService.saveCliente(cliente).getId()).toUri();
-        return ResponseEntity.created(location).build();
+    private ResponseEntity<Void> saveCliente(@RequestBody @Valid ClienteRequest cliente) {
+        return ResponseEntity.created(null).build();
     }
 
     @GetMapping("/{id}")
-    private Cliente findById(@PathVariable Long id){
+    private ClienteResponse findById(@PathVariable Long id){
         return clienteService.findById(id);
+    }
+
+    @PutMapping("/{id}")
+    private ResponseEntity<ClienteResponse> updateCliente(@RequestBody @Valid  ClienteRequest request, @PathVariable Long id){
+        return ResponseEntity.ok(clienteService.updateCliente(request, id));
+    }
+
+    @DeleteMapping("/{id}")
+    private ResponseEntity<Void> deleteCliente(@PathVariable Long id){
+        clienteService.delete(id);
+        return ResponseEntity.noContent().build();
     }
 }

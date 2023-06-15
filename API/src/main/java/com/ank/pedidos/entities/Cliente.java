@@ -14,6 +14,9 @@ public class Cliente {
     private String cpf;
     private String endereco;
 
+    public Cliente() {
+    }
+
     public Cliente(String nome, String cpf, String endereco) {
         this.nome = nome;
         this.cpf = cpf;
