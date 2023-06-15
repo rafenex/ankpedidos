@@ -4,9 +4,18 @@ import com.ank.pedidos.entities.Cliente;
 import jakarta.validation.constraints.NotBlank;
 
 public class ClienteResponse{
+    Long id;
     String nome;
     String cpf;
     String endereco;
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
 
     public String getNome() {
         return nome;

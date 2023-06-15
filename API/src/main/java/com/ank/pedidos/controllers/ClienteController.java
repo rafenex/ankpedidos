@@ -23,22 +23,22 @@ public class ClienteController {
 
     @GetMapping
     private ResponseEntity<List<ClienteResponse>> findAll (){
-        return ResponseEntity.ok(clienteService.findAll());
+        return new ResponseEntity<>(clienteService.findAll(),HttpStatus.OK);
     }
 
     @PostMapping
     private ResponseEntity<Cliente> saveCliente(@RequestBody @Valid ClienteRequest cliente) {
-        return ResponseEntity.created(null).body(clienteService.saveCliente(cliente));
+        return new ResponseEntity<>(clienteService.saveCliente(cliente), HttpStatus.CREATED);
     }
 
     @GetMapping("/{id}")
     private ResponseEntity<ClienteResponse> findById(@PathVariable Long id){
-        return ResponseEntity.ok(clienteService.findById(id));
+        return new ResponseEntity<>(clienteService.findById(id), HttpStatus.OK);
     }
 
     @PutMapping("/{id}")
     private ResponseEntity<ClienteResponse> updateCliente(@RequestBody @Valid  ClienteRequest request, @PathVariable Long id){
-        return ResponseEntity.ok(clienteService.updateCliente(request, id));
+        return new ResponseEntity<>(clienteService.updateCliente(request, id), HttpStatus.OK);
     }
 
     @DeleteMapping("/{id}")

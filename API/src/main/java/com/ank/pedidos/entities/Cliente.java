@@ -8,7 +8,6 @@ public class Cliente {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
     private String nome;
     @Column(unique = false)
     private String cpf;
@@ -17,7 +16,8 @@ public class Cliente {
     public Cliente() {
     }
 
-    public Cliente(String nome, String cpf, String endereco) {
+    public Cliente(Long id, String nome, String cpf, String endereco) {
+        this.id = id;
         this.nome = nome;
         this.cpf = cpf;
         this.endereco = endereco;
