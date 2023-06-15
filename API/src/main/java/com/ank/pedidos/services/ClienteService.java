@@ -1,6 +1,8 @@
 package com.ank.pedidos.services;
 
 import com.ank.pedidos.controllers.dto.ClienteRequest;
+import com.ank.pedidos.controllers.dto.ClienteResponse;
+import com.ank.pedidos.controllers.dto.mapper.ClienteMapper;
 import com.ank.pedidos.entities.Cliente;
 import com.ank.pedidos.repositories.ClienteRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,11 +17,28 @@ public class ClienteService {
     @Autowired
     ClienteRepository clienteRepository;
 
-    public List<Cliente> findAll(){
-        return clienteRepository.findAll();
+    public List<ClienteResponse> findAll(){
+        return ClienteMapper.INSTANCE.toResponse(clienteRepository.findAll());
     }
 
     public Cliente saveCliente(ClienteRequest clienteRequest){
-        return clienteRepository.save(clienteRequest.toEntity());
+        return clienteRepository.save(ClienteMapper.INSTANCE.toEntity(clienteRequest));
+    }
+
+    public ClienteResponse findById(Long id) {
+        return ClienteMapper.INSTANCE.toResponse(clienteRepository.findById(id).orElseThrow());
+    }
+
+    public ClienteResponse updateCliente(ClienteRequest request, Long id) {
+        Cliente cliente = clienteRepository.findById(id).orElseThrow();
+        cliente.setCpf(request.getCpf());
+        cliente.setEndereco(request.getEndereco());
+        cliente.setNome(request.getNome());
+        return ClienteMapper.INSTANCE.toResponse(clienteRepository.save(cliente));
+    }
+
+    public void delete(Long id) {
+        Cliente cliente = clienteRepository.findById(id).orElseThrow();
+        clienteRepository.delete(cliente);
     }
 }
