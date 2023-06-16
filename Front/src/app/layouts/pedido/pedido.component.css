@@ -1,0 +1,14 @@
+.area {
+    width: 80%;
+    height: 60vw;
+    padding: 1rem 1rem;
+    background-color: rgb(233, 229, 222);
+    margin: auto;
+}
+
+.top-area{
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 10px;
+}
