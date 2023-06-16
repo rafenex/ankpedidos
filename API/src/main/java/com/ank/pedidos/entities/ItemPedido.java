@@ -16,6 +16,8 @@ public class ItemPedido {
     private String cor;
     private BigDecimal preco;
 
+    private BigDecimal total;
+
 
     public Long getId() {
         return id;
@@ -57,5 +59,11 @@ public class ItemPedido {
         this.preco = preco;
     }
 
+    public BigDecimal getTotal() {
+        return total;
+    }
 
+    public void setTotal() {
+        this.total = this.preco.multiply(BigDecimal.valueOf(this.quantidade));
+    }
 }

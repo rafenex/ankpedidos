@@ -35,7 +35,9 @@ public class PedidoService {
         List<ItemPedido> itemPedidos = itemPedidoRepository.saveAll(pedidoRequest.getItemPedido());
 
         pedido.setCliente(clienteRepository.findById(pedidoRequest.getClienteId()).orElseThrow());
+        itemPedidos.forEach(i -> i.setTotal());
         pedido.setItemPedido(itemPedidos);
+        pedido.setTotal();
         return pedidoRepository.save(pedido);
     }
 }

@@ -19,16 +19,3 @@ INSERT INTO produto (id, nome, valor_padrao, categoria_id) VALUES
 
 
 
-INSERT INTO pedido (id, data, cliente_id) VALUES
-    (1, '2023-06-15', 1),
-    (2, '2023-06-16', 2);
-
-INSERT INTO item_pedido (id, produto_id, quantidade, cor, preco) VALUES
-    (1, 1, 2, 'Vermelho', 21.00),
-    (2, 2, 3, 'Azul', 15.75),
-    (3, 3, 1, 'Verde', 60.00);
-
-INSERT INTO pedido_item_pedido (pedido_id, item_pedido_id) VALUES
-    (1, 1),
-    (1, 2),
-    (2, 3);
