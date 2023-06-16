@@ -1,0 +1,35 @@
+<div *ngIf="isOpen" class="area">
+    <p-dropdown [options]="clientes" [(ngModel)]="selectedCliente" optionLabel="nome" [filter]="true" filterBy="nome" [showClear]="true" placeholder="Selecionar Cliente">
+        <ng-template pTemplate="selectedItem">
+            <div class="flex align-items-center gap-2" *ngIf="selectedCliente">
+                <div>{{ selectedCliente.nome }}</div>
+            </div>
+        </ng-template>
+        <ng-template let-cliente pTemplate="item">
+            <div class="flex align-items-center gap-2">
+                <div>{{ cliente.nome }}</div>
+            </div>
+        </ng-template>
+    </p-dropdown>
+
+<div class="add-produto">
+    <p-dropdown [options]="produtos" [(ngModel)]="selectedProduto" optionLabel="nome" [filter]="true" filterBy="nome" [showClear]="true" placeholder="Selecionar Produto">
+        <ng-template pTemplate="selectedItem">
+            <div class="flex align-items-center gap-2" *ngIf="selectedProduto">
+                <div>{{ selectedProduto.nome }}</div>
+            </div>
+        </ng-template>
+        <ng-template let-produto pTemplate="item">
+            <div class="flex align-items-center gap-2">
+                <div>{{ produto.nome }}</div>
+            </div>
+        </ng-template>
+    </p-dropdown>
+    <p-inputNumber inputId="integeronly" [(ngModel)]="quantidade"> </p-inputNumber>
+
+    <p-button (onClick)="newItemPedido()">+</p-button>
+</div>
+<p-button (onClick)="finalizarPedido()">Finalizar</p-button>
+</div>
+
+

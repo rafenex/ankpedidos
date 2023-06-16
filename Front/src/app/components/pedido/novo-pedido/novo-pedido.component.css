@@ -1,0 +1,14 @@
+.area{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+::ng-deep .p-dropdown {
+    width: 250px;
+}
+
+.add-produto{
+    display: flex;
+    gap: 10px;
+}

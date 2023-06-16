@@ -7,4 +7,16 @@ import { Component } from '@angular/core';
 })
 export class PedidoComponent {
 
+  listarPedidosOpen: Boolean = false;
+  novoPedidoOpen: Boolean = false;
+
+  listarPedidos(){
+    this.listarPedidosOpen = true
+    this.novoPedidoOpen = false
+  }
+  novoPedido(){
+    this.novoPedidoOpen = true
+    this.listarPedidosOpen = false
+  }
+
 }

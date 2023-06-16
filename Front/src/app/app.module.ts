@@ -8,11 +8,16 @@ import { MenubarModule } from 'primeng/menubar';
 import { PedidoComponent } from './layouts/pedido/pedido.component';
 import { ListaPedidosComponent } from './components/pedido/lista-pedidos/lista-pedidos.component';
 import { TableModule } from 'primeng/table';
+import { NovoPedidoComponent } from './components/pedido/novo-pedido/novo-pedido.component';
+import { DropdownModule } from 'primeng/dropdown';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { InputNumberModule } from 'primeng/inputnumber';
 @NgModule({
   declarations: [
     AppComponent,
     PedidoComponent,
-    ListaPedidosComponent
+    ListaPedidosComponent,
+    NovoPedidoComponent
   ],
   imports: [
     BrowserModule,
@@ -20,7 +25,11 @@ import { TableModule } from 'primeng/table';
     ButtonModule,
     BrowserAnimationsModule,
     MenubarModule,
-    TableModule
+    TableModule,
+    DropdownModule,
+    ReactiveFormsModule, 
+    FormsModule,
+    InputNumberModule
   ],
   providers: [],
   bootstrap: [AppComponent]

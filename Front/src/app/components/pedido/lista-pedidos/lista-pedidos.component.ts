@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 
 @Component({
   selector: 'app-lista-pedidos',
@@ -6,6 +6,9 @@ import { Component } from '@angular/core';
   styleUrls: ['./lista-pedidos.component.css']
 })
 export class ListaPedidosComponent {
+
+  @Input()
+  public isOpen!: Boolean;
 
   products: any[] = [
     {
