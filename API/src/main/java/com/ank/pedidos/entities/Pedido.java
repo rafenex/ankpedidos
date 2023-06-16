@@ -16,6 +16,9 @@ public class Pedido {
     @OneToMany
     private List<ItemPedido> itemPedido;
 
+    public Pedido() {
+        this.data = LocalDate.now();
+    }
 
     public Long getId() {
         return id;
