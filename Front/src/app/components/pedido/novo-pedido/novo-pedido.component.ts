@@ -1,4 +1,5 @@
 import { Component, Input } from '@angular/core';
+import { FormControl, FormGroup } from '@angular/forms';
 import { Cliente, ItemPedido, Produto } from 'src/app/models/api';
 
 @Component({
@@ -9,9 +10,13 @@ import { Cliente, ItemPedido, Produto } from 'src/app/models/api';
 export class NovoPedidoComponent {
   @Input()
   public isOpen!: Boolean;
-  quantidade: number = 0
+  quantidade!: number;
+  quantidadeInicial = this.quantidade
   itensPedido: ItemPedido[] = []
-
+  selectedCliente!: Cliente;
+  selectedProduto!: Produto;
+  cor = ''
+  totalPedido = 0
   produtos: Produto[] = [
     {
       id : 1,
@@ -47,25 +52,39 @@ export class NovoPedidoComponent {
  
   ]
 
-  selectedCliente!: Cliente;
-  selectedProduto!: Produto;
+
 
   newItemPedido(){
     const novoItem:ItemPedido = {
       produto: {
-        id: this.selectedProduto.id
+        id: this.selectedProduto.id,
+        nome: this.selectedProduto.nome
       },
       quantidade: this.quantidade,
-      cor: 'Rosa',
+      cor: this.cor,
       preco: this.selectedProduto.preco,
     }
     this.itensPedido.push(novoItem)
     this.selectedProduto = {} as Produto;
-    this.quantidade = 0
+    this.quantidade = this.quantidadeInicial
+    this.cor = ''
+    this.totalPedido = this.itensPedido.reduce((partialSum, a) => partialSum + a.quantidade * a.preco, 0)
+
+
   }
 
   finalizarPedido(){
     console.log(this.itensPedido)
   }
+
+  formatter(value: number): string {
+    return new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(value);
+  }
+
+  onSubmit(){
+    alert('oi')
+  }
+
+
 
 }

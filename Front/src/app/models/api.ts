@@ -14,6 +14,7 @@ export interface Cliente {
   export interface ItemPedido {
     produto: {
       id: number;
+      nome: string;
     };
     quantidade: number;
     cor: string;
