@@ -1,66 +1,107 @@
 <div *ngIf="isOpen" class="area">
-    <p-dropdown [options]="clientes" [required]="true" [(ngModel)]="selectedCliente" [disabled]="itensPedido.length > 0" optionLabel="nome" [filter]="true" filterBy="nome" [showClear]="true" placeholder="Cliente">
-        <ng-template pTemplate="selectedItem">
-            <div class="flex align-items-center gap-2" *ngIf="selectedCliente">
-                <div>{{ selectedCliente.nome }}</div>
-            </div>
-        </ng-template>
-        <ng-template let-cliente pTemplate="item">
-            <div class="flex align-items-center gap-2">
-                <div>{{ cliente.nome }}</div>
-            </div>
-        </ng-template>
+  <div class="itens-line">
+    <p-dropdown
+      [options]="clientes"
+      [required]="true"
+      [(ngModel)]="selectedCliente"
+      [disabled]="itensPedido.length > 0"
+      optionLabel="nome"
+      [filter]="true"
+      filterBy="nome"
+      [showClear]="true"
+      placeholder="Cliente"
+    >
+      <ng-template pTemplate="selectedItem">
+        <div class="flex align-items-center gap-2" *ngIf="selectedCliente">
+          <div>{{ selectedCliente.nome }}</div>
+        </div>
+      </ng-template>
+      <ng-template let-cliente pTemplate="item">
+        <div class="flex align-items-center gap-2">
+          <div>{{ cliente.nome }}</div>
+        </div>
+      </ng-template>
     </p-dropdown>
-
-<div class="add-produto">
-    <p-dropdown [options]="produtos" [(ngModel)]="selectedProduto" optionLabel="nome" [filter]="true" filterBy="nome" [showClear]="true" placeholder="Produto">
-        <ng-template pTemplate="selectedItem">
-            <div class="flex align-items-center gap-2" *ngIf="selectedProduto">
-                <div>{{ selectedProduto.nome }}</div>
-            </div>
-        </ng-template>
-        <ng-template let-produto pTemplate="item">
-            <div class="flex align-items-center gap-2">
-                <div>{{ produto.nome }}</div>
-            </div>
-        </ng-template>
+    <p-dropdown
+      [options]="produtos"
+      [(ngModel)]="selectedProduto"
+      optionLabel="nome"
+      [filter]="true"
+      filterBy="nome"
+      [showClear]="true"
+      placeholder="Produto"
+      (ngModelChange)="atribuirPreco()"
+    >
+      <ng-template pTemplate="selectedItem">
+        <div class="flex align-items-center gap-2" *ngIf="selectedProduto">
+          <div>{{ selectedProduto.nome }}</div>
+        </div>
+      </ng-template>
+      <ng-template let-produto pTemplate="item">
+        <div class="flex align-items-center gap-2">
+          <div>{{ produto.nome }}</div>
+        </div>
+      </ng-template>
     </p-dropdown>
-    <span class="p-float-label">
-        <p-inputNumber inputId="integeronly" [(ngModel)]="quantidade"> </p-inputNumber>
-        <label htmlFor="number-input">Quantidade</label>
-    </span>
-   
+    <p-inputNumber
+      inputId="integeronly"
+      [(ngModel)]="quantidade"
+      placeholder="Quantidade"
+    >
+    </p-inputNumber>
+  </div>
+  <div class="itens-line">
     <input pInputText type="text" placeholder="Cor" [(ngModel)]="cor" />
-  
-    <p-button (onClick)="newItemPedido()" [disabled]="selectedCliente == null || selectedProduto == null || cor == '' || quantidade == null">+</p-button>
-</div>
-<div class="table" *ngIf="itensPedido.length">
+    <p-inputNumber
+      [(ngModel)]="preco"
+      mode="currency"
+      inputId="currency-brazil"
+      currency="BRL"
+      locale="pt-BR"
+    >
+    </p-inputNumber>
+    <p-button
+      (onClick)="newItemPedido()"
+      [disabled]="
+        selectedCliente == null ||
+        selectedProduto == null ||
+        cor == '' ||
+        quantidade == null
+      "
+      >+</p-button
+    >
+  </div>
+
+  <div class="table" *ngIf="itensPedido.length">
     <p-table [value]="itensPedido" [tableStyle]="{ 'min-width': '50rem' }">
-        <ng-template pTemplate="caption"> Header </ng-template>
-        <ng-template pTemplate="header">
-            <tr>
-                <th>Nome</th>
-                <th>Cor</th>
-                <th>Quantidade</th>
-                <th>Preço</th>
-                <th>Total</th>
-            </tr>
-        </ng-template>
-        <ng-template pTemplate="body" let-item>
-            <tr>
-                <td>{{ item.produto.nome }}</td>
-                <td>{{ item.cor }}</td>
-                <td>{{ item.quantidade }}</td>
-                <td>{{ formatter(item.preco) }}</td>
-                <td>{{ formatter(item.preco * item.quantidade)  }}</td>
-            </tr>
-        </ng-template>
-        <ng-template pTemplate="caption">Cliente: {{ selectedCliente.nome }} - {{ selectedCliente.endereco}} </ng-template>
-        <ng-template pTemplate="summary"> Total: {{formatter(totalPedido)}} </ng-template>
-        </p-table>
-
+      <ng-template pTemplate="caption"> Header </ng-template>
+      <ng-template pTemplate="header">
+        <tr>
+          <th>Nome</th>
+          <th>Cor</th>
+          <th>Quantidade</th>
+          <th>Preço</th>
+          <th>Total</th>
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="body" let-item>
+        <tr>
+          <td>{{ item.produto.nome }}</td>
+          <td>{{ item.cor }}</td>
+          <td>{{ item.quantidade }}</td>
+          <td>{{ formatter(item.preco) }}</td>
+          <td>{{ formatter(item.preco * item.quantidade) }}</td>
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="caption"
+        >Cliente: {{ selectedCliente.nome }} - {{ selectedCliente.endereco }}
+      </ng-template>
+      <ng-template pTemplate="summary">
+        Total: {{ formatter(totalPedido) }}
+      </ng-template>
+    </p-table>
+  </div>
+  <p-button (onClick)="finalizarPedido()" *ngIf="itensPedido.length > 0"
+    >Finalizar</p-button
+  >
 </div>
-<p-button (onClick)="finalizarPedido()" [disabled]="itensPedido.length < 1">Finalizar</p-button>
-</div>
-
-

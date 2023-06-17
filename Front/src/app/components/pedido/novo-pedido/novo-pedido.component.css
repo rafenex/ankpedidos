@@ -2,17 +2,21 @@
     display: flex;
     flex-direction: column;
     gap: 10px;
+    max-width: 90%;
+
 }
 
-::ng-deep .p-dropdown {
+:host ::ng-deep .p-dropdown, .p-inputtext {
     width: 250px;
 }
 
-.add-produto{
-    display: flex;
-    gap: 10px;
+:host ::ng-deep .p-inputnumber {
+    width: 250px;
 }
 
-.table{
-    width: 60%;
+.itens-line{
+    display: flex;
+    align-self: baseline;
+    column-gap: 20px;
+
 }

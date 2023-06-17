@@ -15,6 +15,8 @@ export class NovoPedidoComponent {
   itensPedido: ItemPedido[] = []
   selectedCliente!: Cliente;
   selectedProduto!: Produto;
+  preco!: number;
+
   cor = ''
   totalPedido = 0
   produtos: Produto[] = [
@@ -52,6 +54,9 @@ export class NovoPedidoComponent {
  
   ]
 
+  atribuirPreco(){
+    this.preco = this.selectedProduto.preco
+  }
 
 
   newItemPedido(){
@@ -62,7 +67,7 @@ export class NovoPedidoComponent {
       },
       quantidade: this.quantidade,
       cor: this.cor,
-      preco: this.selectedProduto.preco,
+      preco: this.preco,
     }
     this.itensPedido.push(novoItem)
     this.selectedProduto = {} as Produto;

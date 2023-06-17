@@ -13,6 +13,8 @@ import { DropdownModule } from 'primeng/dropdown';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { InputNumberModule } from 'primeng/inputnumber';
 import { InputTextModule } from 'primeng/inputtext';
+import { NgxMaskDirective, NgxMaskPipe, provideNgxMask } from 'ngx-mask';
+import { InputMaskModule } from 'primeng/inputmask';
 @NgModule({
   declarations: [
     AppComponent,
@@ -31,10 +33,13 @@ import { InputTextModule } from 'primeng/inputtext';
     ReactiveFormsModule, 
     FormsModule,
     InputNumberModule,
-    InputTextModule
+    InputTextModule,
+    NgxMaskDirective, 
+    NgxMaskPipe,
+    InputMaskModule
   ],
   providers: [ 
-   
+    provideNgxMask()
 ],
   bootstrap: [AppComponent]
 })
