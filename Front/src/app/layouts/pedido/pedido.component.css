@@ -1,9 +1,10 @@
 .area {
-    width: 80%;
-    height: 60vw;
+    width: 50%;
+    height: 100vh;
     padding: 1rem 1rem;
     background-color: rgb(233, 229, 222);
     margin: auto;
+    
 }
 
 .top-area{

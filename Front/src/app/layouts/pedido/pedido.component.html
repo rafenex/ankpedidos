@@ -1,9 +1,9 @@
 <div class="area">
   <div class="top-area">
-  <h2>Pedidos</h2> 
-  <p-button (onClick)="novoPedido()">Novo Pedido</p-button>
-  <p-button (onClick)="listarPedidos()">Listar Pedidos</p-button>
-</div>
+    <h2>Pedidos</h2>
+    <p-button (onClick)="novoPedido()">Novo Pedido</p-button>
+    <p-button (onClick)="listarPedidos()">Listar Pedidos</p-button>
+  </div>
   <app-lista-pedidos [isOpen]="listarPedidosOpen"></app-lista-pedidos>
   <app-novo-pedido [isOpen]="novoPedidoOpen"></app-novo-pedido>
 </div>

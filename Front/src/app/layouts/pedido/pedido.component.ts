@@ -7,6 +7,7 @@ import { Component } from '@angular/core';
 })
 export class PedidoComponent {
 
+
   listarPedidosOpen: Boolean = false;
   novoPedidoOpen: Boolean = false;
 
@@ -18,5 +19,7 @@ export class PedidoComponent {
     this.novoPedidoOpen = true
     this.listarPedidosOpen = false
   }
+
+
 
 }
