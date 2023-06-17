@@ -1,4 +1,4 @@
-import { DEFAULT_CURRENCY_CODE, LOCALE_ID, NgModule } from '@angular/core';
+import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { ButtonModule } from 'primeng/button';
 import { AppRoutingModule } from './app-routing.module';
@@ -13,8 +13,7 @@ import { DropdownModule } from 'primeng/dropdown';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { InputNumberModule } from 'primeng/inputnumber';
 import { InputTextModule } from 'primeng/inputtext';
-import { NgxMaskDirective, NgxMaskPipe, provideNgxMask } from 'ngx-mask';
-import { InputMaskModule } from 'primeng/inputmask';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -34,12 +33,9 @@ import { InputMaskModule } from 'primeng/inputmask';
     FormsModule,
     InputNumberModule,
     InputTextModule,
-    NgxMaskDirective, 
-    NgxMaskPipe,
-    InputMaskModule
   ],
   providers: [ 
-    provideNgxMask()
+
 ],
   bootstrap: [AppComponent]
 })
