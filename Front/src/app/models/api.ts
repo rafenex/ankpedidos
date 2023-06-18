@@ -20,3 +20,21 @@ export interface Cliente {
     cor: string;
     preco: number;
   }
+
+  export interface ItemPedidoReponse {
+    cor: string;
+    id: number;
+    preco: number;
+    produto: Produto;
+    quantidade: number;
+    total: number;
+  }
+  
+  export interface PedidoResponse {
+    clienteEndereco: string;
+    clienteNome: string;
+    data: string;
+    id: number;
+    itemPedido: ItemPedidoReponse[];
+    total: number;
+  }

@@ -1,4 +1,6 @@
 import { Component, Input } from '@angular/core';
+import { PedidoResponse } from 'src/app/models/api';
+import { PedidoService } from 'src/app/services/pedido.service';
 
 @Component({
   selector: 'app-lista-pedidos',
@@ -6,17 +8,16 @@ import { Component, Input } from '@angular/core';
   styleUrls: ['./lista-pedidos.component.css']
 })
 export class ListaPedidosComponent {
-
   @Input()
   public isOpen!: Boolean;
+  @Input()
+  public  pedidoResponse : PedidoResponse[] = []
+ 
+  constructor(){}
 
-  products: any[] = [
-    {
-      code: 1,
-      name: 'Produto 1',
-      category: 'Categoria 1',
-      quantity: 100
-    }
-  ];
+  ngOnInit() {
+  
+  }
+
 
 }

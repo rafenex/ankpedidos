@@ -1,6 +1,7 @@
 package com.ank.pedidos.controllers;
 
 import com.ank.pedidos.controllers.dto.PedidoRequest;
+import com.ank.pedidos.controllers.dto.PedidoResponse;
 import com.ank.pedidos.entities.Pedido;
 import com.ank.pedidos.services.PedidoService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,8 +18,8 @@ public class PedidoController {
     PedidoService pedidoService;
 
     @GetMapping
-    private ResponseEntity<List<Pedido>> findAll(){
-        return new ResponseEntity<>(pedidoService.findAll(), HttpStatus.OK);
+    private ResponseEntity<List<PedidoResponse>> findAll(){
+        return new ResponseEntity<>(pedidoService.listarPedidos(), HttpStatus.OK);
     }
 
     @PostMapping

@@ -2,6 +2,8 @@ package com.ank.pedidos.services;
 
 import com.ank.pedidos.controllers.dto.ClienteResponse;
 import com.ank.pedidos.controllers.dto.PedidoRequest;
+import com.ank.pedidos.controllers.dto.PedidoResponse;
+import com.ank.pedidos.controllers.dto.mapper.PedidoMapper;
 import com.ank.pedidos.entities.ItemPedido;
 import com.ank.pedidos.entities.Pedido;
 import com.ank.pedidos.repositories.ClienteRepository;
@@ -39,5 +41,9 @@ public class PedidoService {
         pedido.setItemPedido(itemPedidos);
         pedido.setTotal();
         return pedidoRepository.save(pedido);
+    }
+
+    public List<PedidoResponse> listarPedidos(){
+        return PedidoMapper.INSTANCE.toResponse(findAll());
     }
 }

@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { LOCALE_ID, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { ButtonModule } from 'primeng/button';
 import { AppRoutingModule } from './app-routing.module';
@@ -13,6 +13,11 @@ import { DropdownModule } from 'primeng/dropdown';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { InputNumberModule } from 'primeng/inputnumber';
 import { InputTextModule } from 'primeng/inputtext';
+import { HttpClientModule } from '@angular/common/http';
+import { AccordionModule } from 'primeng/accordion';
+import { registerLocaleData } from '@angular/common';
+import localePt from '@angular/common/locales/pt';
+registerLocaleData(localePt);
 
 @NgModule({
   declarations: [
@@ -32,9 +37,12 @@ import { InputTextModule } from 'primeng/inputtext';
     ReactiveFormsModule, 
     FormsModule,
     InputNumberModule,
-    InputTextModule,
-  ],
+    InputTextModule, 
+    HttpClientModule,
+    AccordionModule
+   ],
   providers: [ 
+    {provide: LOCALE_ID, useValue: 'pt-BR'}
 
 ],
   bootstrap: [AppComponent]

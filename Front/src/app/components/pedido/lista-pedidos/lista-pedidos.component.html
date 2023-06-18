@@ -1,21 +1,39 @@
 <div *ngIf="isOpen">
-    <p-table [value]="products" [tableStyle]="{ 'min-width': '50rem' }">
+  <ng-container *ngFor="let pedido of pedidoResponse">
+    <p-accordion>
+      <p-accordionTab>
         <ng-template pTemplate="header">
-            <tr>
-                <th>Code</th>
-                <th>Name</th>
-                <th>Category</th>
-                <th>Quantity</th>
-            </tr>
+          {{ pedido.id }} - {{ pedido.clienteNome }} -
+          {{ pedido.clienteEndereco }} -
         </ng-template>
-        <ng-template pTemplate="body" let-product>
+        <p-table
+          [value]="pedido.itemPedido"
+          [tableStyle]="{ 'min-width': '50rem' }"
+        >
+          <ng-template pTemplate="header">
             <tr>
-                <td>{{ product.code }}</td>
-                <td>{{ product.name }}</td>
-                <td>{{ product.category }}</td>
-                <td>{{ product.quantity }}</td>
+              <th>Produto</th>
+              <th>Cor</th>
+              <th>Quantidade</th>
+              <th>Valor un.</th>
+              <th>Total</th>
             </tr>
-        </ng-template>
-    </p-table>
-
+          </ng-template>
+          <ng-template pTemplate="body" let-pedido>
+            <tr>
+              <td>{{ pedido.produto.nome }}</td>
+              <td>{{ pedido.cor }}</td>
+              <td>{{ pedido.quantidade }}</td>
+              <td>{{ pedido.preco }}</td>
+              <td>{{ pedido.total }}</td>
+            </tr>
+          </ng-template>
+          <ng-template pTemplate="summary">
+            Total Pedido: {{ pedido.total | currency : "BRL" }} - Data:
+            {{ pedido.data | date : "dd/MM/yyyy" }}
+          </ng-template>
+        </p-table>
+      </p-accordionTab>
+    </p-accordion>
+  </ng-container>
 </div>
