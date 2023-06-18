@@ -1,6 +1,7 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { Cliente, ItemPedido, PedidoRequest, Produto } from 'src/app/models/api';
+import { PedidoService } from 'src/app/services/pedido.service';
 
 @Component({
   selector: 'app-novo-pedido',
@@ -10,8 +11,15 @@ import { Cliente, ItemPedido, PedidoRequest, Produto } from 'src/app/models/api'
 export class NovoPedidoComponent {
   @Input()
   public isOpen!: Boolean;
+  @Input()
+  clientes!: Cliente[];
 
   @Output() novoPedidoEvent = new EventEmitter<any>();
+
+  constructor(private pedidoService: PedidoService){}
+  ngOnInit() {
+
+  }
 
   quantidade!: number;
   quantidadeInicial = this.quantidade
@@ -41,21 +49,7 @@ export class NovoPedidoComponent {
   ]
 
 
-  clientes: Cliente[] = [
-      {
-        "id": 1,
-        "nome": "Nataniel",
-        "cpf": "102.001.001-10",
-        "endereco": "Rua Copacabana, 225 - Copacabana - Rio de Janeiro - RJ"
-      },
-      {
-        "id": 2,
-        "nome": "Joseval",
-        "cpf": "104.001.001-10",
-        "endereco": "Rua Copacabana, 225 - Copacabana - Rio de Janeiro - RJ"
-      },
- 
-  ]
+  
 
   atribuirPreco(){
     this.preco = this.selectedProduto.preco
