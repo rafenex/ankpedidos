@@ -17,6 +17,9 @@ import { HttpClientModule } from '@angular/common/http';
 import { AccordionModule } from 'primeng/accordion';
 import { registerLocaleData } from '@angular/common';
 import localePt from '@angular/common/locales/pt';
+import { ToastModule } from 'primeng/toast';
+import { MessageService } from 'primeng/api';
+
 registerLocaleData(localePt);
 
 @NgModule({
@@ -39,10 +42,12 @@ registerLocaleData(localePt);
     InputNumberModule,
     InputTextModule, 
     HttpClientModule,
-    AccordionModule
+    AccordionModule,
+    ToastModule
    ],
   providers: [ 
-    {provide: LOCALE_ID, useValue: 'pt-BR'}
+    {provide: LOCALE_ID, useValue: 'pt-BR'},
+    MessageService
 
 ],
   bootstrap: [AppComponent]

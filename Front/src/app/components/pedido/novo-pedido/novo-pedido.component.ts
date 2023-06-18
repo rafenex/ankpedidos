@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component, EventEmitter, Input, Output, SimpleChanges } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { Cliente, ItemPedido, PedidoRequest, Produto } from 'src/app/models/api';
 import { PedidoService } from 'src/app/services/pedido.service';
@@ -12,20 +12,28 @@ export class NovoPedidoComponent {
   @Input()
   isOpen!: Boolean;
   @Input()
+  resetItens!: Boolean;
+  @Input()
   clientes!: Cliente[];
   @Input()
   produtos!: Produto[];
+  @Input()
+  itensPedido!: ItemPedido[];
 
   @Output() novoPedidoEvent = new EventEmitter<any>();
 
   constructor(private pedidoService: PedidoService){}
-  ngOnInit() {
+  // ngOnChanges(changes: SimpleChanges) {
+  //   if (changes['resetItens'] && !changes['resetItens'].firstChange) {
+  //       this.itensPedido = this.itensPedidoReset
+  //   }
+  // }
+  
 
-  }
 
   quantidade!: number;
   quantidadeInicial = this.quantidade
-  itensPedido: ItemPedido[] = []
+  itensPedidoReset: ItemPedido[] = []
   selectedCliente!: Cliente;
   selectedProduto!: Produto;
   preco!: number;
@@ -65,6 +73,7 @@ export class NovoPedidoComponent {
     }
     this.itensPedido.push(novoItem)
     this.selectedProduto = {} as Produto;
+    this.preco = this.quantidadeInicial
     this.quantidade = this.quantidadeInicial
     this.cor = {cor: ''}
     this.totalPedido = this.itensPedido.reduce((partialSum, a) => partialSum + a.quantidade * a.preco, 0)

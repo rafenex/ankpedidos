@@ -1,4 +1,5 @@
 <div class="area">
+  <p-toast></p-toast>
   <div class="top-area">
     <h2>Pedidos</h2>
     <p-button (onClick)="novoPedido()">Novo Pedido</p-button>
@@ -12,6 +13,7 @@
     [isOpen]="novoPedidoOpen"
     [clientes]="clientes"
     [produtos]="produtos"
+    [itensPedido]="itensPedido"
     (novoPedidoEvent)="addNovoPedido($event)"
   ></app-novo-pedido>
 </div>
