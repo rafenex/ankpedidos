@@ -47,4 +47,8 @@ public class PedidoService {
     public List<PedidoResponse> listarPedidos(){
         return PedidoMapper.INSTANCE.toResponse(findAll());
     }
+
+    public void delete() {
+        pedidoRepository.deleteAll();
+    }
 }

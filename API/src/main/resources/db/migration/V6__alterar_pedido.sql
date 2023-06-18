@@ -1,0 +1,4 @@
+ALTER TABLE pedido MODIFY COLUMN `data` DATETIME NULL;
+
+
+

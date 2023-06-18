@@ -27,4 +27,9 @@ public class PedidoController {
         return new ResponseEntity<>(pedidoService.save(pedidoRequest), HttpStatus.CREATED);
     }
 
+    @DeleteMapping
+    private void delete(){
+        pedidoService.delete();
+    }
+
 }

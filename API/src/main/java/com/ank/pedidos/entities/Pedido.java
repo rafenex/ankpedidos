@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Entity
@@ -11,7 +12,7 @@ public class Pedido {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private LocalDate data;
+    private LocalDateTime data;
     @ManyToOne
     private Cliente cliente;
     @OneToMany
@@ -20,7 +21,7 @@ public class Pedido {
     private BigDecimal total;
 
     public Pedido() {
-        this.data = LocalDate.now();
+        this.data = LocalDateTime.now();
     }
 
     public Long getId() {
@@ -31,11 +32,11 @@ public class Pedido {
         this.id = id;
     }
 
-    public LocalDate getData() {
+    public LocalDateTime getData() {
         return data;
     }
 
-    public void setData(LocalDate data) {
+    public void setData(LocalDateTime data) {
         this.data = data;
     }
 
