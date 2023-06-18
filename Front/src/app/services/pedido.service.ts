@@ -19,6 +19,10 @@ export class PedidoService {
     return this.http.get<Cliente[]>(`${BASE_URL}/clientes`)
   }
 
+  getAllProdutos():Observable<Produto[]>{
+    return this.http.get<Produto[]>(`${BASE_URL}/produtos`)
+  }
+
   novoPedido(pedido: any) {
     this.http.post(`${BASE_URL}/pedidos`, pedido).subscribe(
       response => {

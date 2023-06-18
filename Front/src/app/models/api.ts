@@ -8,7 +8,7 @@ export interface Cliente {
   export interface Produto {
     id: number;
     nome: string;
-    preco: number;
+    valorPadrao: number;
   }
 
   export interface ItemPedido {

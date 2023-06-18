@@ -10,9 +10,11 @@ import { PedidoService } from 'src/app/services/pedido.service';
 })
 export class NovoPedidoComponent {
   @Input()
-  public isOpen!: Boolean;
+  isOpen!: Boolean;
   @Input()
   clientes!: Cliente[];
+  @Input()
+  produtos!: Produto[];
 
   @Output() novoPedidoEvent = new EventEmitter<any>();
 
@@ -28,31 +30,26 @@ export class NovoPedidoComponent {
   selectedProduto!: Produto;
   preco!: number;
 
-  cor = ''
+  cor = {cor : ''}
   totalPedido = 0
-  produtos: Produto[] = [
-    {
-      id : 1,
-      nome : "Produto 1",
-      preco: 100
-    },
-    {
-      id : 2,
-      nome : "Produto 2",
-      preco: 200
-    },
-    {
-      id : 3,
-      nome : "Produto 3",
-      preco: 200
-    }
-  ]
+  optionsCor = [
+    { cor: 'Azul' },
+    { cor: 'Verde' },
+    { cor: 'Amarelo' },
+    { cor: 'Branco' },
+    { cor: 'Preto' },
+    { cor: 'Vermelho' },
+    { cor: 'Rosa' },
+    { cor: 'Laranja' },
+    { cor: 'Roxo' },
+    { cor: 'Marrom' }
+  ];
 
 
   
 
   atribuirPreco(){
-    this.preco = this.selectedProduto.preco
+    this.preco = this.selectedProduto.valorPadrao
   }
 
 
@@ -63,13 +60,13 @@ export class NovoPedidoComponent {
         nome: this.selectedProduto.nome
       },
       quantidade: this.quantidade,
-      cor: this.cor,
+      cor: this.cor.cor,
       preco: this.preco,
     }
     this.itensPedido.push(novoItem)
     this.selectedProduto = {} as Produto;
     this.quantidade = this.quantidadeInicial
-    this.cor = ''
+    this.cor = {cor: ''}
     this.totalPedido = this.itensPedido.reduce((partialSum, a) => partialSum + a.quantidade * a.preco, 0)
 
 

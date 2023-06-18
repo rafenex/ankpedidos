@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { Cliente, PedidoResponse } from 'src/app/models/api';
+import { Cliente, PedidoResponse, Produto } from 'src/app/models/api';
 import { PedidoService } from 'src/app/services/pedido.service';
 
 @Component({
@@ -14,6 +14,7 @@ export class PedidoComponent {
   listarPedidosOpen: Boolean = false;
   novoPedidoOpen: Boolean = false;
   clientes!: Cliente[];
+  produtos!: Produto[];
 
   listarPedidos(){
     this.listarPedidosOpen = true
@@ -26,9 +27,14 @@ export class PedidoComponent {
   novoPedido(){
     this.novoPedidoOpen = true
     this.listarPedidosOpen = false
-    this.pedidoService.getAllClientes().subscribe((clientes: Cliente[]) => {
+    this.pedidoService.getAllClientes()
+    .subscribe((clientes: Cliente[]) => {
       this.clientes = clientes;
     });
+    this.pedidoService.getAllProdutos()
+    .subscribe((data : Produto[]) => {
+      this.produtos = data;
+    })
   }
 
   addNovoPedido(novoPedido : any){
