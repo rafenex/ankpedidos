@@ -8,5 +8,8 @@
     [isOpen]="listarPedidosOpen"
     [pedidoResponse]="pedidoResponse"
   ></app-lista-pedidos>
-  <app-novo-pedido [isOpen]="novoPedidoOpen"></app-novo-pedido>
+  <app-novo-pedido
+    [isOpen]="novoPedidoOpen"
+    (novoPedidoEvent)="addNovoPedido($event)"
+  ></app-novo-pedido>
 </div>

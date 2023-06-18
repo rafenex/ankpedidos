@@ -38,3 +38,18 @@ export interface Cliente {
     itemPedido: ItemPedidoReponse[];
     total: number;
   }
+
+
+  export interface PedidoRequest {
+    clienteId: number;
+    itemPedido: ItemPedidoRequest[];
+  }
+  
+  export interface ItemPedidoRequest {
+    produto: {
+      id: number;
+    };
+    quantidade: number;
+    cor: string;
+    preco: number;
+  }

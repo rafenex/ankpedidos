@@ -1,6 +1,6 @@
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
-import { Cliente, ItemPedido, Produto } from 'src/app/models/api';
+import { Cliente, ItemPedido, PedidoRequest, Produto } from 'src/app/models/api';
 
 @Component({
   selector: 'app-novo-pedido',
@@ -10,6 +10,9 @@ import { Cliente, ItemPedido, Produto } from 'src/app/models/api';
 export class NovoPedidoComponent {
   @Input()
   public isOpen!: Boolean;
+
+  @Output() novoPedidoEvent = new EventEmitter<any>();
+
   quantidade!: number;
   quantidadeInicial = this.quantidade
   itensPedido: ItemPedido[] = []
@@ -79,16 +82,18 @@ export class NovoPedidoComponent {
   }
 
   finalizarPedido(){
-    console.log(this.itensPedido)
+    const novoPedido : PedidoRequest  = {
+      clienteId: this.selectedCliente.id,
+      itemPedido : this.itensPedido
+    }
+      this.novoPedidoEvent.emit(novoPedido);
   }
 
   formatter(value: number): string {
     return new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(value);
   }
 
-  onSubmit(){
-    alert('oi')
-  }
+
 
 
 

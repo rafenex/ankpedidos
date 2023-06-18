@@ -27,6 +27,10 @@ export class PedidoComponent {
     this.listarPedidosOpen = false
   }
 
+  addNovoPedido(novoPedido : any){
+    this.pedidoService.novoPedido(novoPedido)
+  }
+
 
 
 

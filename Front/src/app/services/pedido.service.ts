@@ -12,5 +12,18 @@ export class PedidoService {
 
   getAllPedidos(): Observable<any> {
     return this.http.get(`${BASE_URL}/pedidos`)
- }
+  }
+
+  novoPedido(pedido: any) {
+    this.http.post(`${BASE_URL}/pedidos`, pedido).subscribe(
+      response => {
+        // Lógica a ser executada após o sucesso da solicitação
+        console.log(response);
+      },
+      error => {
+        // Lógica a ser executada em caso de erro na solicitação
+        console.error(error);
+      }
+    );
+  }
 }
