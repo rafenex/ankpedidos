@@ -8,8 +8,11 @@ import com.ank.pedidos.entities.Pedido;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.factory.Mappers;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Mapper
 public interface PedidoMapper {
@@ -20,4 +23,11 @@ public interface PedidoMapper {
     PedidoResponse toResponse(Pedido pedido);
 
     List<PedidoResponse> toResponse(List<Pedido> pedidos);
+
+
+    default Page<PedidoResponse> toResponse(Page<Pedido> pedidos) {
+        List<PedidoResponse> pedidoResponses = toResponse(pedidos.getContent());
+        return new PageImpl<>(pedidoResponses, pedidos.getPageable(), pedidos.getTotalElements());
+    }
+
 }

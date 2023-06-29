@@ -10,6 +10,8 @@ import com.ank.pedidos.repositories.ClienteRepository;
 import com.ank.pedidos.repositories.ItemPedidoRepository;
 import com.ank.pedidos.repositories.PedidoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -28,10 +30,6 @@ public class PedidoService {
     ItemPedidoRepository itemPedidoRepository;
 
 
-    public List<Pedido> findAll(){
-        return pedidoRepository.findAll(Sort.by(Sort.Direction.DESC, "data"));
-    }
-
     @Transactional
     public Pedido save(PedidoRequest pedidoRequest) {
         Pedido pedido = new Pedido();
@@ -44,11 +42,12 @@ public class PedidoService {
         return pedidoRepository.save(pedido);
     }
 
-    public List<PedidoResponse> listarPedidos(){
-        return PedidoMapper.INSTANCE.toResponse(findAll());
+    public Page<PedidoResponse> listarPedidos(String nomeCliente, Pageable pageable){
+        return PedidoMapper.INSTANCE.toResponse(pedidoRepository.findByNomeClienteContainingIgnoreCase(nomeCliente, pageable));
     }
 
     public void delete() {
         pedidoRepository.deleteAll();
     }
+
 }

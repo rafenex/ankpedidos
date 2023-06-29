@@ -1,4 +1,18 @@
 <div *ngIf="isOpen">
+  <div class="mb-2">
+    <input
+      type="text"
+      pInputText
+      [(ngModel)]="nomeCliente"
+      placeholder="Cliente"
+      class="mr-1"
+    />
+    <p-button
+      icon="pi pi-search"
+      styleClass="p-button-rounded p-button-primary"
+      (click)="buscarPedidos()"
+    ></p-button>
+  </div>
   <ng-container *ngFor="let pedido of pedidoResponse">
     <p-accordion>
       <p-accordionTab>
@@ -36,4 +50,13 @@
       </p-accordionTab>
     </p-accordion>
   </ng-container>
+  <div>
+    <p-paginator
+      (onPageChange)="onPageChange($event)"
+      [first]="first"
+      [rows]="rows"
+      [totalRecords]="120"
+      [rowsPerPageOptions]="[1, 10, 20, 30]"
+    ></p-paginator>
+  </div>
 </div>

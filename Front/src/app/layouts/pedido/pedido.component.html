@@ -8,6 +8,8 @@
   <app-lista-pedidos
     [isOpen]="listarPedidosOpen"
     [pedidoResponse]="pedidoResponse"
+    [totalElements]="totalElements"
+    (listarPedidosEvent)="getPedidos($event)"
   ></app-lista-pedidos>
   <app-novo-pedido
     [isOpen]="novoPedidoOpen"

@@ -19,6 +19,9 @@ import { registerLocaleData } from '@angular/common';
 import localePt from '@angular/common/locales/pt';
 import { ToastModule } from 'primeng/toast';
 import { MessageService } from 'primeng/api';
+import { PaginatorModule } from 'primeng/paginator';
+import { SliderModule } from 'primeng/slider';
+
 
 registerLocaleData(localePt);
 
@@ -43,7 +46,9 @@ registerLocaleData(localePt);
     InputTextModule, 
     HttpClientModule,
     AccordionModule,
-    ToastModule
+    ToastModule,
+    PaginatorModule,
+    SliderModule
    ],
   providers: [ 
     {provide: LOCALE_ID, useValue: 'pt-BR'},

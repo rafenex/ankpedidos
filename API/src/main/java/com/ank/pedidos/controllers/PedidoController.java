@@ -5,6 +5,11 @@ import com.ank.pedidos.controllers.dto.PedidoResponse;
 import com.ank.pedidos.entities.Pedido;
 import com.ank.pedidos.services.PedidoService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -18,8 +23,11 @@ public class PedidoController {
     PedidoService pedidoService;
 
     @GetMapping
-    private ResponseEntity<List<PedidoResponse>> findAll(){
-        return new ResponseEntity<>(pedidoService.listarPedidos(), HttpStatus.OK);
+    private ResponseEntity<Page<PedidoResponse>> findAll(@RequestParam(defaultValue = "0") int page,
+                                                         @RequestParam(defaultValue = "5") int size,
+                                                         @RequestParam (required = false) String nomeCliente) {
+        Pageable pageable = PageRequest.of(page, size, Sort.by("data").descending());
+        return new ResponseEntity<>(pedidoService.listarPedidos(nomeCliente, pageable), HttpStatus.OK);
     }
 
     @PostMapping

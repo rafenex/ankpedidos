@@ -19,14 +19,20 @@ export class PedidoComponent {
   produtos!: Produto[];
   messages!: Message[];
   itensPedido: ItemPedido[] = []
+  totalElements!: number
+
 
   listarPedidos(){
     this.listarPedidosOpen = true
     this.novoPedidoOpen = false
-    this.pedidoService.getAllPedidos()
-    .subscribe(data => {
-      this.pedidoResponse = data
-    })
+  }
+
+  getPedidos(params?: any){
+    this.pedidoService.getPedidos(params).subscribe(response => {
+      this.pedidoResponse  = response.content;
+      this.totalElements = response.totalElements
+  })    
+
   }
   novoPedido(){
     this.itensPedido = []
