@@ -1,6 +1,7 @@
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output, SimpleChanges } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
-import { Cliente, ItemPedido, Produto } from 'src/app/models/api';
+import { Cliente, ItemPedido, PedidoRequest, Produto } from 'src/app/models/api';
+import { PedidoService } from 'src/app/services/pedido.service';
 
 @Component({
   selector: 'app-novo-pedido',
@@ -9,53 +10,54 @@ import { Cliente, ItemPedido, Produto } from 'src/app/models/api';
 })
 export class NovoPedidoComponent {
   @Input()
-  public isOpen!: Boolean;
+  isOpen!: Boolean;
+  @Input()
+  resetItens!: Boolean;
+  @Input()
+  clientes!: Cliente[];
+  @Input()
+  produtos!: Produto[];
+  @Input()
+  itensPedido!: ItemPedido[];
+
+  @Output() novoPedidoEvent = new EventEmitter<any>();
+
+  constructor(private pedidoService: PedidoService){}
+  // ngOnChanges(changes: SimpleChanges) {
+  //   if (changes['resetItens'] && !changes['resetItens'].firstChange) {
+  //       this.itensPedido = this.itensPedidoReset
+  //   }
+  // }
+  
+
+
   quantidade!: number;
   quantidadeInicial = this.quantidade
-  itensPedido: ItemPedido[] = []
+  itensPedidoReset: ItemPedido[] = []
   selectedCliente!: Cliente;
   selectedProduto!: Produto;
   preco!: number;
 
-  cor = ''
+  cor = {cor : ''}
   totalPedido = 0
-  produtos: Produto[] = [
-    {
-      id : 1,
-      nome : "Produto 1",
-      preco: 100
-    },
-    {
-      id : 2,
-      nome : "Produto 2",
-      preco: 200
-    },
-    {
-      id : 3,
-      nome : "Produto 3",
-      preco: 200
-    }
-  ]
+  optionsCor = [
+    { cor: 'Azul' },
+    { cor: 'Verde' },
+    { cor: 'Amarelo' },
+    { cor: 'Branco' },
+    { cor: 'Preto' },
+    { cor: 'Vermelho' },
+    { cor: 'Rosa' },
+    { cor: 'Laranja' },
+    { cor: 'Roxo' },
+    { cor: 'Marrom' }
+  ];
 
 
-  clientes: Cliente[] = [
-      {
-        "id": 1,
-        "nome": "Nataniel",
-        "cpf": "102.001.001-10",
-        "endereco": "Rua Copacabana, 225 - Copacabana - Rio de Janeiro - RJ"
-      },
-      {
-        "id": 2,
-        "nome": "Joseval",
-        "cpf": "104.001.001-10",
-        "endereco": "Rua Copacabana, 225 - Copacabana - Rio de Janeiro - RJ"
-      },
- 
-  ]
+  
 
   atribuirPreco(){
-    this.preco = this.selectedProduto.preco
+    this.preco = this.selectedProduto.valorPadrao
   }
 
 
@@ -66,29 +68,32 @@ export class NovoPedidoComponent {
         nome: this.selectedProduto.nome
       },
       quantidade: this.quantidade,
-      cor: this.cor,
+      cor: this.cor.cor,
       preco: this.preco,
     }
     this.itensPedido.push(novoItem)
     this.selectedProduto = {} as Produto;
+    this.preco = this.quantidadeInicial
     this.quantidade = this.quantidadeInicial
-    this.cor = ''
+    this.cor = {cor: ''}
     this.totalPedido = this.itensPedido.reduce((partialSum, a) => partialSum + a.quantidade * a.preco, 0)
 
 
   }
 
   finalizarPedido(){
-    console.log(this.itensPedido)
+    const novoPedido : PedidoRequest  = {
+      clienteId: this.selectedCliente.id,
+      itemPedido : this.itensPedido
+    }
+      this.novoPedidoEvent.emit(novoPedido);
   }
 
   formatter(value: number): string {
     return new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(value);
   }
 
-  onSubmit(){
-    alert('oi')
-  }
+
 
 
 

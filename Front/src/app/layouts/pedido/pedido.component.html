@@ -1,9 +1,21 @@
 <div class="area">
+  <p-toast></p-toast>
   <div class="top-area">
     <h2>Pedidos</h2>
     <p-button (onClick)="novoPedido()">Novo Pedido</p-button>
     <p-button (onClick)="listarPedidos()">Listar Pedidos</p-button>
   </div>
-  <app-lista-pedidos [isOpen]="listarPedidosOpen"></app-lista-pedidos>
-  <app-novo-pedido [isOpen]="novoPedidoOpen"></app-novo-pedido>
+  <app-lista-pedidos
+    [isOpen]="listarPedidosOpen"
+    [pedidoResponse]="pedidoResponse"
+    [totalElements]="totalElements"
+    (listarPedidosEvent)="getPedidos($event)"
+  ></app-lista-pedidos>
+  <app-novo-pedido
+    [isOpen]="novoPedidoOpen"
+    [clientes]="clientes"
+    [produtos]="produtos"
+    [itensPedido]="itensPedido"
+    (novoPedidoEvent)="addNovoPedido($event)"
+  ></app-novo-pedido>
 </div>

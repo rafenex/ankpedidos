@@ -1,5 +1,6 @@
 package com.ank.pedidos.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
 import java.math.BigDecimal;
@@ -12,6 +13,7 @@ public class Produto {
     private String nome;
     private BigDecimal valorPadrao;
     @ManyToOne
+    @JsonIgnore
     private Categoria categoria;
 
     public Long getId() {

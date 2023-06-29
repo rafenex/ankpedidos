@@ -51,13 +51,23 @@
     </p-inputNumber>
   </div>
   <div class="itens-line">
-    <input pInputText type="text" placeholder="Cor" [(ngModel)]="cor" />
+    <!-- <input pInputText type="text" placeholder="Cor" [(ngModel)]="cor" /> -->
+    <p-dropdown
+      [options]="optionsCor"
+      [(ngModel)]="cor"
+      [showClear]="true"
+      placeholder="Cor"
+      optionLabel="cor"
+      [filter]="true"
+      filterBy="cor"
+    ></p-dropdown>
     <p-inputNumber
       [(ngModel)]="preco"
       mode="currency"
       inputId="currency-brazil"
       currency="BRL"
       locale="pt-BR"
+      [step]="0.05"
     >
     </p-inputNumber>
     <p-button
@@ -65,7 +75,7 @@
       [disabled]="
         selectedCliente == null ||
         selectedProduto == null ||
-        cor == '' ||
+        cor.cor == '' ||
         quantidade == null
       "
       >+</p-button
@@ -101,7 +111,5 @@
       </ng-template>
     </p-table>
   </div>
-  <p-button (onClick)="finalizarPedido()" *ngIf="itensPedido.length > 0"
-    >Finalizar</p-button
-  >
+  <p-button (onClick)="finalizarPedido()">Finalizar</p-button>
 </div>
