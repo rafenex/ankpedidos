@@ -18,7 +18,8 @@
       <p-accordionTab>
         <ng-template pTemplate="header">
           {{ pedido.id }} - {{ pedido.clienteNome }} -
-          {{ pedido.clienteEndereco }}
+          {{ pedido.clienteEndereco }} -
+          {{ pedido.data | date : "dd/MM/yyyy" }}
         </ng-template>
         <p-table
           [value]="pedido.itemPedido"
@@ -50,13 +51,16 @@
       </p-accordionTab>
     </p-accordion>
   </ng-container>
-  <div>
-    <p-paginator
-      (onPageChange)="onPageChange($event)"
-      [first]="first"
-      [rows]="rows"
-      [totalRecords]="120"
-      [rowsPerPageOptions]="[1, 10, 20, 30]"
-    ></p-paginator>
+  <div class="card flex flex-column gap-3">
+    <div class="flex align-items-center justify-content-end">
+      <span class="mx-1 text-color">Pedidos por página: </span>
+      <p-dropdown
+        [options]="options"
+        optionLabel="label"
+        optionValue="value"
+        [(ngModel)]="selectedRowsPerPage"
+        (ngModelChange)="onRowsPerPageChange($event)"
+      ></p-dropdown>
+    </div>
   </div>
 </div>

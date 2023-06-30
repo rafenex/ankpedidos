@@ -111,5 +111,7 @@
       </ng-template>
     </p-table>
   </div>
-  <p-button (onClick)="finalizarPedido()">Finalizar</p-button>
+  <p-button (onClick)="finalizarPedido()" [disabled]="itensPedido.length < 1"
+    >Finalizar</p-button
+  >
 </div>
