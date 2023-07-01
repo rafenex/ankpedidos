@@ -46,8 +46,8 @@ public class PedidoService {
         return PedidoMapper.INSTANCE.toResponse(pedidoRepository.findByNomeClienteContainingIgnoreCase(nomeCliente, pageable));
     }
 
-    public void delete() {
-        pedidoRepository.deleteAll();
+    public void delete(Long id) {
+        pedidoRepository.deleteById(id);
     }
 
 }

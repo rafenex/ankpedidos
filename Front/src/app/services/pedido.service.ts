@@ -5,40 +5,41 @@ import { BASE_URL } from './config';
 import { Cliente, Produto } from '../models/api';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class PedidoService {
+  constructor(private http: HttpClient) {}
 
-  constructor(private http: HttpClient) { }
-
-  getPedidos(params? : any): Observable<any> {
+  getPedidos(params?: any): Observable<any> {
     let httpParams = new HttpParams();
 
     if (params) {
-      Object.keys(params).forEach(key => {
+      Object.keys(params).forEach((key) => {
         httpParams = httpParams.set(key, params[key]);
       });
     }
-    console.log(`${BASE_URL}/pedidos`, { params: httpParams })
+    console.log(`${BASE_URL}/pedidos`, { params: httpParams });
     return this.http.get(`${BASE_URL}/pedidos`, { params: httpParams });
-  
   }
-
 
   public getUsers(): Observable<any> {
     const url = 'https://reqres.in/api/users?page=1';
     return this.http.get<any>(url);
-}
-
-  getAllClientes():Observable<Cliente[]>{
-    return this.http.get<Cliente[]>(`${BASE_URL}/clientes`)
   }
 
-  getAllProdutos():Observable<Produto[]>{
-    return this.http.get<Produto[]>(`${BASE_URL}/produtos`)
+  getAllClientes(): Observable<Cliente[]> {
+    return this.http.get<Cliente[]>(`${BASE_URL}/clientes`);
   }
 
-  novoPedido(pedido: any):Observable<any> {
-   return this.http.post(`${BASE_URL}/pedidos`, pedido)
+  getAllProdutos(): Observable<Produto[]> {
+    return this.http.get<Produto[]>(`${BASE_URL}/produtos`);
+  }
+
+  novoPedido(pedido: any): Observable<any> {
+    return this.http.post(`${BASE_URL}/pedidos`, pedido);
+  }
+
+  removePedido(id: number): Observable<any> {
+    return this.http.delete(`${BASE_URL}/pedidos/${id}`);
   }
 }
