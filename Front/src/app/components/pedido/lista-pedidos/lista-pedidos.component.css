@@ -1,1 +1,13 @@
+.summary-acc  {
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+    height: 20px;
+    align-items: center;
+}
+
+
+.text-header{
+    height: 21px;
+}
 

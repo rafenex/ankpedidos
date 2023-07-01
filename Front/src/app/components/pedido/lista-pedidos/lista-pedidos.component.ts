@@ -24,13 +24,18 @@ interface PageEvent {
 export class ListaPedidosComponent {
   @Input()
   public isOpen!: Boolean;
+
   @Input()
   public pedidoResponse: PedidoResponse[] = [];
 
   @Input()
   public totalElements!: number;
 
+  @Input()
+  public removePedidoId!: number;
+
   @Output() listarPedidosEvent = new EventEmitter<any>();
+  @Output() onRemovePedido = new EventEmitter<any>();
 
   options = [
     { label: 1, value: 1 },
@@ -60,6 +65,15 @@ export class ListaPedidosComponent {
     if (changes['isOpen'] && changes['isOpen'].currentValue === true) {
       this.getPedidos();
     }
+
+    if (
+      changes['removePedidoId'] &&
+      changes['removePedidoId'].currentValue !== 0
+    ) {
+      this.pedidoResponse = this.pedidoResponse.filter(
+        (p) => p.id !== this.removePedidoId
+      );
+    }
   }
 
   onRowsPerPageChange(event: any) {
@@ -72,8 +86,15 @@ export class ListaPedidosComponent {
   }
 
   getPedidos(params?: any) {
-    console.log(params);
     this.listarPedidosEvent.emit(params);
+  }
+
+  updatePedido(id: number) {
+    alert(id);
+  }
+
+  removePedido(id: number) {
+    this.onRemovePedido.emit(id);
   }
 
   buscarPedidos() {

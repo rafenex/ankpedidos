@@ -6,10 +6,12 @@
     <p-button (onClick)="listarPedidos()">Listar Pedidos</p-button>
   </div>
   <app-lista-pedidos
+    [removePedidoId]="removePedidoId"
     [isOpen]="listarPedidosOpen"
     [pedidoResponse]="pedidoResponse"
     [totalElements]="totalElements"
     (listarPedidosEvent)="getPedidos($event)"
+    (onRemovePedido)="removePedido($event)"
   ></app-lista-pedidos>
   <app-novo-pedido
     [isOpen]="novoPedidoOpen"

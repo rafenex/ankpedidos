@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
+@CrossOrigin
 @RequestMapping("pedidos")
 public class PedidoController {
     @Autowired
@@ -35,9 +36,9 @@ public class PedidoController {
         return new ResponseEntity<>(pedidoService.save(pedidoRequest), HttpStatus.CREATED);
     }
 
-    @DeleteMapping
-    private void delete(){
-        pedidoService.delete();
+    @DeleteMapping("/{id}")
+    private void delete(@PathVariable Long id){
+        pedidoService.delete(id);
     }
 
 }
