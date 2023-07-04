@@ -1,2 +1,0 @@
-ALTER TABLE cliente MODIFY COLUMN CPF varchar(14) NOT NULL UNIQUE;
-ALTER TABLE cliente MODIFY COLUMN ID int auto_increment NOT NULL;
