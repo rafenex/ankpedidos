@@ -13,7 +13,6 @@ public class Produto {
     private String nome;
     private BigDecimal valorPadrao;
     @ManyToOne
-    @JsonIgnore
     private Categoria categoria;
 
     public Long getId() {
