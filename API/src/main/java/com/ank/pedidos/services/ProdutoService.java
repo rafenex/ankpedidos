@@ -1,6 +1,8 @@
 package com.ank.pedidos.services;
 
-import com.ank.pedidos.entities.Produto;
+import com.ank.pedidos.controllers.dto.ProdutoRequest;
+import com.ank.pedidos.controllers.dto.ProdutoResponse;
+import com.ank.pedidos.controllers.dto.mapper.ProdutoMapper;
 import com.ank.pedidos.entities.Produto;
 import com.ank.pedidos.repositories.CategoriaRepository;
 import com.ank.pedidos.repositories.ProdutoRepository;
@@ -18,12 +20,12 @@ public class ProdutoService {
     CategoriaRepository categoriaRepository;
         
 
-    public Produto save(Produto produto){
-        return produtoRepository.save(produto);
+    public Produto save(ProdutoRequest produtoRequest){
+        return produtoRepository.save(ProdutoMapper.INSTANCE.toEntity(produtoRequest));
     }
 
-    public List<Produto> findAll(){
-        return produtoRepository.findAll();
+    public List<ProdutoResponse> findAll(){
+        return ProdutoMapper.INSTANCE.toResponse(produtoRepository.findAll());
     }
 
     public void delete(Long id){
@@ -38,7 +40,7 @@ public class ProdutoService {
         return produtoRepository.save(produtoToUpdate);
     }
 
-    public Produto findById(Long id) {
-        return produtoRepository.findById(id).orElseThrow();
+    public ProdutoResponse findById(Long id) {
+        return ProdutoMapper.INSTANCE.toResponse(produtoRepository.findById(id).orElseThrow());
     }
 }
