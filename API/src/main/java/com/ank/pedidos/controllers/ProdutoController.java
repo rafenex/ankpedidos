@@ -14,6 +14,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 @RestController
@@ -24,8 +25,13 @@ public class ProdutoController {
     private ProdutoService produtoService;
 
     @GetMapping
-    private ResponseEntity<Page<ProdutoResponse>> findAll(@ParameterObject Pageable pageable){
-        return new ResponseEntity<>(produtoService.findAll(pageable), HttpStatus.OK) ;
+    private ResponseEntity<Page<ProdutoResponse>> findAll(
+            @ParameterObject Pageable pageable,
+            @RequestParam (required = false) String nome,
+            @RequestParam (required = false) BigDecimal valor,
+            @RequestParam (required = false) String categoria
+            ){
+        return new ResponseEntity<>(produtoService.findAll(nome, valor, categoria, pageable), HttpStatus.OK) ;
     }
     @PostMapping
     private ResponseEntity<Produto> save(@RequestBody @Valid ProdutoRequest produtoRequest){
