@@ -6,7 +6,6 @@ import com.ank.pedidos.entities.Produto;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.factory.Mappers;
-
 import java.util.List;
 
 @Mapper
@@ -20,7 +19,4 @@ public interface ProdutoMapper {
     Produto toEntity(ProdutoRequest request);
 
     List<ProdutoResponse> toResponse(List<Produto> produtos);
-
-
-
 }

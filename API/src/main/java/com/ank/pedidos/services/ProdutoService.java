@@ -7,9 +7,13 @@ import com.ank.pedidos.entities.Produto;
 import com.ank.pedidos.repositories.CategoriaRepository;
 import com.ank.pedidos.repositories.ProdutoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class ProdutoService {
@@ -24,8 +28,14 @@ public class ProdutoService {
         return produtoRepository.save(ProdutoMapper.INSTANCE.toEntity(produtoRequest));
     }
 
-    public List<ProdutoResponse> findAll(){
-        return ProdutoMapper.INSTANCE.toResponse(produtoRepository.findAll());
+    public Page<ProdutoResponse> findAll(Pageable pageable){
+            Page<Produto> entityPage = produtoRepository.findAll(pageable);
+            List<ProdutoResponse> dtoList = entityPage
+                    .stream()
+                    .map(ProdutoMapper.INSTANCE::toResponse)
+                    .collect(Collectors.toList());
+
+            return new PageImpl<>(dtoList, pageable, entityPage.getTotalElements());
     }
 
     public void delete(Long id){
