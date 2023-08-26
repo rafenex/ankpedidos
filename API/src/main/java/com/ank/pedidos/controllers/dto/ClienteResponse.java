@@ -3,11 +3,14 @@ package com.ank.pedidos.controllers.dto;
 import com.ank.pedidos.entities.Cliente;
 import jakarta.validation.constraints.NotBlank;
 
+import java.util.List;
+
 public class ClienteResponse{
     Long id;
     String nome;
     String cpf;
     String endereco;
+    List<String> telefones;
 
     public Long getId() {
         return id;
@@ -39,5 +42,13 @@ public class ClienteResponse{
 
     public void setEndereco(String endereco) {
         this.endereco = endereco;
+    }
+
+    public List<String> getTelefones() {
+        return telefones;
+    }
+
+    public void setTelefones(List<String> telefones) {
+        this.telefones = telefones;
     }
 }
