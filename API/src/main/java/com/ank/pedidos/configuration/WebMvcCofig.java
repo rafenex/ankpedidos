@@ -11,6 +11,7 @@ public class WebMvcCofig implements WebMvcConfigurer {
         registry.addMapping("/*")
                 .allowedOrigins("*")
                 .allowedMethods("*")
-                .allowedHeaders("*");
+                .allowedHeaders("*")
+        ;
     }
 }

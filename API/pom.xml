@@ -31,10 +31,7 @@
 			<artifactId>mysql-connector-java</artifactId>
 			<version>8.0.32</version>
 		</dependency>
-		<dependency>
-			<groupId>org.flywaydb</groupId>
-			<artifactId>flyway-mysql</artifactId>
-		</dependency>
+
 
 		<dependency>
 			<groupId>org.springdoc</groupId>
@@ -85,6 +82,10 @@
 			<groupId>io.jsonwebtoken</groupId>
 			<artifactId>jjwt-jackson</artifactId>
 			<version>0.11.5</version>
+		</dependency>
+		<dependency>
+			<groupId>org.projectlombok</groupId>
+			<artifactId>lombok</artifactId>
 		</dependency>
 	</dependencies>
 
