@@ -3,9 +3,7 @@ package com.ank.pedidos.services;
 import com.ank.pedidos.controllers.dto.ProdutoRequest;
 import com.ank.pedidos.controllers.dto.ProdutoResponse;
 import com.ank.pedidos.controllers.dto.mapper.ProdutoMapper;
-import com.ank.pedidos.controllers.spec.Filter;
 import com.ank.pedidos.controllers.spec.ProdutoSpec;
-import com.ank.pedidos.controllers.spec.QueryOperator;
 import com.ank.pedidos.entities.Produto;
 import com.ank.pedidos.repositories.CategoriaRepository;
 import com.ank.pedidos.repositories.ProdutoRepository;
@@ -14,10 +12,8 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.RequestParam;
 
 import java.math.BigDecimal;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 

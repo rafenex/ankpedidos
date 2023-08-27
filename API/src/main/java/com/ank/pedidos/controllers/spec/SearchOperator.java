@@ -1,6 +1,6 @@
 package com.ank.pedidos.controllers.spec;
 
-public enum QueryOperator {
+public enum SearchOperator {
     EQUALS,
     NOT_EQUALS,
     GREATER_THAN,

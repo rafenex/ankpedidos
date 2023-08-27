@@ -4,11 +4,11 @@ import java.util.List;
 
 public class Filter {
     private String field;
-    private QueryOperator operator;
+    private SearchOperator operator;
     private String value;
     private List<String> values;//Used in case of IN operator
 
-    public Filter(String field, QueryOperator operator, String value) {
+    public Filter(String field, SearchOperator operator, String value) {
         this.field = field;
         this.operator = operator;
         this.value = value;
@@ -22,11 +22,11 @@ public class Filter {
         this.field = field;
     }
 
-    public QueryOperator getOperator() {
+    public SearchOperator getOperator() {
         return operator;
     }
 
-    public void setOperator(QueryOperator operator) {
+    public void setOperator(SearchOperator operator) {
         this.operator = operator;
     }
 
