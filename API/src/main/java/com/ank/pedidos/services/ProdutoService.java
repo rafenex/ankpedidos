@@ -39,14 +39,8 @@ public class ProdutoService {
             String categoria,
             Pageable pageable
     ) {
-        List<Filter> filters = new ArrayList<>();
-        Filter categorias = new Filter();
-        categorias.setField("categoria.nome");
-        categorias.setOperator(QueryOperator.LIKE);
-        System.out.println(nome);
-        categorias.setValue(nome);
-        filters.add(categorias);
-        Page<Produto> entityPage = produtoRepository.findAll(ProdutoSpec.getSpecificationFromFilters(filters), pageable);
+        Page<Produto> entityPage = produtoRepository.findAll(ProdutoSpec.toSpec(nome, valor , categoria), pageable);
+
         List<ProdutoResponse> dtoList = entityPage
                 .stream()
                 .map(ProdutoMapper.INSTANCE::toResponse)

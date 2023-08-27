@@ -8,6 +8,12 @@ public class Filter {
     private String value;
     private List<String> values;//Used in case of IN operator
 
+    public Filter(String field, QueryOperator operator, String value) {
+        this.field = field;
+        this.operator = operator;
+        this.value = value;
+    }
+
     public String getField() {
         return field;
     }
