@@ -10,19 +10,21 @@
       filterBy="nome"
       [showClear]="true"
       placeholder="Cliente"
+      class="input"
     >
       <ng-template pTemplate="selectedItem">
-        <div class="flex align-items-center gap-2" *ngIf="selectedCliente">
+        <div *ngIf="selectedCliente">
           <div>{{ selectedCliente.nome }}</div>
         </div>
       </ng-template>
       <ng-template let-cliente pTemplate="item">
-        <div class="flex align-items-center gap-2">
+        <div>
           <div>{{ cliente.nome }}</div>
         </div>
       </ng-template>
     </p-dropdown>
     <p-dropdown
+      class="input"
       [options]="produtos"
       [(ngModel)]="selectedProduto"
       optionLabel="nome"
@@ -33,17 +35,18 @@
       (ngModelChange)="atribuirPreco()"
     >
       <ng-template pTemplate="selectedItem">
-        <div class="flex align-items-center gap-2" *ngIf="selectedProduto">
+        <div *ngIf="selectedProduto">
           <div>{{ selectedProduto.nome }}</div>
         </div>
       </ng-template>
       <ng-template let-produto pTemplate="item">
-        <div class="flex align-items-center gap-2">
+        <div>
           <div>{{ produto.nome }}</div>
         </div>
       </ng-template>
     </p-dropdown>
     <p-inputNumber
+      class="input"
       inputId="integeronly"
       [(ngModel)]="quantidade"
       placeholder="Quantidade"
@@ -60,6 +63,7 @@
       optionLabel="cor"
       [filter]="true"
       filterBy="cor"
+      class="input"
     ></p-dropdown>
     <p-inputNumber
       [(ngModel)]="preco"
@@ -68,9 +72,12 @@
       currency="BRL"
       locale="pt-BR"
       [step]="0.05"
+      class="input"
+      placeholder="Preço"
     >
     </p-inputNumber>
     <p-button
+      class="input"
       (onClick)="newItemPedido()"
       [disabled]="
         selectedCliente == null ||

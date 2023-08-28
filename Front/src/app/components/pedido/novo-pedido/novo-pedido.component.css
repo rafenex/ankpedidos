@@ -1,22 +1,19 @@
 .area{
-    display: flex;
-    flex-direction: column;
     gap: 10px;
     max-width: 90%;
-
 }
 
 :host ::ng-deep .p-dropdown, .p-inputtext {
-    width: 250px;
-}
+    width: 30rem;}
 
 :host ::ng-deep .p-inputnumber {
-    width: 250px;
+    width: 30rem;
 }
 
-.itens-line{
-    display: flex;
-    align-self: baseline;
-    column-gap: 20px;
-
+.input{
+    width: 100%;
+    display: inline-block;
+    margin-bottom: 10px;
+    width: 30rem;
 }
+

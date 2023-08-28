@@ -4,7 +4,7 @@ import { MenuItem } from 'primeng/api';
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.css']
+  styleUrls: ['./app.component.css'],
 })
 export class AppComponent {
   title = 'Front';
@@ -12,13 +12,16 @@ export class AppComponent {
 
   ngOnInit() {
     this.items = [
-       
-        {
-            label: 'Pedidos',
-            icon: 'pi pi-fw pi-pencil',
-            routerLink: '/pedidos'
-        },
-    
+      {
+        label: 'Pedidos',
+        icon: 'pi pi-fw pi-pencil',
+        routerLink: '/pedidos',
+      },
+      {
+        label: 'Produtos',
+        icon: 'pi pi-fw pi-pencil',
+        routerLink: '/produtos',
+      },
     ];
-}
+  }
 }
