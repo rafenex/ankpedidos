@@ -57,3 +57,8 @@ export interface Column {
   field: string;
   header: string;
 }
+
+export interface Categoria {
+  id: number;
+  nome: string;
+}

@@ -22,6 +22,8 @@ import { MessageService } from 'primeng/api';
 import { PaginatorModule } from 'primeng/paginator';
 import { SliderModule } from 'primeng/slider';
 import { ProdutoComponent } from './layouts/produto/produto.component';
+import { NovoProdutoComponent } from './components/produto/novo-produto/novo-produto.component';
+import { DialogModule } from 'primeng/dialog';
 
 registerLocaleData(localePt);
 
@@ -32,6 +34,7 @@ registerLocaleData(localePt);
     ListaPedidosComponent,
     NovoPedidoComponent,
     ProdutoComponent,
+    NovoProdutoComponent,
   ],
   imports: [
     BrowserModule,
@@ -50,6 +53,7 @@ registerLocaleData(localePt);
     ToastModule,
     PaginatorModule,
     SliderModule,
+    DialogModule,
   ],
   providers: [{ provide: LOCALE_ID, useValue: 'pt-BR' }, MessageService],
   bootstrap: [AppComponent],

@@ -15,4 +15,23 @@ export class ProdutoService {
       .get<any>(`${BASE_URL}/produtos`)
       .pipe(map((response) => response.content));
   }
+
+  getAllCategorias(): Observable<any[]> {
+    return this.http
+      .get<any>(`${BASE_URL}/categorias`)
+      .pipe(map((response) => response));
+  }
+
+  saveProduct(payload: any) {
+    this.http.post(`${BASE_URL}/produtos`, payload).subscribe(
+      (resultado) => {
+        console.log(resultado);
+      },
+      (erro) => {
+        if (erro.status == 400) {
+          console.log(erro);
+        }
+      }
+    );
+  }
 }
