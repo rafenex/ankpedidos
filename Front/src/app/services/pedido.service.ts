@@ -18,7 +18,6 @@ export class PedidoService {
         httpParams = httpParams.set(key, params[key]);
       });
     }
-    console.log(`${BASE_URL}/pedidos`, { params: httpParams });
     return this.http.get(`${BASE_URL}/pedidos`, { params: httpParams });
   }
 
@@ -32,7 +31,9 @@ export class PedidoService {
   }
 
   getAllProdutos(): Observable<Produto[]> {
-    return this.http.get<Produto[]>(`${BASE_URL}/produtos`);
+    return this.http
+      .get<any>(`${BASE_URL}/produtos`)
+      .pipe(map((response) => response.content));
   }
 
   novoPedido(pedido: any): Observable<any> {

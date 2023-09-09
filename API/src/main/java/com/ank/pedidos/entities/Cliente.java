@@ -2,6 +2,8 @@ package com.ank.pedidos.entities;
 
 import jakarta.persistence.*;
 
+import java.util.List;
+
 @Entity
 @Table(name = "cliente")
 public class Cliente {
@@ -13,14 +15,18 @@ public class Cliente {
     private String cpf;
     private String endereco;
 
+    @ElementCollection
+    private List<String> telefones;
+
     public Cliente() {
     }
 
-    public Cliente(Long id, String nome, String cpf, String endereco) {
+    public Cliente(Long id, String nome, String cpf, String endereco, List<String> telefones) {
         this.id = id;
         this.nome = nome;
         this.cpf = cpf;
         this.endereco = endereco;
+        this.telefones = telefones;
     }
 
     public Long getId() {
@@ -53,5 +59,13 @@ public class Cliente {
 
     public void setEndereco(String endereco) {
         this.endereco = endereco;
+    }
+
+    public List<String> getTelefones() {
+        return telefones;
+    }
+
+    public void setTelefones(List<String> telefones) {
+        this.telefones = telefones;
     }
 }

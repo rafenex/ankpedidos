@@ -5,6 +5,8 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotEmpty;
 import org.hibernate.validator.constraints.br.CPF;
 
+import java.util.List;
+
 public class ClienteRequest{
     @NotBlank(message = "Um nome precisa ser inserido")
     private String nome;
@@ -13,12 +15,13 @@ public class ClienteRequest{
     private String cpf;
     @NotBlank(message = "Um endereço precisa ser inserido")
     private String endereco;
+    private List<String> telefones;
 
-
-    public ClienteRequest(String nome, String cpf, String endereco) {
+    public ClienteRequest(String nome, String cpf, String endereco, List<String> telefones) {
         this.nome = nome;
         this.cpf = cpf;
         this.endereco = endereco;
+        this.telefones = telefones;
     }
 
     public String getNome() {
@@ -43,5 +46,13 @@ public class ClienteRequest{
 
     public void setEndereco(String endereco) {
         this.endereco = endereco;
+    }
+
+    public List<String> getTelefones() {
+        return telefones;
+    }
+
+    public void setTelefones(List<String> telefones) {
+        this.telefones = telefones;
     }
 }

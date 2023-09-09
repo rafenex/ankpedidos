@@ -22,8 +22,12 @@ public class ClienteController {
     ClienteService clienteService;
 
     @GetMapping
-    private ResponseEntity<List<ClienteResponse>> findAll (){
-        return new ResponseEntity<>(clienteService.findAll(),HttpStatus.OK);
+    private ResponseEntity<List<ClienteResponse>> findAll (
+            @RequestParam (required = false) String nome,
+            @RequestParam (required = false) String cpf,
+            @RequestParam (required = false) String endereco,
+            @RequestParam (required = false) String telefone){
+        return new ResponseEntity<>(clienteService.findAll(nome,cpf,endereco,telefone),HttpStatus.OK);
     }
 
     @PostMapping
