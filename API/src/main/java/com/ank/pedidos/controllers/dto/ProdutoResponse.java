@@ -1,20 +1,24 @@
 package com.ank.pedidos.controllers.dto;
 
+import com.ank.pedidos.entities.ImageData;
 import jakarta.validation.constraints.NotBlank;
 
 import java.math.BigDecimal;
+import java.util.List;
 
 public class ProdutoResponse {
     private Long id;
     private String nome;
     private BigDecimal valorPadrao;
     private String categoria;
+    private List<ImageDataResponse> imagens;
 
-    public ProdutoResponse(Long id, String nome, BigDecimal valorPadrao, String categoria) {
+    public ProdutoResponse(Long id, String nome, BigDecimal valorPadrao, String categoria, List<ImageDataResponse> imagens) {
         this.id = id;
         this.nome = nome;
         this.valorPadrao = valorPadrao;
         this.categoria = categoria;
+        this.imagens = imagens;
     }
 
     public Long getId() {
@@ -48,4 +52,13 @@ public class ProdutoResponse {
     public void setCategoria(String categoria) {
         this.categoria = categoria;
     }
+
+    public List<ImageDataResponse> getImagens() {
+        return imagens;
+    }
+
+    public void setImagens(List<ImageDataResponse> imagens) {
+        this.imagens = imagens;
+    }
+
 }

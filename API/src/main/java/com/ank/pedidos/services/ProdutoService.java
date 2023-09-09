@@ -1,5 +1,6 @@
 package com.ank.pedidos.services;
 
+import com.ank.pedidos.controllers.dto.ImageUploadResponse;
 import com.ank.pedidos.controllers.dto.ProdutoRequest;
 import com.ank.pedidos.controllers.dto.ProdutoResponse;
 import com.ank.pedidos.controllers.dto.mapper.ProdutoMapper;
@@ -12,7 +13,9 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.math.BigDecimal;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -24,6 +27,9 @@ public class ProdutoService {
 
     @Autowired
     CategoriaRepository categoriaRepository;
+
+    @Autowired
+    ImageDataService imageDataService;
 
     public Produto save(ProdutoRequest produtoRequest) {
         return produtoRepository.save(ProdutoMapper.INSTANCE.toEntity(produtoRequest));
@@ -59,5 +65,11 @@ public class ProdutoService {
 
     public ProdutoResponse findById(Long id) {
         return ProdutoMapper.INSTANCE.toResponse(produtoRepository.findById(id).orElseThrow());
+    }
+
+    public ImageUploadResponse setProdutoImage(MultipartFile imagem, Long idProduto) throws IOException {
+        Produto produto = produtoRepository.findById(idProduto).orElseThrow(() -> new RuntimeException("Produto não encontrado"));
+        return imageDataService.uploadImage(imagem, produto);
+
     }
 }

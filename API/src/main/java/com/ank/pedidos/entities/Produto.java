@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
 import java.math.BigDecimal;
+import java.util.List;
 
 @Entity
 public class Produto {
@@ -14,6 +15,9 @@ public class Produto {
     private BigDecimal valorPadrao;
     @ManyToOne
     private Categoria categoria;
+
+    @OneToMany(mappedBy = "produto", cascade = CascadeType.ALL)
+    private List<ImageData> imagens;
 
     public Long getId() {
         return id;
@@ -45,5 +49,13 @@ public class Produto {
 
     public void setCategoria(Categoria categoria) {
         this.categoria = categoria;
+    }
+
+    public List<ImageData> getImagens() {
+        return imagens;
+    }
+
+    public void setImagens(List<ImageData> imagens) {
+        this.imagens = imagens;
     }
 }
