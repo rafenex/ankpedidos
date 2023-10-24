@@ -3,6 +3,7 @@ package com.ank.pedidos.services;
 import com.ank.pedidos.entities.Categoria;
 import com.ank.pedidos.repositories.CategoriaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -17,6 +18,7 @@ public class CategoriaService {
         return categoriaRepository.save(categoria);
     }
 
+    @Cacheable("categoria")
     public List<Categoria> findAll(){
         return categoriaRepository.findAll();
     }
