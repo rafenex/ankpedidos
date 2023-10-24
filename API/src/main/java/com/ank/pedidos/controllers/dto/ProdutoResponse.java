@@ -3,10 +3,11 @@ package com.ank.pedidos.controllers.dto;
 import com.ank.pedidos.entities.ImageData;
 import jakarta.validation.constraints.NotBlank;
 
+import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.List;
 
-public class ProdutoResponse {
+public class ProdutoResponse implements Serializable {
     private Long id;
     private String nome;
     private BigDecimal valorPadrao;

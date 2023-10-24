@@ -9,6 +9,7 @@ import com.ank.pedidos.entities.Produto;
 import com.ank.pedidos.repositories.CategoriaRepository;
 import com.ank.pedidos.repositories.ProdutoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
@@ -35,6 +36,7 @@ public class ProdutoService {
         return produtoRepository.save(ProdutoMapper.INSTANCE.toEntity(produtoRequest));
     }
 
+    @Cacheable("produtos")
     public Page<ProdutoResponse> findAll(
             String nome,
             BigDecimal valor,

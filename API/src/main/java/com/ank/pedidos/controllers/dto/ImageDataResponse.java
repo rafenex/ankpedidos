@@ -1,6 +1,8 @@
 package com.ank.pedidos.controllers.dto;
 
-public class ImageDataResponse {
+import java.io.Serializable;
+
+public class ImageDataResponse implements Serializable{
     private Long id;
     private String name;
     private String type;
