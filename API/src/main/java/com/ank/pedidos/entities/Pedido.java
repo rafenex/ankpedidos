@@ -1,5 +1,6 @@
 package com.ank.pedidos.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
 import java.io.Serializable;
@@ -17,6 +18,7 @@ public class Pedido implements Serializable {
     @ManyToOne
     private Cliente cliente;
     @OneToMany
+    @JsonIgnore
     private List<ItemPedido> itemPedido;
 
     private BigDecimal total;

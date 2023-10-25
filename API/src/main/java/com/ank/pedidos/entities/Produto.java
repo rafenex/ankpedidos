@@ -17,7 +17,7 @@ public class Produto implements Serializable {
     private BigDecimal valorPadrao;
     @ManyToOne
     private Categoria categoria;
-
+    @JsonIgnore
     @OneToMany(mappedBy = "produto", cascade = CascadeType.ALL)
     private List<ImageData> imagens;
 
