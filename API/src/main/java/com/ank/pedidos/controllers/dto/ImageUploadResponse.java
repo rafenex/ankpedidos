@@ -1,6 +1,8 @@
 package com.ank.pedidos.controllers.dto;
 
-public class ImageUploadResponse {
+import java.io.Serializable;
+
+public class ImageUploadResponse implements Serializable {
     String message;
 
     public ImageUploadResponse(String message) {

@@ -2,11 +2,12 @@ package com.ank.pedidos.controllers.dto;
 
 import com.ank.pedidos.entities.ItemPedido;
 
+import java.io.Serializable;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.List;
 
-public class PedidoResponse {
+public class PedidoResponse implements Serializable {
     private Long id;
     private String clienteNome;
     private String clienteEndereco;

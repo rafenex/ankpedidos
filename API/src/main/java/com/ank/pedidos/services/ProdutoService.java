@@ -9,6 +9,8 @@ import com.ank.pedidos.entities.Produto;
 import com.ank.pedidos.repositories.CategoriaRepository;
 import com.ank.pedidos.repositories.ProdutoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.CachePut;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
@@ -32,11 +34,12 @@ public class ProdutoService {
     @Autowired
     ImageDataService imageDataService;
 
+    @CacheEvict(value = "produto", allEntries = true)
     public Produto save(ProdutoRequest produtoRequest) {
         return produtoRepository.save(ProdutoMapper.INSTANCE.toEntity(produtoRequest));
     }
 
-    @Cacheable("produtos")
+    @Cacheable(value = "produto")
     public Page<ProdutoResponse> findAll(
             String nome,
             BigDecimal valor,
@@ -53,10 +56,12 @@ public class ProdutoService {
         return new PageImpl<>(dtoList, pageable, entityPage.getTotalElements());
     }
 
+    @CacheEvict(value = "produto", allEntries = true)
     public void delete(Long id) {
         produtoRepository.deleteById(id);
     }
 
+    @CacheEvict(value = "produto", allEntries = true)
     public Produto update(Produto produto, Long id) {
         Produto produtoToUpdate = produtoRepository.findById(id).orElseThrow();
         produtoToUpdate.setNome(produto.getNome());
@@ -69,6 +74,7 @@ public class ProdutoService {
         return ProdutoMapper.INSTANCE.toResponse(produtoRepository.findById(id).orElseThrow());
     }
 
+    @CacheEvict(value = "produto", allEntries = true)
     public ImageUploadResponse setProdutoImage(MultipartFile imagem, Long idProduto) throws IOException {
         Produto produto = produtoRepository.findById(idProduto).orElseThrow(() -> new RuntimeException("Produto não encontrado"));
         return imageDataService.uploadImage(imagem, produto);

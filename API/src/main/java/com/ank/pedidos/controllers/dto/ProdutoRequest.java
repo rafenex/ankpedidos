@@ -2,6 +2,7 @@ package com.ank.pedidos.controllers.dto;
 
 import com.ank.pedidos.entities.ItemPedido;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import org.hibernate.validator.constraints.br.CPF;
 
 import java.math.BigDecimal;
@@ -10,9 +11,9 @@ import java.util.List;
 public class ProdutoRequest {
     @NotBlank(message = "Um nome precisa ser inserido")
     private String nome;
-    @NotBlank(message = "Um valor precisa ser inserido")
+    @NotNull(message = "Um valor precisa ser inserido")
     private BigDecimal valorPadrao;
-    @NotBlank(message = "Uma categoria precisa ser inserida")
+    @NotNull(message = "Uma categoria precisa ser inserida")
     private Long categoria;
 
     public ProdutoRequest(String nome, BigDecimal valorPadrao, Long categoria) {
@@ -43,5 +44,14 @@ public class ProdutoRequest {
 
     public void setCategoria(Long categoria) {
         this.categoria = categoria;
+    }
+
+    @Override
+    public String toString() {
+        return "ProdutoRequest{" +
+                "nome='" + nome + '\'' +
+                ", valorPadrao=" + valorPadrao +
+                ", categoria=" + categoria +
+                '}';
     }
 }

@@ -2,8 +2,16 @@
   <p-toast></p-toast>
   <div class="top-area">
     <h2>Pedidos</h2>
-    <p-button (onClick)="novoPedido()">Novo Pedido</p-button>
-    <p-button (onClick)="listarPedidos()">Listar Pedidos</p-button>
+    <p-button
+      severity="help"
+      label="Novo Pedido"
+      (onClick)="novoPedido()"
+    ></p-button>
+    <p-button
+      severity="help"
+      label="Listar Pedidos"
+      (onClick)="listarPedidos()"
+    ></p-button>
   </div>
   <app-lista-pedidos
     [removePedidoId]="removePedidoId"

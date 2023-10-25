@@ -3,9 +3,10 @@ package com.ank.pedidos.controllers.dto;
 import com.ank.pedidos.entities.Cliente;
 import jakarta.validation.constraints.NotBlank;
 
+import java.io.Serializable;
 import java.util.List;
 
-public class ClienteResponse{
+public class ClienteResponse implements Serializable {
     Long id;
     String nome;
     String cpf;

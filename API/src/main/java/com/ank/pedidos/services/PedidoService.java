@@ -10,6 +10,9 @@ import com.ank.pedidos.repositories.ClienteRepository;
 import com.ank.pedidos.repositories.ItemPedidoRepository;
 import com.ank.pedidos.repositories.PedidoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.CachePut;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
@@ -31,6 +34,7 @@ public class PedidoService {
 
 
     @Transactional
+    @CacheEvict(value = "pedido", allEntries = true)
     public Pedido save(PedidoRequest pedidoRequest) {
         Pedido pedido = new Pedido();
         List<ItemPedido> itemPedidos = itemPedidoRepository.saveAll(pedidoRequest.getItemPedido());
@@ -42,10 +46,12 @@ public class PedidoService {
         return pedidoRepository.save(pedido);
     }
 
+    @Cacheable(value = "pedido")
     public Page<PedidoResponse> listarPedidos(String nomeCliente, Pageable pageable){
         return PedidoMapper.INSTANCE.toResponse(pedidoRepository.findByNomeClienteContainingIgnoreCase(nomeCliente, pageable));
     }
 
+    @CacheEvict(value = "pedido", allEntries = true)
     public void delete(Long id) {
         pedidoRepository.deleteById(id);
     }

@@ -2,10 +2,11 @@ package com.ank.pedidos.entities;
 
 import jakarta.persistence.*;
 
+import java.io.Serializable;
 import java.math.BigDecimal;
 
 @Entity
-public class ItemPedido {
+public class ItemPedido implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

@@ -3,11 +3,13 @@ package com.ank.pedidos.entities;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
+import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.List;
+import java.util.Objects;
 
 @Entity
-public class Produto {
+public class Produto implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -57,5 +59,29 @@ public class Produto {
 
     public void setImagens(List<ImageData> imagens) {
         this.imagens = imagens;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Produto produto = (Produto) o;
+        return Objects.equals(id, produto.id) && Objects.equals(nome, produto.nome) && Objects.equals(valorPadrao, produto.valorPadrao) && Objects.equals(categoria, produto.categoria) && Objects.equals(imagens, produto.imagens);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, nome, valorPadrao, categoria, imagens);
+    }
+
+    @Override
+    public String toString() {
+        return "Produto{" +
+                "id=" + id +
+                ", nome='" + nome + '\'' +
+                ", valorPadrao=" + valorPadrao +
+                ", categoria=" + categoria +
+                ", imagens=" + imagens +
+                '}';
     }
 }

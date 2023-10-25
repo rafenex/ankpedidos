@@ -2,9 +2,11 @@ package com.ank.pedidos.entities;
 
 import jakarta.persistence.*;
 
+import java.io.Serializable;
+
 @Entity
 @Table(name = "imageData")
-public class ImageData {
+public class ImageData implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
