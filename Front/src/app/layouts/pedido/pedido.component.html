@@ -1,0 +1,31 @@
+<div class="area">
+  <p-toast></p-toast>
+  <div class="top-area">
+    <h2>Pedidos</h2>
+    <p-button
+      severity="help"
+      label="Novo Pedido"
+      (onClick)="novoPedido()"
+    ></p-button>
+    <p-button
+      severity="help"
+      label="Listar Pedidos"
+      (onClick)="listarPedidos()"
+    ></p-button>
+  </div>
+  <app-lista-pedidos
+    [removePedidoId]="removePedidoId"
+    [isOpen]="listarPedidosOpen"
+    [pedidoResponse]="pedidoResponse"
+    [totalElements]="totalElements"
+    (listarPedidosEvent)="getPedidos($event)"
+    (onRemovePedido)="removePedido($event)"
+  ></app-lista-pedidos>
+  <app-novo-pedido
+    [isOpen]="novoPedidoOpen"
+    [clientes]="clientes"
+    [produtos]="produtos"
+    [itensPedido]="itensPedido"
+    (novoPedidoEvent)="addNovoPedido($event)"
+  ></app-novo-pedido>
+</div>

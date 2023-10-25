@@ -1,0 +1,19 @@
+.area{
+    gap: 10px;
+    max-width: 90%;
+}
+
+:host ::ng-deep .p-dropdown, .p-inputtext {
+    width: 30rem;}
+
+:host ::ng-deep .p-inputnumber {
+    width: 30rem;
+}
+
+.input{
+    width: 100%;
+    display: inline-block;
+    margin-bottom: 10px;
+    width: 30rem;
+}
+
