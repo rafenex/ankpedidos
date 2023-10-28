@@ -54,6 +54,7 @@ registerLocaleData(localePt);
     PaginatorModule,
     SliderModule,
     DialogModule,
+    PaginatorModule,
   ],
   providers: [{ provide: LOCALE_ID, useValue: 'pt-BR' }, MessageService],
   bootstrap: [AppComponent],

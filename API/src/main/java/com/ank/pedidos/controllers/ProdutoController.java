@@ -33,7 +33,7 @@ public class ProdutoController {
 
     @GetMapping
     private ResponseEntity<Page<ProdutoResponse>> findAll(
-            @ParameterObject Pageable pageable,
+            Pageable pageable,
             @RequestParam (required = false) String nome,
             @RequestParam (required = false) BigDecimal valor,
             @RequestParam (required = false) String categoria

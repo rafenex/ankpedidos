@@ -62,3 +62,15 @@ export interface Categoria {
   id: number;
   nome: string;
 }
+
+export interface PageEvent {
+  page?: number;
+  size?: number;
+  sort?: string;
+}
+
+export const ColsProduct: Column[] = [
+  { field: 'nome', header: 'Nome' },
+  { field: 'valorPadrao', header: 'Valor' },
+  { field: 'categoria', header: 'Categoria' },
+];

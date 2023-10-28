@@ -2,7 +2,7 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, map } from 'rxjs';
 import { BASE_URL } from './config';
-import { Cliente, Produto } from '../models/api';
+import { Cliente, PageEvent, Produto } from '../models/api';
 
 @Injectable({
   providedIn: 'root',
@@ -10,10 +10,12 @@ import { Cliente, Produto } from '../models/api';
 export class ProdutoService {
   constructor(private http: HttpClient) {}
 
-  getAllProdutos(): Observable<Produto[]> {
+  getAllProdutos(pageable: PageEvent): Observable<any> {
     return this.http
-      .get<any>(`${BASE_URL}/produtos`)
-      .pipe(map((response) => response.content));
+      .get<any>(
+        `${BASE_URL}/produtos?page=${pageable.page}&size=${pageable.size}&sort=categoria,asc`
+      )
+      .pipe(map((response) => response));
   }
 
   getAllCategorias(): Observable<any[]> {
