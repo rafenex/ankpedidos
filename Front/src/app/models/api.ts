@@ -73,4 +73,5 @@ export const ColsProduct: Column[] = [
   { field: 'nome', header: 'Nome' },
   { field: 'valorPadrao', header: 'Valor' },
   { field: 'categoria', header: 'Categoria' },
+  { field: 'acoes', header: 'Acões' },
 ];

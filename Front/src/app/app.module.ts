@@ -18,12 +18,15 @@ import { AccordionModule } from 'primeng/accordion';
 import { registerLocaleData } from '@angular/common';
 import localePt from '@angular/common/locales/pt';
 import { ToastModule } from 'primeng/toast';
-import { MessageService } from 'primeng/api';
+import { ConfirmationService, MessageService } from 'primeng/api';
 import { PaginatorModule } from 'primeng/paginator';
 import { SliderModule } from 'primeng/slider';
 import { ProdutoComponent } from './layouts/produto/produto.component';
 import { NovoProdutoComponent } from './components/produto/novo-produto/novo-produto.component';
 import { DialogModule } from 'primeng/dialog';
+import { CarouselModule } from 'primeng/carousel';
+import { ConfirmDialogModule } from 'primeng/confirmdialog';
+import { DeleteDialogComponent } from './components/utils/delete-dialog/delete-dialog.component';
 
 registerLocaleData(localePt);
 
@@ -35,11 +38,12 @@ registerLocaleData(localePt);
     NovoPedidoComponent,
     ProdutoComponent,
     NovoProdutoComponent,
+    DeleteDialogComponent,
   ],
   imports: [
+    ButtonModule,
     BrowserModule,
     AppRoutingModule,
-    ButtonModule,
     BrowserAnimationsModule,
     MenubarModule,
     TableModule,
@@ -55,8 +59,14 @@ registerLocaleData(localePt);
     SliderModule,
     DialogModule,
     PaginatorModule,
+    CarouselModule,
+    ConfirmDialogModule,
   ],
-  providers: [{ provide: LOCALE_ID, useValue: 'pt-BR' }, MessageService],
+  providers: [
+    { provide: LOCALE_ID, useValue: 'pt-BR' },
+    MessageService,
+    ConfirmationService,
+  ],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

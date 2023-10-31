@@ -15,11 +15,21 @@
       <ng-template pTemplate="body" let-rowData let-columns="columns">
         <tr>
           <td *ngFor="let col of columns">
-            {{
-              col.field === "valorPadrao"
-                ? (rowData[col.field] | currency : "BRL")
-                : rowData[col.field]
-            }}
+            <div *ngIf="col.field !== 'acoes'">
+              {{
+                col.field === "valorPadrao"
+                  ? (rowData[col.field] | currency : "BRL")
+                  : rowData[col.field]
+              }}
+            </div>
+            <div *ngIf="col.field === 'acoes'" class="acoes">
+              <app-delete-dialog></app-delete-dialog>
+              <p-button
+                (click)="confirm2()"
+                icon="pi pi-camera"
+                severity="success "
+              ></p-button>
+            </div>
           </td>
         </tr>
       </ng-template>
