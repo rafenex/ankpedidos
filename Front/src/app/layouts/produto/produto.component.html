@@ -23,12 +23,10 @@
               }}
             </div>
             <div *ngIf="col.field === 'acoes'" class="acoes">
-              <app-delete-dialog></app-delete-dialog>
-              <p-button
-                (click)="confirm2()"
-                icon="pi pi-camera"
-                severity="success "
-              ></p-button>
+              <app-delete-dialog
+                (onRemoveProduto)="deleteProduto(rowData.id)"
+              ></app-delete-dialog>
+              <p-button icon="pi pi-camera" severity="success "></p-button>
             </div>
           </td>
         </tr>

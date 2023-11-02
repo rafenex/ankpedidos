@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import {
   ConfirmationService,
   MessageService,
@@ -11,43 +11,42 @@ import {
   styleUrls: ['./delete-dialog.component.css'],
 })
 export class DeleteDialogComponent {
+  @Output() onRemoveProduto = new EventEmitter<boolean>();
+
   constructor(
     private confirmationService: ConfirmationService,
     private messageService: MessageService
   ) {}
 
-  confirm1() {
+  removeDialog() {
     this.confirmationService.confirm({
-      message: 'Are you sure that you want to proceed?',
-      header: 'Confirmation',
+      message: 'Ter certeza que deseja remover o produto?',
+      header: 'Confirmação',
       icon: 'pi pi-exclamation-triangle',
       accept: () => {
-        this.messageService.add({
-          severity: 'info',
-          summary: 'Confirmed',
-          detail: 'You have accepted',
-        });
+        this.onRemoveProduto.emit();
+        this.confirmationService.close();
       },
       reject: (type: ConfirmEventType) => {
-        // Correção aqui
         switch (type) {
           case ConfirmEventType.REJECT:
             this.messageService.add({
               severity: 'error',
-              summary: 'Rejected',
-              detail: 'You have rejected',
+              summary: 'Não removido',
+              detail: 'Você rejeitou',
             });
             break;
           case ConfirmEventType.CANCEL:
             this.messageService.add({
               severity: 'warn',
-              summary: 'Cancelled',
-              detail: 'You have cancelled',
+              summary: 'Cancelado',
+              detail: 'Você cancelou',
             });
             break;
           default:
           // Lidar com outros casos, se necessário
         }
+        this.confirmationService.close();
       },
     });
   }

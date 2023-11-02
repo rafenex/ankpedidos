@@ -1,12 +1,8 @@
 import { Component } from '@angular/core';
+import { MessageService } from 'primeng/api';
 import { PaginatorState } from 'primeng/paginator';
 import { Produto, PageEvent, ColsProduct } from 'src/app/models/api';
 import { ProdutoService } from 'src/app/services/produto.service';
-import {
-  ConfirmationService,
-  MessageService,
-  ConfirmEventType,
-} from 'primeng/api';
 
 @Component({
   selector: 'app-produto',
@@ -16,7 +12,6 @@ import {
 export class ProdutoComponent {
   constructor(
     private produtoService: ProdutoService,
-    private confirmationService: ConfirmationService,
     private messageService: MessageService
   ) {}
   dialogAberto: boolean = false;
@@ -48,46 +43,30 @@ export class ProdutoComponent {
   }
 
   getProducts(pageable: PageEvent) {
-    console.log(pageable);
     this.produtoService.getAllProdutos(pageable).subscribe((response) => {
       const produtos: Produto[] = response.content;
       this.products = produtos;
       this.totalRecords = response.totalElements;
     });
   }
-
-  confirm2() {
-    this.confirmationService.confirm({
-      message: 'Do you want to delete this record?',
-      header: 'Delete Confirmation',
-      icon: 'pi pi-info-circle',
-      accept: () => {
+  async deleteProduto(id: number) {
+    this.produtoService.removeProduto(id).subscribe(
+      () => {
         this.messageService.add({
           severity: 'info',
-          summary: 'Confirmed',
-          detail: 'Record deleted',
+          summary: 'Removido',
+          detail: 'Produto removido',
         });
-        this.confirmationService.close();
       },
-      reject: (type: any) => {
-        switch (type) {
-          case ConfirmEventType.REJECT:
-            this.messageService.add({
-              severity: 'error',
-              summary: 'Rejected',
-              detail: 'You have rejected',
-            });
-            break;
-          case ConfirmEventType.CANCEL:
-            this.messageService.add({
-              severity: 'warn',
-              summary: 'Cancelled',
-              detail: 'You have cancelled',
-            });
-            break;
-        }
-        this.confirmationService.close();
-      },
-    });
+      (error) => {
+        // Lide com erros aqui, se necessário
+        console.error('Erro ao remover o produto:', error);
+        this.messageService.add({
+          severity: 'info',
+          summary: 'Erro',
+          detail: 'Erro ao remover produto',
+        });
+      }
+    );
   }
 }

@@ -24,7 +24,7 @@ export class ProdutoService {
       .pipe(map((response) => response));
   }
 
-  saveProduct(payload: any) {
+  saveProduto(payload: any) {
     this.http.post(`${BASE_URL}/produtos`, payload).subscribe(
       (resultado) => {
         console.log(resultado);
@@ -35,5 +35,8 @@ export class ProdutoService {
         }
       }
     );
+  }
+  removeProduto(id: number): Observable<any> {
+    return this.http.delete(`${BASE_URL}/produtos/${id}`);
   }
 }

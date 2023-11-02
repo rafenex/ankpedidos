@@ -34,6 +34,6 @@ export class NovoProdutoComponent {
       valorPadrao: this.preco,
       categoria: this.selectedCategoria.id,
     };
-    this.produtoService.saveProduct(paylod);
+    this.produtoService.saveProduto(paylod);
   }
 }

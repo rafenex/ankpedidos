@@ -5,8 +5,6 @@ import {
   Output,
   SimpleChanges,
 } from '@angular/core';
-import { Router } from '@angular/router';
-import { PaginatorState } from 'primeng/paginator';
 import { PedidoResponse } from 'src/app/models/api';
 
 interface PageEvent {
