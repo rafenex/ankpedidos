@@ -14,7 +14,8 @@ export class ProdutoComponent {
     private produtoService: ProdutoService,
     private messageService: MessageService
   ) {}
-  dialogAberto: boolean = false;
+
+  loading: boolean = false;
   cols = ColsProduct;
   products: Produto[] = [];
   first: number = 0;
@@ -50,8 +51,12 @@ export class ProdutoComponent {
     });
   }
   async deleteProduto(id: number) {
+    this.loading = true;
     this.produtoService.removeProduto(id).subscribe(
       () => {
+        this.loading = false;
+        const objWithIdIndex = this.products.findIndex((obj) => obj.id === id);
+        this.products.splice(objWithIdIndex, 1);
         this.messageService.add({
           severity: 'info',
           summary: 'Removido',

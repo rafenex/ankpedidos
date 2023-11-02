@@ -27,6 +27,8 @@ import { DialogModule } from 'primeng/dialog';
 import { CarouselModule } from 'primeng/carousel';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { DeleteDialogComponent } from './components/utils/delete-dialog/delete-dialog.component';
+import { ProgressSpinnerModule } from 'primeng/progressspinner';
+import { LoadingComponent } from './components/utils/loading/loading.component';
 
 registerLocaleData(localePt);
 
@@ -39,6 +41,7 @@ registerLocaleData(localePt);
     ProdutoComponent,
     NovoProdutoComponent,
     DeleteDialogComponent,
+    LoadingComponent,
   ],
   imports: [
     ButtonModule,
@@ -61,6 +64,7 @@ registerLocaleData(localePt);
     PaginatorModule,
     CarouselModule,
     ConfirmDialogModule,
+    ProgressSpinnerModule,
   ],
   providers: [
     { provide: LOCALE_ID, useValue: 'pt-BR' },
