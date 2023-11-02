@@ -1,0 +1,26 @@
+<div class="card flex justify-content-center" *ngIf="imagesHtml.length > 0">
+  <p-button
+    icon="pi pi-camera"
+    severity="success"
+    (onClick)="displayBasic = true"
+  ></p-button>
+  <p-galleria
+    [value]="imagesHtml"
+    [(visible)]="displayBasic"
+    [containerStyle]="{ 'max-width': '850px' }"
+    [numVisible]="7"
+    [circular]="true"
+    [fullScreen]="true"
+    [showItemNavigators]="true"
+    [showThumbnails]="false"
+  >
+    <ng-template pTemplate="item" let-item>
+      <img
+        [src]="'data:image/jpeg;base64,' + item"
+        style="width: 80%; display: block"
+      />
+    </ng-template>
+  </p-galleria>
+</div>
+
+<!-- [(value)]="images" -->

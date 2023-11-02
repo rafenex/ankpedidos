@@ -26,7 +26,8 @@
               <app-delete-dialog
                 (onRemoveProduto)="deleteProduto(rowData.id)"
               ></app-delete-dialog>
-              <p-button icon="pi pi-camera" severity="success "></p-button>
+
+              <app-galeria [images]="rowData.imagens"></app-galeria>
             </div>
           </td>
         </tr>

@@ -6,9 +6,9 @@ public class ImageDataResponse implements Serializable{
     private Long id;
     private String name;
     private String type;
-    private byte[] imageData; // Dados da imagem como um array de bytes
+    private String imageData;
 
-    public ImageDataResponse(Long id, String name, String type, byte[] imageData) {
+    public ImageDataResponse(Long id, String name, String type, String imageData) {
         this.id = id;
         this.name = name;
         this.type = type;
@@ -39,11 +39,13 @@ public class ImageDataResponse implements Serializable{
         this.type = type;
     }
 
-    public byte[] getImageData() {
+    public String getImageData() {
         return imageData;
     }
 
-    public void setImageData(byte[] imageData) {
+    public void setImageData(String imageData) {
         this.imageData = imageData;
     }
+
+
 }

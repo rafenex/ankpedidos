@@ -14,6 +14,7 @@ import org.springframework.web.multipart.MultipartFile;
 import java.awt.*;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Base64;
 import java.util.List;
 import java.util.Optional;
 
@@ -24,7 +25,9 @@ public class ImageDataService {
     private ImageDataRepository imageDataRepository;
 
     public ImageUploadResponse uploadImage(MultipartFile file, Produto produto) throws IOException {
+        byte[] imageArr = file.getBytes();
         ImageData data = new ImageData(file.getOriginalFilename(), file.getContentType(),produto, ImageUtil.compressImage(file.getBytes()));
+
         imageDataRepository.save(data);
 
         return new ImageUploadResponse("Image uploaded successfully: " +
@@ -38,13 +41,6 @@ public class ImageDataService {
 
         return dbImage.orElseThrow();
 
-    }
-
-    @Transactional
-    public byte[] getImage(String name) {
-        Optional<ImageData> dbImage = imageDataRepository.findByName(name);
-        byte[] image = ImageUtil.decompressImage(dbImage.get().getImageData());
-        return image;
     }
 
     @Transactional

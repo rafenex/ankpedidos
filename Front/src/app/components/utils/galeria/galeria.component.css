@@ -1,0 +1,13 @@
+/* No seu arquivo de estilos .css ou .scss */
+.custom-image {
+    object-fit: cover; /* Evita distorção e corta a imagem para ajustar */
+    width: 100%; /* Largura desejada */
+    height: 200px; /* Altura desejada */
+  }
+
+  .custom-image-menu {
+    object-fit: cover; /* Evita distorção e corta a imagem para ajustar */
+    width: 30px; /* Largura desejada */
+    height: 30px; /* Altura desejada */
+  }
+  

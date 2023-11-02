@@ -66,5 +66,6 @@ public class ProdutoController {
     private ResponseEntity<Produto> update(@PathVariable Long id, @RequestBody  Produto produto){
         return new ResponseEntity<>(produtoService.update(produto, id),HttpStatus.OK);
     }
+
     
 }
