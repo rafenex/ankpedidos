@@ -39,4 +39,8 @@ export class ProdutoService {
   removeProduto(id: number): Observable<any> {
     return this.http.delete(`${BASE_URL}/produtos/${id}`);
   }
+
+  removeImage(produtoId: Number, imgId: Number) {
+    return this.http.delete(`${BASE_URL}/produtos/${produtoId}/${imgId}`);
+  }
 }

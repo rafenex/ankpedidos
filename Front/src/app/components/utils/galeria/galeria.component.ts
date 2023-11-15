@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 
 @Component({
   selector: 'app-galeria',
@@ -6,14 +6,16 @@ import { Component, Input } from '@angular/core';
   styleUrls: ['./galeria.component.css'],
 })
 export class GaleriaComponent {
-  @Input()
-  public images!: any[] | undefined;
-  displayBasic: boolean = false;
-  imagesHtml: string[] = [];
+  @Input() public images!: any[] | undefined;
+  @Output() onRemoveImage = new EventEmitter<any>();
 
-  ngOnInit() {
-    this.images?.forEach((img) => {
-      this.imagesHtml.push(img.imageData);
-    });
+  displayBasic: boolean = false;
+
+  ngOnInit() {}
+  removeImage(item: number) {
+    this.onRemoveImage.emit(item);
+  }
+  addImage() {
+    console.log('oi');
   }
 }

@@ -5,6 +5,7 @@ import com.ank.pedidos.controllers.dto.ProdutoRequest;
 import com.ank.pedidos.controllers.dto.ProdutoResponse;
 import com.ank.pedidos.controllers.dto.mapper.ProdutoMapper;
 import com.ank.pedidos.controllers.spec.ProdutoSpec;
+import com.ank.pedidos.entities.ImageData;
 import com.ank.pedidos.entities.Produto;
 import com.ank.pedidos.repositories.CategoriaRepository;
 import com.ank.pedidos.repositories.ProdutoRepository;
@@ -15,6 +16,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.awt.*;
 import java.io.IOException;
 import java.math.BigDecimal;
 import java.util.List;
@@ -71,5 +73,13 @@ public class ProdutoService {
         Produto produto = produtoRepository.findById(idProduto).orElseThrow(() -> new RuntimeException("Produto não encontrado"));
         return imageDataService.uploadImage(imagem, produto);
 
+    }
+
+    public void deleteImgFromProduto(Long idProduto, Long idImage) {
+        ImageData image = imageDataService.getImagesByProdutoId(idProduto).stream()
+                .filter(img -> img.getId().equals(idImage))
+                .findFirst()
+                .orElseThrow(() -> new RuntimeException("Imagem não encontrada."));
+        imageDataService.delete(image);
     }
 }

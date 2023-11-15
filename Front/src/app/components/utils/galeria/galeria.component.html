@@ -1,13 +1,12 @@
-<div class="card flex justify-content-center" *ngIf="imagesHtml.length > 0">
+<div *ngIf="images!.length > 0">
   <p-button
     icon="pi pi-camera"
     severity="success"
     (onClick)="displayBasic = true"
   ></p-button>
   <p-galleria
-    [value]="imagesHtml"
+    [value]="images"
     [(visible)]="displayBasic"
-    [containerStyle]="{ 'max-width': '850px' }"
     [numVisible]="7"
     [circular]="true"
     [fullScreen]="true"
@@ -15,10 +14,26 @@
     [showThumbnails]="false"
   >
     <ng-template pTemplate="item" let-item>
-      <img
-        [src]="'data:image/jpeg;base64,' + item"
-        style="width: 80%; display: block"
-      />
+      <div class="square-image-container">
+        <img
+          [src]="'data:image/jpeg;base64,' + item.imageData"
+          class="custom-image"
+        />
+        <button
+          type="button"
+          class="position-button-remove"
+          pButton
+          icon="pi pi-trash"
+          (click)="removeImage(item.id)"
+        ></button>
+        <button
+          type="button"
+          class="position-button-add"
+          pButton
+          icon="pi pi-plus"
+          (click)="addImage()"
+        ></button>
+      </div>
     </ng-template>
   </p-galleria>
 </div>

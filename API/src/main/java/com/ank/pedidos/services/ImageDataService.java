@@ -50,4 +50,7 @@ public class ImageDataService {
     }
 
 
+    public void delete(ImageData image) {
+        imageDataRepository.delete(image);
+    }
 }

@@ -27,7 +27,10 @@
                 (onRemoveProduto)="deleteProduto(rowData.id)"
               ></app-delete-dialog>
 
-              <app-galeria [images]="rowData.imagens"></app-galeria>
+              <app-galeria
+                [images]="rowData.imagens"
+                (onRemoveImage)="removeImage($event, rowData.id)"
+              ></app-galeria>
             </div>
           </td>
         </tr>

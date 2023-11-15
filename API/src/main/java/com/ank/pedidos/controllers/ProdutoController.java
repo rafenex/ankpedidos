@@ -62,6 +62,12 @@ public class ProdutoController {
         return ResponseEntity.noContent().build();
     }
 
+    @DeleteMapping("/{idProduto}/{idImage}")
+    private ResponseEntity<Void> deleteImgFromProduto(@PathVariable Long idProduto, @PathVariable Long idImage) {
+        produtoService.deleteImgFromProduto(idProduto, idImage);
+        return ResponseEntity.noContent().build();
+    }
+
     @PutMapping("/{id}")
     private ResponseEntity<Produto> update(@PathVariable Long id, @RequestBody  Produto produto){
         return new ResponseEntity<>(produtoService.update(produto, id),HttpStatus.OK);

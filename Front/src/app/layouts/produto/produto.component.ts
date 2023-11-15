@@ -74,4 +74,23 @@ export class ProdutoComponent {
       }
     );
   }
+  removeImage(imgId: number, produtoId: number) {
+    this.loading = true;
+    this.produtoService.removeImage(produtoId, imgId).subscribe({
+      next: () => {
+        this.messageService.add({
+          severity: 'info',
+          summary: 'Removida',
+          detail: 'Imagem removida',
+        });
+      },
+      error: (error) => {
+        this.messageService.add({
+          severity: 'info',
+          summary: 'Erro',
+          detail: error,
+        });
+      },
+    });
+  }
 }
