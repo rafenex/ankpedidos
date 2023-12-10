@@ -26,13 +26,18 @@
           icon="pi pi-trash"
           (click)="removeImage(item.id)"
         ></button>
-        <button
-          type="button"
-          class="position-button-add"
-          pButton
-          icon="pi pi-plus"
-          (click)="addImage()"
-        ></button>
+        <div class="position-button-add">
+          <label for="imagem" class="center-label">
+            <i class="pi pi-plus"></i>
+          </label>
+          <input
+            type="file"
+            name="imagem"
+            accept=".png, .jpg, .jpeg"
+            id="imagem"
+            (change)="addImage($event)"
+          />
+        </div>
       </div>
     </ng-template>
   </p-galleria>

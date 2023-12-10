@@ -46,7 +46,7 @@ public class ProdutoController {
     }
 
     @PostMapping("/{idProduto}/imagem")
-    private ImageUploadResponse newImage(@RequestParam MultipartFile imagem,
+    private ImageUploadResponse newImage(@RequestParam("imagem") MultipartFile imagem,
                                          @PathVariable Long idProduto) throws IOException {
         return produtoService.setProdutoImage(imagem, idProduto);
     }

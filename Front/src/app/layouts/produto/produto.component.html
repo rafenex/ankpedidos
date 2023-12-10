@@ -30,6 +30,7 @@
               <app-galeria
                 [images]="rowData.imagens"
                 (onRemoveImage)="removeImage($event, rowData.id)"
+                (onAddImage)="addImage($event, rowData.id)"
               ></app-galeria>
             </div>
           </td>

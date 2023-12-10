@@ -93,4 +93,24 @@ export class ProdutoComponent {
       },
     });
   }
+
+  addImage(event: FormData, produtoId: number) {
+    this.loading = true;
+    this.produtoService.addImage(produtoId, event).subscribe({
+      next: () => {
+        this.messageService.add({
+          severity: 'info',
+          summary: 'OK',
+          detail: 'Imagem adicionada',
+        });
+      },
+      error: (error) => {
+        this.messageService.add({
+          severity: 'info',
+          summary: 'Erro',
+          detail: error,
+        });
+      },
+    });
+  }
 }

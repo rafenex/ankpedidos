@@ -40,7 +40,10 @@ export class ProdutoService {
     return this.http.delete(`${BASE_URL}/produtos/${id}`);
   }
 
-  removeImage(produtoId: Number, imgId: Number) {
+  removeImage(produtoId: number, imgId: number) {
     return this.http.delete(`${BASE_URL}/produtos/${produtoId}/${imgId}`);
+  }
+  addImage(produtoId: number, img: FormData) {
+    return this.http.post(`${BASE_URL}/produtos/${produtoId}/imagem`, img);
   }
 }
