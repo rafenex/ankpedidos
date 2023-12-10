@@ -22,8 +22,7 @@ export class GaleriaComponent {
   addImage(event: any) {
     this.fileToUpload = event.target.files[0];
     let formParams = new FormData();
-    formParams.append('file', this.fileToUpload);
-    console.log(formParams);
+    formParams.append('imagem', this.fileToUpload);
     this.onAddImage.emit(formParams);
   }
 }

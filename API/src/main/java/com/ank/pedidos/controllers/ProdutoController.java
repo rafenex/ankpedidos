@@ -13,6 +13,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -45,11 +46,12 @@ public class ProdutoController {
         return new ResponseEntity<>(produtoService.save(produtoRequest), HttpStatus.CREATED);
     }
 
-    @PostMapping("/{idProduto}/imagem")
-    private ImageUploadResponse newImage(@RequestParam("imagem") MultipartFile imagem,
+    @PostMapping(value = "/{idProduto}/imagem", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+    private ImageUploadResponse newImage(@RequestParam("imagem")  MultipartFile imagem,
                                          @PathVariable Long idProduto) throws IOException {
         return produtoService.setProdutoImage(imagem, idProduto);
     }
+
 
     @GetMapping("/{id}")
     private ResponseEntity<ProdutoResponse> findById(@PathVariable Long id){
