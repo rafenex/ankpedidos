@@ -3,7 +3,7 @@ version: '3.3'
 services:
   pedidoapi:
     build: .
-    # restart: always
+    restart: always
     image: rafenex/pedidosback:1.0
     container_name: pedidoback
     networks:
@@ -16,6 +16,7 @@ services:
       - spring.datasource.url=jdbc:mysql://mysqldb:3306/pedidosank?allowPublicKeyRetrieval=true   
 
   mysqldb:
+    restart: always
     image: mysql:8.0
     container_name: pedidodb
     networks:
@@ -26,8 +27,11 @@ services:
       MYSQL_DATABASE: pedidosank
       MYSQL_PASSWORD: root
       MYSQL_ROOT_PASSWORD: root
+      volumes:
+      - /home/rafael/imagempedidosDB:/var/lib/mysql
 
   frontend:
+    restart: always
     build: ../Front
     container_name: pedidofront
     networks:
