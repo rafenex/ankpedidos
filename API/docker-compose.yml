@@ -27,6 +27,16 @@ services:
       MYSQL_PASSWORD: root
       MYSQL_ROOT_PASSWORD: root
 
+  frontend:
+    build: ../Front
+    container_name: pedidofront
+    networks:
+      - compose-bridge
+    ports:
+      - 4200:4200
+    depends_on:
+      - pedidoapi
+
 networks:
   compose-bridge:
     driver: bridge
