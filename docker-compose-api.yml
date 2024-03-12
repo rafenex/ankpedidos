@@ -1,0 +1,23 @@
+version: '3.3'
+
+services:
+  pedidoapi:
+    build: ./API
+    restart: always
+    image: rafenex/pedidosback:1.0
+    container_name: pedidoback
+    networks:
+      - compose-bridge
+    ports:
+      - 8080:8080
+    environment: 
+      - spring.datasource.url=jdbc:mysql://mysqldb:3306/pedidosank?allowPublicKeyRetrieval=true   
+    volumes:
+      - pedidoapi_data:/app/data
+      
+networks:
+  compose-bridge:
+    driver: bridge
+
+volumes:
+  pedidoapi_data:
