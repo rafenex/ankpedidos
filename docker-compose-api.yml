@@ -1,16 +1,10 @@
 version: '3.3'
 
 services:
-  build:
-    image: maven:3.8.4-openjdk-17
-    volumes:
-      - ./API:/app
-    command: mvn clean package
-
   pedidoapi:
     build:
-      context: ./API
-      dockerfile: Dockerfile
+      context: .
+      dockerfile: ./API/Dockerfile
     restart: always
     image: rafenex/pedidosback:1.0
     container_name: pedidoback
