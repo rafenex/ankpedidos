@@ -12,23 +12,21 @@ public class Cliente implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String nome;
-    @Column(unique = true)
     private String cpf;
     private String endereco;
+    private String telefone;
 
-    @ElementCollection
-    private List<String> telefones;
-
-    public Cliente() {
-    }
-
-    public Cliente(Long id, String nome, String cpf, String endereco, List<String> telefones) {
+    public Cliente(Long id, String nome, String cpf, String endereco, String telefone) {
         this.id = id;
         this.nome = nome;
         this.cpf = cpf;
         this.endereco = endereco;
-        this.telefones = telefones;
+        this.telefone = telefone;
     }
+
+    public Cliente() {
+    }
+
 
     public Long getId() {
         return id;
@@ -62,11 +60,11 @@ public class Cliente implements Serializable {
         this.endereco = endereco;
     }
 
-    public List<String> getTelefones() {
-        return telefones;
+    public String getTelefone() {
+        return telefone;
     }
 
-    public void setTelefones(List<String> telefones) {
-        this.telefones = telefones;
+    public void setTelefone(String telefone) {
+        this.telefone = telefone;
     }
 }

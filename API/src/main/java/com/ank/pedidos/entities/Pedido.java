@@ -16,6 +16,7 @@ public class Pedido implements Serializable {
     private Long id;
     private LocalDateTime data;
     @ManyToOne
+    @JoinColumn(name = "cliente_id", referencedColumnName = "id", foreignKey = @ForeignKey(name = "FK_PEDIDO_CLIENTE"))
     private Cliente cliente;
     @OneToMany
     @JsonIgnore

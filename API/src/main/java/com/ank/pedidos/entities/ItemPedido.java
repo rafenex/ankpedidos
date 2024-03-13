@@ -12,6 +12,7 @@ public class ItemPedido implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @OneToOne
+    @JoinColumn(name = "produto_id", referencedColumnName = "id", foreignKey = @ForeignKey(name = "FK_ITEM_PEDIDO_PRODUTO"))
     private Produto produto;
     private Long quantidade;
     private String cor;

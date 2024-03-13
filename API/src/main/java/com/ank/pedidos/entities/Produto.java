@@ -16,6 +16,7 @@ public class Produto implements Serializable {
     private String nome;
     private BigDecimal valorPadrao;
     @ManyToOne
+    @JoinColumn(name = "categoria_id", referencedColumnName = "id", foreignKey = @ForeignKey(name = "FK_PRODUTO_CATEGORIA"))
     private Categoria categoria;
     @JsonIgnore
     @OneToMany(mappedBy = "produto", cascade = CascadeType.ALL)

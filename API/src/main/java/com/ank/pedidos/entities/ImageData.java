@@ -17,6 +17,7 @@ public class ImageData implements Serializable {
     private String type;
 
     @ManyToOne
+    @JoinColumn(name = "produto_id", referencedColumnName = "id", foreignKey = @ForeignKey(name = "FK_IMAGEM_DATA_PRODUTO"))
     private Produto produto;
 
     @Lob
