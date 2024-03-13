@@ -15,6 +15,7 @@ CREATE TABLE cliente (
 
 CREATE TABLE produto (
     id BIGINT NOT NULL AUTO_INCREMENT,
+    referencia VARCHAR(255) unique,
     nome VARCHAR(255),
     valor_padrao DECIMAL(38,2),
     categoria_id BIGINT,
