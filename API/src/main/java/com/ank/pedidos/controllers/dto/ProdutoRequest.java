@@ -22,6 +22,9 @@ public class ProdutoRequest {
         this.categoria = categoria;
     }
 
+    public ProdutoRequest() {
+    }
+
     public String getNome() {
         return nome;
     }
