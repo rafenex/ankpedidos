@@ -13,11 +13,17 @@ public class Produto implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+    private String referencia;
+
     private String nome;
+
     private BigDecimal valorPadrao;
+
     @ManyToOne
     @JoinColumn(name = "categoria_id", referencedColumnName = "id", foreignKey = @ForeignKey(name = "FK_PRODUTO_CATEGORIA"))
     private Categoria categoria;
+
     @JsonIgnore
     @OneToMany(mappedBy = "produto", cascade = CascadeType.ALL)
     private List<ImageData> imagens;
@@ -62,17 +68,26 @@ public class Produto implements Serializable {
         this.imagens = imagens;
     }
 
+    public String getReferencia() {
+        return referencia;
+    }
+
+    public void setReferencia(String referencia) {
+        this.referencia = referencia;
+    }
+
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Produto produto = (Produto) o;
-        return Objects.equals(id, produto.id) && Objects.equals(nome, produto.nome) && Objects.equals(valorPadrao, produto.valorPadrao) && Objects.equals(categoria, produto.categoria) && Objects.equals(imagens, produto.imagens);
+        return Objects.equals(id, produto.id);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, nome, valorPadrao, categoria, imagens);
+        return Objects.hash(id);
     }
 
     @Override
