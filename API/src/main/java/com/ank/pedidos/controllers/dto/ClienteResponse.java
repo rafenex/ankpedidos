@@ -11,7 +11,7 @@ public class ClienteResponse implements Serializable {
     String nome;
     String cpf;
     String endereco;
-    List<String> telefones;
+    String telefone;
 
     public Long getId() {
         return id;
@@ -45,11 +45,11 @@ public class ClienteResponse implements Serializable {
         this.endereco = endereco;
     }
 
-    public List<String> getTelefones() {
-        return telefones;
+    public String getTelefone() {
+        return telefone;
     }
 
-    public void setTelefones(List<String> telefones) {
-        this.telefones = telefones;
+    public void setTelefone(String telefone) {
+        this.telefone = telefone;
     }
 }
