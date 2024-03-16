@@ -45,7 +45,7 @@ public class ProdutoService {
             Pageable pageable
     ) {
         Page<Produto> entityPage = produtoRepository.findAll(ProdutoSpec.toSpec(nome, referencia, valor , categoria), pageable);
-
+        //teste
         List<ProdutoResponse> dtoList = entityPage
                 .stream()
                 .map(ProdutoMapper.INSTANCE::toResponse)
