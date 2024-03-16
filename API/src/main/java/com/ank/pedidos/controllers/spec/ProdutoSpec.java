@@ -11,12 +11,17 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ProdutoSpec {
-    public static Specification<Produto> toSpec(String nome, BigDecimal valor, String categoria) {
+    public static Specification<Produto> toSpec(String nome, String referencia, BigDecimal valor, String categoria) {
         return (root, query, builder) -> {
             List<Predicate> predicates = new ArrayList<>();
             if (nome != null) {
                 Path<String> camppoNome = root.get("nome");
                 Predicate predicade = builder.like(camppoNome, "%" + nome + "%");
+                predicates.add(predicade);
+            }
+            if (referencia != null) {
+                Path<String> camppoNome = root.get("referencia");
+                Predicate predicade = builder.like(camppoNome, "%" + referencia + "%");
                 predicates.add(predicade);
             }
             if (categoria != null) {

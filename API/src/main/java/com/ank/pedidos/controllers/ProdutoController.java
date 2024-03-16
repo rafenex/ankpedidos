@@ -36,10 +36,11 @@ public class ProdutoController {
     private ResponseEntity<Page<ProdutoResponse>> findAll(
             Pageable pageable,
             @RequestParam (required = false) String nome,
+            @RequestParam (required = false) String referencia,
             @RequestParam (required = false) BigDecimal valor,
             @RequestParam (required = false) String categoria
             ){
-        return new ResponseEntity<>(produtoService.findAll(nome, valor, categoria, pageable), HttpStatus.OK) ;
+        return new ResponseEntity<>(produtoService.findAll(nome, referencia, valor, categoria, pageable), HttpStatus.OK) ;
     }
     @PostMapping
     private ResponseEntity<Produto> save(@RequestBody @Valid ProdutoRequest produtoRequest){

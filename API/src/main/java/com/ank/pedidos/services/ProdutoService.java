@@ -39,11 +39,12 @@ public class ProdutoService {
 
     public Page<ProdutoResponse> findAll(
             String nome,
+            String referencia,
             BigDecimal valor,
             String categoria,
             Pageable pageable
     ) {
-        Page<Produto> entityPage = produtoRepository.findAll(ProdutoSpec.toSpec(nome, valor , categoria), pageable);
+        Page<Produto> entityPage = produtoRepository.findAll(ProdutoSpec.toSpec(nome, referencia, valor , categoria), pageable);
 
         List<ProdutoResponse> dtoList = entityPage
                 .stream()
