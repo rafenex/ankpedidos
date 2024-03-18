@@ -9,18 +9,18 @@ import java.math.BigDecimal;
 import java.util.List;
 
 public class ProdutoRequest {
+
     @NotBlank(message = "Um nome precisa ser inserido")
     private String nome;
+
     @NotNull(message = "Um valor precisa ser inserido")
     private BigDecimal valorPadrao;
+
     @NotNull(message = "Uma categoria precisa ser inserida")
     private Long categoria;
 
-    public ProdutoRequest(String nome, BigDecimal valorPadrao, Long categoria) {
-        this.nome = nome;
-        this.valorPadrao = valorPadrao;
-        this.categoria = categoria;
-    }
+    @NotNull(message = "Uma categoria precisa ser inserida")
+    private String referencia;
 
     public ProdutoRequest() {
     }
@@ -47,6 +47,14 @@ public class ProdutoRequest {
 
     public void setCategoria(Long categoria) {
         this.categoria = categoria;
+    }
+
+    public String getReferencia() {
+        return referencia;
+    }
+
+    public void setReferencia(String referencia) {
+        this.referencia = referencia;
     }
 
     @Override
