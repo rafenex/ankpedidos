@@ -60,6 +60,7 @@ public class ProdutoService {
     public Produto update(ProdutoRequest produto, Long id) {
         Produto produtoToUpdate = produtoRepository.findById(id).orElseThrow();
         produtoToUpdate.setNome(produto.getNome());
+        produtoToUpdate.setReferencia(produto.getReferencia());
         produtoToUpdate.setCategoria(categoriaRepository.findById(produto.getCategoria()).orElseThrow());
         produtoToUpdate.setValorPadrao(produto.getValorPadrao());
         return produtoRepository.save(produtoToUpdate);
