@@ -57,10 +57,10 @@ public class ProdutoService {
         produtoRepository.deleteById(id);
     }
 
-    public Produto update(Produto produto, Long id) {
+    public Produto update(ProdutoRequest produto, Long id) {
         Produto produtoToUpdate = produtoRepository.findById(id).orElseThrow();
         produtoToUpdate.setNome(produto.getNome());
-        produtoToUpdate.setCategoria(categoriaRepository.findById(produto.getCategoria().getId()).orElseThrow());
+        produtoToUpdate.setCategoria(categoriaRepository.findById(produto.getCategoria()).orElseThrow());
         produtoToUpdate.setValorPadrao(produto.getValorPadrao());
         return produtoRepository.save(produtoToUpdate);
     }

@@ -19,7 +19,7 @@ public class ProdutoRequest {
     @NotNull(message = "Uma categoria precisa ser inserida")
     private Long categoria;
 
-    @NotNull(message = "Uma categoria precisa ser inserida")
+    @NotNull(message = "Uma referencia precisa ser inserida")
     private String referencia;
 
     public ProdutoRequest() {
