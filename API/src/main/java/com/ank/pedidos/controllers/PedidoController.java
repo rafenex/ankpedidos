@@ -31,6 +31,11 @@ public class PedidoController {
         return new ResponseEntity<>(pedidoService.listarPedidos(nomeCliente, pageable), HttpStatus.OK);
     }
 
+    @GetMapping("/{id}")
+    private ResponseEntity<PedidoResponse> findById(@PathVariable Long id) {
+        return new ResponseEntity<>(pedidoService.findById(id), HttpStatus.OK);
+    }
+
     @PostMapping
     private ResponseEntity<Pedido> save(@RequestBody PedidoRequest pedidoRequest){
         return new ResponseEntity<>(pedidoService.save(pedidoRequest), HttpStatus.CREATED);

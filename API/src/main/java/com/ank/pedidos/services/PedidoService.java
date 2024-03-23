@@ -48,4 +48,8 @@ public class PedidoService {
         pedidoRepository.deleteById(id);
     }
 
+    public PedidoResponse findById(Long id) {
+        Pedido pedido = pedidoRepository.findById(id).orElseThrow();
+        return PedidoMapper.INSTANCE.toResponse(pedido);
+    }
 }
