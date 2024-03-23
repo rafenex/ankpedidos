@@ -11,6 +11,8 @@ public class PedidoResponse implements Serializable {
     private Long id;
     private String clienteNome;
     private String clienteEndereco;
+    private String clienteCpf;
+    private String clienteTelefone;
     private List<ItemPedido> itemPedido;
     private LocalDate data;
     private BigDecimal total;
@@ -61,5 +63,21 @@ public class PedidoResponse implements Serializable {
 
     public void setTotal(BigDecimal total) {
         this.total = total;
+    }
+
+    public String getClienteCpf() {
+        return clienteCpf;
+    }
+
+    public void setClienteCpf(String clienteCpf) {
+        this.clienteCpf = clienteCpf;
+    }
+
+    public String getClienteTelefone() {
+        return clienteTelefone;
+    }
+
+    public void setClienteTelefone(String clienteTelefone) {
+        this.clienteTelefone = clienteTelefone;
     }
 }
