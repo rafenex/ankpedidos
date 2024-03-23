@@ -10,19 +10,16 @@ import java.util.List;
 public class ClienteRequest{
     @NotBlank(message = "Um nome precisa ser inserido")
     private String nome;
+
     @NotBlank(message = "Um cpf precisa ser inserido")
     @CPF(message = "Formato do CPF inválido")
     private String cpf;
+
     @NotBlank(message = "Um endereço precisa ser inserido")
     private String endereco;
-    private List<String> telefones;
 
-    public ClienteRequest(String nome, String cpf, String endereco, List<String> telefones) {
-        this.nome = nome;
-        this.cpf = cpf;
-        this.endereco = endereco;
-        this.telefones = telefones;
-    }
+    @NotBlank(message = "Um telefone precisa ser inserido")
+    private String telefone;
 
     public String getNome() {
         return nome;
@@ -48,11 +45,11 @@ public class ClienteRequest{
         this.endereco = endereco;
     }
 
-    public List<String> getTelefones() {
-        return telefones;
+    public String getTelefone() {
+        return telefone;
     }
 
-    public void setTelefones(List<String> telefones) {
-        this.telefones = telefones;
+    public void setTelefone(String telefone) {
+        this.telefone = telefone;
     }
 }

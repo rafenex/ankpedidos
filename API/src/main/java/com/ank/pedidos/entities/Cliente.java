@@ -16,17 +16,6 @@ public class Cliente implements Serializable {
     private String endereco;
     private String telefone;
 
-    public Cliente(Long id, String nome, String cpf, String endereco, String telefone) {
-        this.id = id;
-        this.nome = nome;
-        this.cpf = cpf;
-        this.endereco = endereco;
-        this.telefone = telefone;
-    }
-
-    public Cliente() {
-    }
-
 
     public Long getId() {
         return id;
