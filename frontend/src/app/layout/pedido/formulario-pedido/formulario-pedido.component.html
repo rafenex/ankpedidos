@@ -1,0 +1,125 @@
+<form [formGroup]="userForm" novalidate>
+  <div class="card flex flex-wrap gap-3">
+    <div class="field">
+      <label for="clienteNome" class="block">Nome</label>
+
+      <input
+        type="text"
+        pInputText
+        placeholder="Nome"
+        formControlName="clienteNome"
+      />
+      <small
+        class="p-error block"
+        *ngIf="
+          userForm.get('clienteNome')?.invalid &&
+          userForm.get('clienteNome')?.dirty
+        "
+      >
+        {{ errorMessage }}</small
+      >
+    </div>
+
+    <div class="field">
+      <label for="clienteCpf" class="block">CPF</label>
+
+      <input
+        type="text"
+        pInputText
+        placeholder="CPF"
+        formControlName="clienteCpf"
+      />
+      <small
+        class="p-error block"
+        *ngIf="
+          userForm.get('clienteCpf')?.invalid &&
+          userForm.get('clienteCpf')?.dirty
+        "
+      >
+        {{ errorMessage }}</small
+      >
+    </div>
+  </div>
+  <div class="card flex flex-wrap gap-3">
+    <div class="field">
+      <label for="clienteEndereco" class="block">Endereço</label>
+
+      <input
+        type="text"
+        pInputText
+        placeholder="Endereço"
+        formControlName="clienteEndereco"
+      />
+    </div>
+
+    <div class="field">
+      <label for="telefone" class="block">Telefone</label>
+
+      <input
+        type="text"
+        pInputText
+        placeholder="Telefone"
+        formControlName="clienteTelefone"
+      />
+      <small
+        class="p-error block"
+        *ngIf="
+          userForm.get('clienteTelefone')?.invalid &&
+          userForm.get('clienteTelefone')?.dirty
+        "
+      >
+        {{ errorMessage }}</small
+      >
+    </div>
+  </div>
+
+  <p-table [value]="pedido.itemPedido" [tableStyle]="{ 'min-width': '50rem' }">
+    <ng-template pTemplate="header">
+      <tr>
+        <th>Ref</th>
+        <th>Produto</th>
+        <th>Qtd.</th>
+        <th>R$</th>
+        <th>Cor</th>
+        <th>Total</th>
+        <th>Ações</th>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-itemPedido>
+      <tr>
+        <td>{{ itemPedido.produto.referencia }}</td>
+        <td>{{ itemPedido.produto.nome }}</td>
+        <td>{{ itemPedido.quantidade }}</td>
+        <td>{{ itemPedido.preco }}</td>
+        <td>{{ itemPedido.cor }}</td>
+        <td>{{ itemPedido.total }}</td>
+        <td>
+          <span
+            class="pi pi-list mr-3"
+            style="color: green; cursor: pointer"
+          ></span>
+          <span
+            class="pi pi-trash"
+            style="color: rgb(231, 12, 12); cursor: pointer"
+          ></span>
+        </td>
+      </tr>
+    </ng-template>
+  </p-table>
+  <div class="field mt-3">
+    <label for="total" class="block">Total Pedido</label>
+
+    <input
+      type="text"
+      pInputText
+      placeholder="Total Pedido"
+      formControlName="total"
+    />
+  </div>
+  <button
+    pButton
+    type="submit"
+    label="Salvar"
+    [disabled]="userForm.invalid"
+  ></button>
+</form>

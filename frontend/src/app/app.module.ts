@@ -31,7 +31,7 @@ import { ClienteComponent } from './layout/cliente/cliente.component';
 import { DropdownModule } from 'primeng/dropdown';
 import { InputNumberModule } from 'primeng/inputnumber';
 import { NovoClienteComponent } from './components/cliente/novo-cliente/novo-cliente.component';
-import { PedidoDetalhadoComponent } from './layout/pedido/pedido-detalhado/pedido-detalhado.component';
+import { FormularioPedidoComponent } from './layout/pedido/formulario-pedido/formulario-pedido.component';
 
 @NgModule({
   declarations: [
@@ -46,7 +46,7 @@ import { PedidoDetalhadoComponent } from './layout/pedido/pedido-detalhado/pedid
     PedidoComponent,
     ClienteComponent,
     NovoClienteComponent,
-    PedidoDetalhadoComponent,
+    FormularioPedidoComponent,
   ],
   imports: [
     BrowserModule,

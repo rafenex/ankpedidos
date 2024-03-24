@@ -5,7 +5,7 @@ import { CategoriaComponent } from './layout/categoria/categoria.component';
 import { ProdutoComponent } from './layout/produto/produto.component';
 import { PedidoComponent } from './layout/pedido/pedido.component';
 import { ClienteComponent } from './layout/cliente/cliente.component';
-import { PedidoDetalhadoComponent } from './layout/pedido/pedido-detalhado/pedido-detalhado.component';
+import { FormularioPedidoComponent } from './layout/pedido/formulario-pedido/formulario-pedido.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -13,7 +13,7 @@ const routes: Routes = [
   { path: 'produtos', component: ProdutoComponent },
   { path: 'pedidos', component: PedidoComponent },
   { path: 'clientes', component: ClienteComponent },
-  { path: 'pedido-detalhado/:id', component: PedidoDetalhadoComponent },
+  { path: 'pedido-detalhado/:id', component: FormularioPedidoComponent },
 ];
 
 @NgModule({
