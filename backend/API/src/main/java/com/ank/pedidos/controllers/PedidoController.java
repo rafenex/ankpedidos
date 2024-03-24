@@ -32,7 +32,7 @@ public class PedidoController {
     }
 
     @GetMapping("/{id}")
-    private ResponseEntity<PedidoResponse> findById(@PathVariable Long id) {
+    private ResponseEntity<PedidoResponse>  findById(@PathVariable Long id) {
         return new ResponseEntity<>(pedidoService.findById(id), HttpStatus.OK);
     }
 
