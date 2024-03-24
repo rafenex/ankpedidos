@@ -1,0 +1,49 @@
+<p-table
+  *ngIf="pedidos$ | async as pedidos"
+  [value]="pedidos"
+  [tableStyle]="{ 'min-width': '50rem' }"
+>
+  <ng-template pTemplate="header">
+    <tr>
+      <th>Número</th>
+      <th>Cliente</th>
+      <th>Telefone</th>
+      <th>Data</th>
+      <th>Valor</th>
+      <th>Ações</th>
+    </tr>
+  </ng-template>
+  <ng-template pTemplate="body" let-pedido>
+    <tr>
+      <td>{{ pedido.id }}</td>
+      <td>{{ pedido.clienteNome }}</td>
+      <td>{{ pedido.clienteTelefone }}</td>
+      <td>{{ pedido.data }}</td>
+      <td>{{ pedido.total }}</td>
+
+      <td>
+        <span
+          class="pi pi-eye mr-3"
+          style="color: green; cursor: pointer"
+          (click)="onShow(pedido)"
+        ></span>
+        <span
+          class="pi pi-list mr-3"
+          style="color: green; cursor: pointer"
+        ></span>
+        <span
+          class="pi pi-trash"
+          style="color: rgb(231, 12, 12); cursor: pointer"
+        ></span>
+      </td>
+    </tr>
+  </ng-template>
+</p-table>
+
+<div class="mt-4">
+  <app-nova-categoria *ngIf="openDialog" />
+</div>
+<p-toast></p-toast>
+<p-confirmDialog rejectLabel="Não" acceptLabel="Sim"></p-confirmDialog>
+
+<p-button label="Novo Pedido" severity="secondary"></p-button>

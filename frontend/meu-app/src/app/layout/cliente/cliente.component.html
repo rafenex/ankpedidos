@@ -1,0 +1,54 @@
+<p-table
+  *ngIf="clientes$ | async as clientes"
+  [value]="clientes"
+  [tableStyle]="{ 'min-width': '50rem' }"
+>
+  <ng-template pTemplate="header">
+    <tr>
+      <th>Nome</th>
+      <th>CPF</th>
+      <th>Endereço</th>
+      <th>Telefone</th>
+      <th>Ações</th>
+    </tr>
+  </ng-template>
+  <ng-template pTemplate="body" let-cliente>
+    <tr>
+      <td>{{ cliente.nome }}</td>
+      <td>{{ cliente.cpf }}</td>
+      <td>{{ cliente.endereco }}</td>
+      <td>{{ cliente.telefone }}</td>
+
+      <td>
+        <span
+          class="pi pi-list mr-3"
+          style="color: green; cursor: pointer"
+          (click)="showFormDialog(true, cliente)"
+        ></span>
+        <span
+          class="pi pi-trash"
+          style="color: rgb(231, 12, 12); cursor: pointer"
+          (click)="deleteDialog($event, cliente)"
+        ></span>
+      </td>
+    </tr>
+  </ng-template>
+</p-table>
+
+<div class="mt-4">
+  <app-novo-cliente
+    *ngIf="openDialog"
+    [clienteEditInput]="clienteEdit"
+    (newClienteEvent)="addCliente($event)"
+    (updateClienteEvent)="updateCliente($event)"
+    (closeDialogEvent)="showFormDialog($event)"
+  />
+</div>
+<p-toast></p-toast>
+<p-confirmDialog rejectLabel="Não" acceptLabel="Sim"></p-confirmDialog>
+
+<p-button
+  label="Novo Cliente"
+  severity="secondary"
+  (click)="showFormDialog(true)"
+></p-button>

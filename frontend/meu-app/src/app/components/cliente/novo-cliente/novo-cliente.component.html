@@ -1,0 +1,77 @@
+<div class="card flex justify-content-center">
+  <p-dialog
+    [header]="headerTitle"
+    [modal]="true"
+    [visible]="true"
+    [style]="{ width: '50vw' }"
+    (onDragEnd)="closeDialog()"
+  >
+    <form [formGroup]="userForm" (ngSubmit)="onSubmit()" novalidate>
+      <div class="field">
+        <label for="nome" class="block">Nome</label>
+
+        <input
+          type="text"
+          pInputText
+          placeholder="Nome"
+          formControlName="nome"
+        />
+        <small
+          class="p-error block"
+          *ngIf="userForm.get('nome')?.invalid && userForm.get('nome')?.dirty"
+        >
+          {{ errorMessage }}</small
+        >
+      </div>
+
+      <div class="field">
+        <label for="cpf" class="block">CPF</label>
+
+        <input type="text" pInputText placeholder="CPF" formControlName="cpf" />
+        <small
+          class="p-error block"
+          *ngIf="userForm.get('cpf')?.invalid && userForm.get('cpf')?.dirty"
+        >
+          {{ errorMessage }}</small
+        >
+      </div>
+
+      <div class="field">
+        <label for="nome" class="block">Endereço</label>
+
+        <input
+          type="text"
+          pInputText
+          placeholder="Endereço"
+          formControlName="endereco"
+        />
+      </div>
+
+      <div class="field">
+        <label for="telefone" class="block">Telefone</label>
+
+        <input
+          type="text"
+          pInputText
+          placeholder="Telefone"
+          formControlName="telefone"
+        />
+        <small
+          class="p-error block"
+          *ngIf="
+            userForm.get('telefone')?.invalid && userForm.get('telefone')?.dirty
+          "
+        >
+          {{ errorMessage }}</small
+        >
+      </div>
+
+      <button
+        pButton
+        type="submit"
+        [label]="buttonSaveTitle"
+        [disabled]="userForm.invalid"
+      ></button>
+    </form>
+  </p-dialog>
+</div>

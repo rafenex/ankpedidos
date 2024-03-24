@@ -1,0 +1,67 @@
+<div class="card flex justify-content-center">
+  <p-dialog
+    [header]="headerTitle"
+    [modal]="true"
+    [visible]="true"
+    [style]="{ width: '50vw' }"
+    (onDragEnd)="closeDialog()"
+  >
+    <form [formGroup]="userForm" (ngSubmit)="onSubmit()" novalidate>
+      <div class="field">
+        <label for="categoria" class="block">Categoria</label>
+        <p-dropdown
+          formControlName="categoria"
+          [options]="categorias"
+          optionValue="id"
+          optionLabel="nome"
+          placeholder="Categoria"
+        ></p-dropdown>
+      </div>
+      <label for="referencia" class="block">Referência</label>
+      <div class="field">
+        <input
+          type="text"
+          pInputText
+          placeholder="Referência"
+          formControlName="referencia"
+        />
+      </div>
+
+      <div class="field">
+        <label for="nome" class="block">Nome</label>
+
+        <input
+          type="text"
+          pInputText
+          placeholder="Nome"
+          formControlName="nome"
+        />
+        <small
+          class="p-error block"
+          *ngIf="userForm.get('nome')?.invalid && userForm.get('nome')?.dirty"
+        >
+          {{ errorMessage }}</small
+        >
+      </div>
+      <div class="field">
+        <label for="valorPadrao" class="block">Valor</label>
+
+        <p-inputNumber
+          formControlName="valorPadrao"
+          mode="currency"
+          inputId="currency-japan"
+          currency="BRL"
+          locale="pt-BR"
+        >
+        </p-inputNumber>
+      </div>
+
+      <button
+        pButton
+        type="submit"
+        [label]="buttonSaveTitle"
+        [disabled]="userForm.invalid"
+      ></button>
+    </form>
+  </p-dialog>
+</div>
