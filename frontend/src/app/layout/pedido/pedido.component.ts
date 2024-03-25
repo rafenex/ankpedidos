@@ -29,6 +29,12 @@ export class PedidoComponent {
     });
   }
 
+  novoPedido() {
+    this.router.navigate(['/novo-pedido'], {
+      relativeTo: this.route,
+    });
+  }
+
   ngOnInit(): void {
     this.getProdutos();
   }

@@ -14,6 +14,7 @@ const routes: Routes = [
   { path: 'pedidos', component: PedidoComponent },
   { path: 'clientes', component: ClienteComponent },
   { path: 'pedido-detalhado/:id', component: FormularioPedidoComponent },
+  { path: 'novo-pedido', component: FormularioPedidoComponent },
 ];
 
 @NgModule({

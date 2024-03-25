@@ -1,0 +1,69 @@
+<div class="card flex">
+  <p-button
+    (click)="showDialog()"
+    icon="pi pi-external-link"
+    label="Adicionar Produto"
+    class="field mt-3"
+  ></p-button>
+  <p-dialog
+    header="Adicionar Produto"
+    [(visible)]="visible"
+    [modal]="true"
+    [style]="{ width: '50vw' }"
+    [draggable]="false"
+    [resizable]="false"
+  >
+    <form [formGroup]="userForm" novalidate>
+      <div class="field">
+        <label for="produto" class="block">Produto</label>
+        <p-dropdown
+          [options]="produtos"
+          formControlName="produto"
+          optionValue="id"
+          optionLabel="nome"
+          placeholder="Produto"
+        ></p-dropdown>
+      </div>
+      <div class="card flex flex-wrap gap-3">
+        <div class="field">
+          <label for="quantidade" class="block">Quantidade</label>
+
+          <input
+            type="text"
+            pInputText
+            placeholder="Quantidade"
+            formControlName="quantidade"
+          />
+        </div>
+
+        <div class="field">
+          <label for="cor" class="block">Cor</label>
+
+          <input
+            type="text"
+            pInputText
+            placeholder="Cor"
+            formControlName="cor"
+          />
+        </div>
+      </div>
+      <div class="field">
+        <label for="valor" class="block">Valor</label>
+
+        <input
+          type="text"
+          pInputText
+          placeholder="Valor"
+          formControlName="valor"
+        />
+      </div>
+
+      <button
+        pButton
+        type="submit"
+        label="Adicionar"
+        [disabled]="userForm.invalid"
+      ></button>
+    </form>
+  </p-dialog>
+</div>
