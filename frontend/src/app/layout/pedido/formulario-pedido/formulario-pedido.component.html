@@ -121,6 +121,7 @@
   <app-novo-item-pedido
     *ngIf="produtos$ | async as produtos"
     [produtos]="produtos"
+    (newItemPedidoEvent)="onAddItemPedido($event)"
   ></app-novo-item-pedido>
   <div class="field mt-3">
     <label for="total" class="block">Total Pedido</label>

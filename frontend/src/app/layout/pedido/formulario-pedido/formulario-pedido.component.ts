@@ -87,4 +87,16 @@ export class FormularioPedidoComponent {
       });
     });
   }
+
+  onAddItemPedido(itemPedido: ItemPedido) {
+    console.log(this.pedido.itemPedido);
+    if (this.pedido.itemPedido == undefined) {
+      this.pedido.itemPedido = [];
+    }
+
+    this.pedido.itemPedido.push(itemPedido);
+    this.userForm.patchValue({
+      total: this.pedido.itemPedido.reduce((acc, item) => acc + item.total, 0),
+    });
+  }
 }

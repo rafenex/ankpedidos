@@ -13,7 +13,7 @@
     [draggable]="false"
     [resizable]="false"
   >
-    <form [formGroup]="userForm" novalidate>
+    <form [formGroup]="userForm" (ngSubmit)="onSubmit()" novalidate>
       <div class="field">
         <label for="produto" class="block">Produto</label>
         <p-dropdown
@@ -23,6 +23,18 @@
           optionLabel="nome"
           placeholder="Produto"
         ></p-dropdown>
+      </div>
+      <div class="field">
+        <label for="valor" class="block">Valor Unitário</label>
+
+        <p-inputNumber
+          formControlName="valor"
+          mode="currency"
+          inputId="currency-japan"
+          currency="BRL"
+          locale="pt-BR"
+        >
+        </p-inputNumber>
       </div>
       <div class="card flex flex-wrap gap-3">
         <div class="field">
@@ -46,16 +58,6 @@
             formControlName="cor"
           />
         </div>
-      </div>
-      <div class="field">
-        <label for="valor" class="block">Valor</label>
-
-        <input
-          type="text"
-          pInputText
-          placeholder="Valor"
-          formControlName="valor"
-        />
       </div>
 
       <button
