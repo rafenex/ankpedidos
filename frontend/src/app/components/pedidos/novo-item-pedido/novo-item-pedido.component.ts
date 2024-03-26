@@ -39,5 +39,6 @@ export class NovoItemPedidoComponent {
     } as ItemPedido;
 
     this.newItemPedidoEvent.emit(formData);
+    this.visible = false;
   }
 }

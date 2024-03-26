@@ -19,3 +19,17 @@ export interface ItemPedido {
   cor: string;
   total: number;
 }
+
+export interface PedidoRequest {
+  clienteId: number;
+  itemPedido: ItemPedidoRequest[];
+  total: number;
+}
+
+export interface ItemPedidoRequest {
+  produto: { id: number };
+  quantidade: number;
+  preco: number;
+  cor: string;
+  total: number;
+}

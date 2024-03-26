@@ -1,14 +1,20 @@
 import { Component } from '@angular/core';
-import { ActivatedRoute, ParamMap } from '@angular/router';
+import { ActivatedRoute, ParamMap, Router } from '@angular/router';
 
 import { PedidoService } from '../../../services/pedido/pedido.service';
-import { ItemPedido, Pedido } from '../../../models/pedido/pedido';
+import {
+  ItemPedido,
+  ItemPedidoRequest,
+  Pedido,
+  PedidoRequest,
+} from '../../../models/pedido/pedido';
 import { FormBuilder, Validators } from '@angular/forms';
 import { Observable } from 'rxjs';
 import { Cliente } from '../../../models/cliente/cliente';
 import { ClienteService } from '../../../services/cliente/cliente.service';
 import { Produto } from '../../../models/produto/produto';
 import { ProdutoService } from '../../../services/produto/produto.service';
+import { MessageService } from 'primeng/api';
 
 @Component({
   selector: 'app-formulario-pedido',
@@ -18,6 +24,7 @@ import { ProdutoService } from '../../../services/produto/produto.service';
 export class FormularioPedidoComponent {
   id: any;
   pedido = {} as Pedido;
+  pedidoRequest = {} as PedidoRequest;
   errorMessage = 'Digite um nome válido';
   clientes$!: Observable<Cliente[]>;
   produtos$!: Observable<Produto[]>;
@@ -27,7 +34,9 @@ export class FormularioPedidoComponent {
     private pedidoService: PedidoService,
     private fb: FormBuilder,
     private clienteService: ClienteService,
-    private produtoService: ProdutoService
+    private produtoService: ProdutoService,
+    private messageService: MessageService,
+    private router: Router
   ) {}
 
   userForm = this.fb.group({
@@ -41,6 +50,8 @@ export class FormularioPedidoComponent {
   });
 
   ngOnInit() {
+    this.pedidoRequest.itemPedido = [];
+    this.pedido.itemPedido = [];
     this.route.paramMap.subscribe((params: ParamMap) => {
       if (params.has('id')) {
         this.id = params.get('id');
@@ -85,18 +96,48 @@ export class FormularioPedidoComponent {
         clienteEndereco: cliente.endereco,
         clienteTelefone: cliente.telefone,
       });
+      this.pedidoRequest.clienteId = idCliente;
     });
   }
 
   onAddItemPedido(itemPedido: ItemPedido) {
-    console.log(this.pedido.itemPedido);
-    if (this.pedido.itemPedido == undefined) {
-      this.pedido.itemPedido = [];
-    }
-
     this.pedido.itemPedido.push(itemPedido);
     this.userForm.patchValue({
       total: this.pedido.itemPedido.reduce((acc, item) => acc + item.total, 0),
+    });
+    const newItemPedido = {} as ItemPedidoRequest;
+    newItemPedido.cor = itemPedido.cor;
+    newItemPedido.preco = itemPedido.preco;
+    newItemPedido.produto = { id: itemPedido.produto.id };
+    newItemPedido.quantidade = itemPedido.quantidade;
+    this.pedidoRequest.itemPedido.push(newItemPedido);
+  }
+
+  onSubmit() {
+    this.savePedido(this.pedidoRequest);
+  }
+
+  savePedido(pedidoRequest: PedidoRequest) {
+    this.pedidoService.savePedido(pedidoRequest).subscribe({
+      next: () => {
+        this.messageService.add({
+          severity: 'info',
+          summary: 'Confirmado',
+          detail: 'Pedido salvo',
+        });
+        setTimeout(() => {
+          this.router.navigate(['/pedidos'], {
+            relativeTo: this.route,
+          });
+        }, 1000);
+      },
+      error: (error) => {
+        this.messageService.add({
+          severity: 'error',
+          summary: 'Erro: ' + error.status,
+          detail: 'Ocorreu um erro ao salvar pedido',
+        });
+      },
     });
   }
 }

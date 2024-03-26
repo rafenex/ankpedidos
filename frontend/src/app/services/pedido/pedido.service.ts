@@ -1,7 +1,7 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, catchError, map } from 'rxjs';
-import { Pedido } from '../../models/pedido/pedido';
+import { Pedido, PedidoRequest } from '../../models/pedido/pedido';
 import { handleError } from '../errorHandling';
 
 @Injectable({
@@ -28,6 +28,12 @@ export class PedidoService {
   findById(id: number): Observable<Pedido> {
     return this.http
       .get<any>(`${this.URL}/${id}`)
+      .pipe(catchError(handleError));
+  }
+
+  savePedido(pedido: PedidoRequest) {
+    return this.http
+      .post<PedidoRequest>(this.URL, pedido, this.httpOptions)
       .pipe(catchError(handleError));
   }
 }

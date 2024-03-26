@@ -1,4 +1,4 @@
-<form [formGroup]="userForm" novalidate>
+<form [formGroup]="userForm" (ngSubmit)="onSubmit()" novalidate>
   <div class="field">
     <label for="categoria" class="block">Cliente</label>
     <p-dropdown
@@ -133,6 +133,7 @@
       formControlName="total"
     />
   </div>
+
   <button
     pButton
     type="submit"
@@ -140,3 +141,5 @@
     [disabled]="userForm.invalid"
   ></button>
 </form>
+<p-toast></p-toast>
+<p-confirmDialog rejectLabel="Não" acceptLabel="Sim"></p-confirmDialog>
