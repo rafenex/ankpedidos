@@ -1,8 +1,10 @@
 package com.ank.pedidos.services;
 
+import com.ank.pedidos.controllers.dto.FiltroPedidoDto;
 import com.ank.pedidos.controllers.dto.PedidoRequest;
 import com.ank.pedidos.controllers.dto.PedidoResponse;
 import com.ank.pedidos.controllers.dto.mapper.PedidoMapper;
+import com.ank.pedidos.controllers.spec.PedidoSpec;
 import com.ank.pedidos.entities.ItemPedido;
 import com.ank.pedidos.entities.Pedido;
 import com.ank.pedidos.repositories.ClienteRepository;
@@ -40,8 +42,8 @@ public class PedidoService {
         return pedidoRepository.save(pedido);
     }
 
-    public Page<PedidoResponse> listarPedidos(String nomeCliente, Pageable pageable){
-        return PedidoMapper.INSTANCE.toResponse(pedidoRepository.findByNomeClienteContainingIgnoreCase(nomeCliente, pageable));
+    public Page<PedidoResponse> listarPedidos(FiltroPedidoDto filtro, Pageable pageable){
+        return PedidoMapper.INSTANCE.toResponse(pedidoRepository.findAll(PedidoSpec.toSpec(filtro), pageable));
     }
 
     public void delete(Long id) {
