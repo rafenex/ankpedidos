@@ -18,7 +18,8 @@ public class Pedido implements Serializable {
     @ManyToOne
     @JoinColumn(name = "cliente_id", referencedColumnName = "id", foreignKey = @ForeignKey(name = "FK_PEDIDO_CLIENTE"))
     private Cliente cliente;
-    @OneToMany
+
+    @OneToMany(cascade = CascadeType.ALL)
     @JsonIgnore
     private List<ItemPedido> itemPedido;
 
