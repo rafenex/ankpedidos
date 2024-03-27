@@ -3,6 +3,7 @@ import { PedidoService } from '../../services/pedido/pedido.service';
 import { Pedido } from '../../models/pedido/pedido';
 import { Observable } from 'rxjs';
 import { ActivatedRoute, Router } from '@angular/router';
+import { ConfirmationService, MessageService } from 'primeng/api';
 
 @Component({
   selector: 'app-pedido',
@@ -13,7 +14,9 @@ export class PedidoComponent {
   constructor(
     private pedidoService: PedidoService,
     private router: Router,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private confirmationService: ConfirmationService,
+    private messageService: MessageService
   ) {}
   pedidos$!: Observable<Pedido[]>;
   displayedColumns = ['id', 'clienteNome', 'clienteEndereco', 'data', 'total'];
@@ -32,6 +35,54 @@ export class PedidoComponent {
   novoPedido() {
     this.router.navigate(['/novo-pedido'], {
       relativeTo: this.route,
+    });
+  }
+
+  deletePedido(pedido: Pedido) {
+    this.pedidoService.deletePedido(pedido.id).subscribe({
+      next: () => {
+        this.messageService.add({
+          severity: 'info',
+          summary: 'Confirmado',
+          detail: 'Categoria removida',
+        });
+        setTimeout(() => {
+          this.router.navigate(['/pedidos'], {
+            relativeTo: this.route,
+          });
+        }, 1000);
+      },
+      error: (error) => {
+        this.messageService.add({
+          severity: 'error',
+          summary: 'Erro: ' + error.status,
+          detail: 'Ocorreu um erro ao deletar categoria',
+        });
+      },
+    });
+  }
+
+  deleteDialog(event: Event, pedido: Pedido) {
+    this.confirmationService.confirm({
+      target: event.target as EventTarget,
+      message: `Deseja remover a pedido ${pedido.id}?`,
+      header: 'Confirmação de remoção',
+      icon: 'pi pi-info-circle',
+      acceptButtonStyleClass: 'p-button-danger p-button-text',
+      rejectButtonStyleClass: 'p-button-text p-button-text',
+      acceptIcon: 'none',
+      rejectIcon: 'none',
+
+      accept: () => {
+        this.deletePedido(pedido);
+      },
+      reject: () => {
+        this.messageService.add({
+          severity: 'error',
+          summary: 'Rejeitado',
+          detail: 'Você rejeitou a ação',
+        });
+      },
     });
   }
 

@@ -36,4 +36,11 @@ export class PedidoService {
       .post<PedidoRequest>(this.URL, pedido, this.httpOptions)
       .pipe(catchError(handleError));
   }
+
+  deletePedido(id: number): Observable<unknown> {
+    const url = `${this.URL}/${id}`;
+    return this.http
+      .delete(url, this.httpOptions)
+      .pipe(catchError(handleError));
+  }
 }

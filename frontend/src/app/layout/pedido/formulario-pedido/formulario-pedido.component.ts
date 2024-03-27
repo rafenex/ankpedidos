@@ -14,7 +14,7 @@ import { Cliente } from '../../../models/cliente/cliente';
 import { ClienteService } from '../../../services/cliente/cliente.service';
 import { Produto } from '../../../models/produto/produto';
 import { ProdutoService } from '../../../services/produto/produto.service';
-import { MessageService } from 'primeng/api';
+import { ConfirmationService, MessageService } from 'primeng/api';
 
 @Component({
   selector: 'app-formulario-pedido',
@@ -23,7 +23,16 @@ import { MessageService } from 'primeng/api';
 })
 export class FormularioPedidoComponent {
   id: any;
-  pedido = {} as Pedido;
+  pedido = {
+    id: 0,
+    clienteNome: '',
+    clienteTelefone: '',
+    clienteCpf: '',
+    clienteEndereco: '',
+    itemPedido: [],
+    data: '',
+    total: 0,
+  } as Pedido;
   pedidoRequest = {} as PedidoRequest;
   errorMessage = 'Digite um nome válido';
   clientes$!: Observable<Cliente[]>;
@@ -36,7 +45,8 @@ export class FormularioPedidoComponent {
     private clienteService: ClienteService,
     private produtoService: ProdutoService,
     private messageService: MessageService,
-    private router: Router
+    private router: Router,
+    private confirmationService: ConfirmationService
   ) {}
 
   userForm = this.fb.group({
@@ -102,15 +112,6 @@ export class FormularioPedidoComponent {
 
   onAddItemPedido(itemPedido: ItemPedido) {
     this.pedido.itemPedido.push(itemPedido);
-    this.userForm.patchValue({
-      total: this.pedido.itemPedido.reduce((acc, item) => acc + item.total, 0),
-    });
-    const newItemPedido = {} as ItemPedidoRequest;
-    newItemPedido.cor = itemPedido.cor;
-    newItemPedido.preco = itemPedido.preco;
-    newItemPedido.produto = { id: itemPedido.produto.id };
-    newItemPedido.quantidade = itemPedido.quantidade;
-    this.pedidoRequest.itemPedido.push(newItemPedido);
   }
 
   onSubmit() {
@@ -118,6 +119,15 @@ export class FormularioPedidoComponent {
   }
 
   savePedido(pedidoRequest: PedidoRequest) {
+    this.pedido.itemPedido.forEach((itemPedido) => {
+      const newItemPedido = {} as ItemPedidoRequest;
+      newItemPedido.cor = itemPedido.cor;
+      newItemPedido.preco = itemPedido.preco;
+      newItemPedido.produto = { id: itemPedido.produto.id };
+      newItemPedido.quantidade = itemPedido.quantidade;
+      this.pedidoRequest.itemPedido.push(newItemPedido);
+    });
+
     this.pedidoService.savePedido(pedidoRequest).subscribe({
       next: () => {
         this.messageService.add({
@@ -139,5 +149,43 @@ export class FormularioPedidoComponent {
         });
       },
     });
+  }
+
+  deleteItemPedido(itemPedido: ItemPedido) {
+    const index = this.pedido.itemPedido.indexOf(itemPedido);
+    const x = this.pedido.itemPedido.splice(index, 1);
+    console.log(this.pedido.itemPedido);
+    console.log(this.pedidoRequest.itemPedido);
+  }
+
+  deleteDialog(event: Event, itemPedido: ItemPedido) {
+    this.confirmationService.confirm({
+      target: event.target as EventTarget,
+      message: `Deseja remover a pedido ${itemPedido.id}?`,
+      header: 'Confirmação de remoção',
+      icon: 'pi pi-info-circle',
+      acceptButtonStyleClass: 'p-button-danger p-button-text',
+      rejectButtonStyleClass: 'p-button-text p-button-text',
+      acceptIcon: 'none',
+      rejectIcon: 'none',
+
+      accept: () => {
+        this.deleteItemPedido(itemPedido);
+      },
+      reject: () => {
+        this.messageService.add({
+          severity: 'error',
+          summary: 'Rejeitado',
+          detail: 'Você rejeitou a ação',
+        });
+      },
+    });
+  }
+  totalPedido(): number {
+    const total = this.pedido.itemPedido.reduce(
+      (acc, item) => acc + item.total,
+      0
+    );
+    return total;
   }
 }
