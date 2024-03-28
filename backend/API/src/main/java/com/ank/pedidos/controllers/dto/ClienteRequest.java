@@ -3,6 +3,7 @@ package com.ank.pedidos.controllers.dto;
 import com.ank.pedidos.entities.Cliente;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotEmpty;
+import org.hibernate.validator.constraints.br.CNPJ;
 import org.hibernate.validator.constraints.br.CPF;
 
 import java.util.List;
@@ -11,9 +12,11 @@ public class ClienteRequest{
     @NotBlank(message = "Um nome precisa ser inserido")
     private String nome;
 
-    @NotBlank(message = "Um cpf precisa ser inserido")
     @CPF(message = "Formato do CPF inválido")
     private String cpf;
+
+    @CNPJ(message = "Formato do CNPJ inválido")
+    private String cnpj;
 
     @NotBlank(message = "Um endereço precisa ser inserido")
     private String endereco;
@@ -51,5 +54,13 @@ public class ClienteRequest{
 
     public void setTelefone(String telefone) {
         this.telefone = telefone;
+    }
+
+    public String getCnpj() {
+        return cnpj;
+    }
+
+    public void setCnpj(String cnpj) {
+        this.cnpj = cnpj;
     }
 }

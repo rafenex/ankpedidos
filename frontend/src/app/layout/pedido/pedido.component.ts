@@ -22,7 +22,7 @@ export class PedidoComponent {
   displayedColumns = ['id', 'clienteNome', 'clienteEndereco', 'data', 'total'];
   openDialog = false;
 
-  getProdutos() {
+  getPedidos() {
     this.pedidos$ = this.pedidoService.getPedidos();
   }
 
@@ -44,19 +44,15 @@ export class PedidoComponent {
         this.messageService.add({
           severity: 'info',
           summary: 'Confirmado',
-          detail: 'Categoria removida',
+          detail: 'Pedido removido',
         });
-        setTimeout(() => {
-          this.router.navigate(['/pedidos'], {
-            relativeTo: this.route,
-          });
-        }, 1000);
+        this.getPedidos();
       },
       error: (error) => {
         this.messageService.add({
           severity: 'error',
           summary: 'Erro: ' + error.status,
-          detail: 'Ocorreu um erro ao deletar categoria',
+          detail: 'Ocorreu um erro ao deletar pedido',
         });
       },
     });
@@ -87,6 +83,6 @@ export class PedidoComponent {
   }
 
   ngOnInit(): void {
-    this.getProdutos();
+    this.getPedidos();
   }
 }
