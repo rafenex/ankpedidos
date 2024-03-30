@@ -17,13 +17,29 @@ export class NovoClienteComponent {
   @Input() clientes = [] as Cliente[];
 
   constructor(private fb: FormBuilder) {}
+  isCnpj = true;
   clienteEdit = {} as Cliente;
-  errorMessage = 'Digite um nome válido';
+  errorMessage = 'Digite um valor válido';
   headerTitle: string = 'Novo Produto';
   buttonSaveTitle = 'Salvar';
+  selectedDocType: any = { name: 'CNPJ', key: 'cnpj' };
+  categories: any[] = [
+    { name: 'CPF', key: 'cpf' },
+    { name: 'CNPJ', key: 'cnpj' },
+  ];
+
   userForm = this.fb.group({
     nome: ['', Validators.required],
-    cpf: ['', Validators.required],
+    cpfcnpj: [
+      '',
+      [
+        !this.isCnpj ? Validators.required : Validators.nullValidator,
+        Validators.pattern(
+          /^(\d{2}\.?\d{3}\.?\d{3}\/?\d{4}-?\d{2}|\d{3}\.?\d{3}\.?\d{3}-?\d{2})$/
+        ),
+      ],
+    ],
+
     endereco: [''],
     telefone: ['', Validators.required],
   });
@@ -51,18 +67,20 @@ export class NovoClienteComponent {
 
   addCliente() {
     let formData = this.userForm.value as Cliente;
+    formData.tipo = this.selectedDocType.name == 'CPF' ? 'PF' : 'PJ';
     formData.nome = formData.nome.toUpperCase();
     this.newClienteEvent.emit(formData);
     this.closeDialog();
   }
 
   ngOnInit(): void {
+    this.selectedDocType = this.categories[1];
     if (this.clienteEditInput.nome != undefined) {
       this.headerTitle = 'Editar Cliente';
       this.buttonSaveTitle = 'Editar';
       this.userForm.setValue({
         nome: this.clienteEditInput.nome,
-        cpf: this.clienteEditInput.cpf,
+        cpfcnpj: this.clienteEditInput.cpfcnpj,
         endereco: this.clienteEditInput.endereco,
         telefone: this.clienteEditInput.telefone,
       });

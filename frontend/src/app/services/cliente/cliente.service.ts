@@ -25,10 +25,10 @@ export class ClienteService {
     );
   }
 
-  addCliente(cliente: ClienteForm) {
+  addCliente(cliente: Cliente) {
     console.log(cliente);
     return this.http
-      .post<ClienteForm>(this.URL, cliente, this.httpOptions)
+      .post<Cliente>(this.URL, cliente, this.httpOptions)
       .pipe(catchError(handleError));
   }
 

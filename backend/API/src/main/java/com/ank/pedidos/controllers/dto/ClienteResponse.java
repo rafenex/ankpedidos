@@ -9,9 +9,10 @@ import java.util.List;
 public class ClienteResponse implements Serializable {
     Long id;
     String nome;
-    String cpf;
+    String cpfcnpj;
     String endereco;
     String telefone;
+    String tipo;
 
     public Long getId() {
         return id;
@@ -29,12 +30,12 @@ public class ClienteResponse implements Serializable {
         this.nome = nome;
     }
 
-    public String getCpf() {
-        return cpf;
+    public String getCpfcnpj() {
+        return cpfcnpj;
     }
 
-    public void setCpf(String cpf) {
-        this.cpf = cpf;
+    public void setCpfcnpj(String cpfcnpj) {
+        this.cpfcnpj = cpfcnpj;
     }
 
     public String getEndereco() {
@@ -51,5 +52,13 @@ public class ClienteResponse implements Serializable {
 
     public void setTelefone(String telefone) {
         this.telefone = telefone;
+    }
+
+    public String getTipo() {
+        return tipo;
+    }
+
+    public void setTipo(String tipo) {
+        this.tipo = tipo;
     }
 }

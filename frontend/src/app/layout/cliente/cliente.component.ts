@@ -16,7 +16,7 @@ export class ClienteComponent {
     private confirmationService: ConfirmationService
   ) {}
   clientes$!: Observable<Cliente[]>;
-  displayedColumns = ['nome', 'cpf', 'endereco', 'telefone', 'acoes'];
+  displayedColumns = ['nome', 'cpfcnpj', 'endereco', 'telefone', 'acoes'];
   openDialog = false;
   clienteEdit = {} as Cliente;
 

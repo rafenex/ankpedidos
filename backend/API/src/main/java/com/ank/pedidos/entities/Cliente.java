@@ -12,10 +12,12 @@ public class Cliente implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String nome;
-    private String cpf;
-    private String cnpj;
+    private String cpfcnpj;
     private String endereco;
     private String telefone;
+
+    @Enumerated(EnumType.STRING)
+    private TipoClienteEnum tipo;
 
 
     public Long getId() {
@@ -34,14 +36,6 @@ public class Cliente implements Serializable {
         this.nome = nome;
     }
 
-    public String getCpf() {
-        return cpf;
-    }
-
-    public void setCpf(String cpf) {
-        this.cpf = cpf;
-    }
-
     public String getEndereco() {
         return endereco;
     }
@@ -58,11 +52,19 @@ public class Cliente implements Serializable {
         this.telefone = telefone;
     }
 
-    public String getCnpj() {
-        return cnpj;
+    public String getCpfcnpj() {
+        return cpfcnpj;
     }
 
-    public void setCnpj(String cnpj) {
-        this.cnpj = cnpj;
+    public void setCpfcnpj(String cpfcnpj) {
+        this.cpfcnpj = cpfcnpj;
+    }
+
+    public TipoClienteEnum getTipo() {
+        return tipo;
+    }
+
+    public void setTipo(TipoClienteEnum tipo) {
+        this.tipo = tipo;
     }
 }

@@ -3,10 +3,13 @@ CREATE TABLE categoria (
     nome VARCHAR(255),
     PRIMARY KEY (id)
 );
+ALTER TABLE categoria
+ADD CONSTRAINT NOME_CATEGORIA_UNIQUE UNIQUE (nome);
+
 
 CREATE TABLE cliente (
     id BIGINT NOT NULL AUTO_INCREMENT,
-    cpf VARCHAR(255) UNIQUE,
+    cpfcnpj VARCHAR(255) UNIQUE,
     endereco VARCHAR(255),
     nome VARCHAR(255),
     telefone VARCHAR(255),
@@ -24,6 +27,9 @@ CREATE TABLE produto (
         FOREIGN KEY (categoria_id)
         REFERENCES categoria (id)
 );
+
+ALTER TABLE produto
+ADD CONSTRAINT NOME_PRODUTO_UNIQUE UNIQUE (nome);
 
 CREATE TABLE image_data (
     id BIGINT NOT NULL AUTO_INCREMENT,

@@ -33,6 +33,8 @@ import { InputNumberModule } from 'primeng/inputnumber';
 import { NovoClienteComponent } from './components/cliente/novo-cliente/novo-cliente.component';
 import { FormularioPedidoComponent } from './layout/pedido/formulario-pedido/formulario-pedido.component';
 import { NovoItemPedidoComponent } from './components/pedidos/novo-item-pedido/novo-item-pedido.component';
+import { RadioButtonModule } from 'primeng/radiobutton';
+import { InputMaskModule } from 'primeng/inputmask';
 
 @NgModule({
   declarations: [
@@ -67,6 +69,8 @@ import { NovoItemPedidoComponent } from './components/pedidos/novo-item-pedido/n
     DropdownModule,
     InputNumberModule,
     FormsModule,
+    RadioButtonModule,
+    InputMaskModule,
   ],
   providers: [
     ConfirmationService,

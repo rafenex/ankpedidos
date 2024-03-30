@@ -20,7 +20,7 @@ public interface PedidoMapper {
 
     @Mapping(target="clienteNome", source="cliente.nome")
     @Mapping(target="clienteEndereco", source="cliente.endereco")
-    @Mapping(target="clienteCpf", source="cliente.cpf")
+    @Mapping(target="clienteCpfCnpj", source="cliente.cpfcnpj")
     @Mapping(target="clienteTelefone", source="cliente.telefone")
     PedidoResponse toResponse(Pedido pedido);
 

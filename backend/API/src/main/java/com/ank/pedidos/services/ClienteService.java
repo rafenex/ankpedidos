@@ -32,7 +32,7 @@ public class ClienteService {
 
     public ClienteResponse updateCliente(ClienteRequest request, Long id) {
         Cliente cliente = clienteRepository.findById(id).orElseThrow();
-        cliente.setCpf(request.getCpf());
+        cliente.setCpfcnpj(request.getCpfcnpj());
         cliente.setEndereco(request.getEndereco());
         cliente.setNome(request.getNome());
         cliente.setTelefone(request.getTelefone());

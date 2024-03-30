@@ -11,7 +11,7 @@ public class PedidoResponse implements Serializable {
     private Long id;
     private String clienteNome;
     private String clienteEndereco;
-    private String clienteCpf;
+    private String clienteCpfCnpj;
     private String clienteTelefone;
     private List<ItemPedido> itemPedido;
     private LocalDate data;
@@ -65,12 +65,12 @@ public class PedidoResponse implements Serializable {
         this.total = total;
     }
 
-    public String getClienteCpf() {
-        return clienteCpf;
+    public String getClienteCpfCnpj() {
+        return clienteCpfCnpj;
     }
 
-    public void setClienteCpf(String clienteCpf) {
-        this.clienteCpf = clienteCpf;
+    public void setClienteCpfCnpj(String clienteCpfCnpj) {
+        this.clienteCpfCnpj = clienteCpfCnpj;
     }
 
     public String getClienteTelefone() {

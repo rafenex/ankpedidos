@@ -1,6 +1,7 @@
 package com.ank.pedidos.controllers.dto;
 
 import com.ank.pedidos.entities.Cliente;
+import com.ank.pedidos.entities.TipoClienteEnum;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotEmpty;
 import org.hibernate.validator.constraints.br.CNPJ;
@@ -12,17 +13,16 @@ public class ClienteRequest{
     @NotBlank(message = "Um nome precisa ser inserido")
     private String nome;
 
-    @CPF(message = "Formato do CPF inválido")
-    private String cpf;
-
-    @CNPJ(message = "Formato do CNPJ inválido")
-    private String cnpj;
+    @NotBlank(message = "Um cpf ou cnpj precisa ser inserido")
+    private String cpfcnpj;
 
     @NotBlank(message = "Um endereço precisa ser inserido")
     private String endereco;
 
     @NotBlank(message = "Um telefone precisa ser inserido")
     private String telefone;
+
+    private TipoClienteEnum tipo;
 
     public String getNome() {
         return nome;
@@ -32,13 +32,7 @@ public class ClienteRequest{
         this.nome = nome;
     }
 
-    public String getCpf() {
-        return cpf;
-    }
 
-    public void setCpf(String cpf) {
-        this.cpf = cpf;
-    }
 
     public String getEndereco() {
         return endereco;
@@ -56,11 +50,19 @@ public class ClienteRequest{
         this.telefone = telefone;
     }
 
-    public String getCnpj() {
-        return cnpj;
+    public String getCpfcnpj() {
+        return cpfcnpj;
     }
 
-    public void setCnpj(String cnpj) {
-        this.cnpj = cnpj;
+    public void setCpfcnpj(String cpfcnpj) {
+        this.cpfcnpj = cpfcnpj;
+    }
+
+    public TipoClienteEnum getTipo() {
+        return tipo;
+    }
+
+    public void setTipo(TipoClienteEnum tipo) {
+        this.tipo = tipo;
     }
 }

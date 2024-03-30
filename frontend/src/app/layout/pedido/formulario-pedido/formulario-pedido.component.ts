@@ -102,7 +102,7 @@ export class FormularioPedidoComponent {
       cliente = clientes.find((c) => c.id === idCliente) ?? ({} as Cliente);
       this.userForm.patchValue({
         clienteNome: cliente.nome,
-        clienteCpf: cliente.cpf,
+        clienteCpf: cliente.cpfcnpj,
         clienteEndereco: cliente.endereco,
         clienteTelefone: cliente.telefone,
       });
