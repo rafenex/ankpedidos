@@ -33,19 +33,19 @@
     </div>
 
     <div class="field">
-      <label for="clienteCpf" class="block">CPF</label>
+      <label for="clienteCpfCnpj" class="block">CPF</label>
 
       <input
         type="text"
         pInputText
         placeholder="CPF"
-        formControlName="clienteCpf"
+        formControlName="clienteCpfCnpj"
       />
       <small
         class="p-error block"
         *ngIf="
-          userForm.get('clienteCpf')?.invalid &&
-          userForm.get('clienteCpf')?.dirty
+          userForm.get('clienteCpfCnpj')?.invalid &&
+          userForm.get('clienteCpfCnpj')?.dirty
         "
       >
         {{ errorMessage }}</small

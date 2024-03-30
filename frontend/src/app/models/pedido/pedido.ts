@@ -4,7 +4,7 @@ export interface Pedido {
   id: number;
   clienteNome: string;
   clienteTelefone: string;
-  clienteCpf: string;
+  clienteCpfCnpj: string;
   clienteEndereco: string;
   itemPedido: ItemPedido[];
   data: string;

@@ -27,7 +27,7 @@ export class FormularioPedidoComponent {
     id: 0,
     clienteNome: '',
     clienteTelefone: '',
-    clienteCpf: '',
+    clienteCpfCnpj: '',
     clienteEndereco: '',
     itemPedido: [],
     data: '',
@@ -54,7 +54,7 @@ export class FormularioPedidoComponent {
     id: 0,
     clienteNome: '',
     clienteTelefone: '',
-    clienteCpf: '',
+    clienteCpfCnpj: '',
     clienteEndereco: '',
     total: 0,
   });
@@ -87,7 +87,7 @@ export class FormularioPedidoComponent {
         id: this.pedido.id,
         cliente: 0,
         clienteNome: this.pedido.clienteNome,
-        clienteCpf: this.pedido.clienteCpf,
+        clienteCpfCnpj: this.pedido.clienteCpfCnpj,
         clienteEndereco: this.pedido.clienteEndereco,
         clienteTelefone: this.pedido.clienteTelefone,
         total: this.pedido.total,
@@ -102,7 +102,7 @@ export class FormularioPedidoComponent {
       cliente = clientes.find((c) => c.id === idCliente) ?? ({} as Cliente);
       this.userForm.patchValue({
         clienteNome: cliente.nome,
-        clienteCpf: cliente.cpfcnpj,
+        clienteCpfCnpj: cliente.cpfcnpj,
         clienteEndereco: cliente.endereco,
         clienteTelefone: cliente.telefone,
       });
