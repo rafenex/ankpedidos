@@ -18,8 +18,8 @@
       <td>{{ pedido.id }}</td>
       <td>{{ pedido.clienteNome }}</td>
       <td>{{ pedido.clienteTelefone }}</td>
-      <td>{{ pedido.data }}</td>
-      <td>{{ pedido.total }}</td>
+      <td>{{ pedido.data | date : "dd/MM/yyyy" }}</td>
+      <td>{{ pedido.total | currency : "BRL" }}</td>
 
       <td>
         <span

@@ -78,9 +78,9 @@
         <td>{{ itemPedido.produto.referencia }}</td>
         <td>{{ itemPedido.produto.nome }}</td>
         <td>{{ itemPedido.quantidade }}</td>
-        <td>{{ itemPedido.preco }}</td>
+        <td>{{ itemPedido.preco | currency : "BRL" }}</td>
         <td>{{ itemPedido.cor }}</td>
-        <td>{{ itemPedido.total }}</td>
+        <td>{{ itemPedido.total | currency : "BRL" }}</td>
         <td *ngIf="!formDisable">
           <span
             class="pi pi-list mr-3"
@@ -98,7 +98,11 @@
 
   <ng-container *ngIf="!formDisable">
     <ng-container *ngIf="produtos$ | async as produtos">
-      <app-novo-item-pedido [produtos]="produtos"></app-novo-item-pedido>
+      <app-novo-item-pedido
+        [produtos]="produtos"
+        (newItemPedidoEvent)="onAddItemPedido($event)"
+        [produtos]="produtos"
+      ></app-novo-item-pedido>
     </ng-container>
   </ng-container>
   <div class="mt-3 mb-3">
@@ -110,9 +114,9 @@
     pButton
     type="submit"
     label="Salvar"
-    [disabled]="userForm.invalid"
+    [disabled]="userForm.invalid || pedido.itemPedido.length == 0"
   ></button>
 </form>
-<button pButton (click)="backToPedidos()" label="Voltar"></button>
+<button class="mt-5" pButton (click)="backToPedidos()" label="Voltar"></button>
 <p-toast></p-toast>
 <p-confirmDialog rejectLabel="Não" acceptLabel="Sim"></p-confirmDialog>

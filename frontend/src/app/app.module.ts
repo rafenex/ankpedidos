@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { DEFAULT_CURRENCY_CODE, LOCALE_ID, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -23,7 +23,7 @@ import { InputTextModule } from 'primeng/inputtext';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { ToastModule } from 'primeng/toast';
 import { ConfirmationService, MessageService } from 'primeng/api';
-import { CommonModule } from '@angular/common';
+import { CommonModule, registerLocaleData } from '@angular/common';
 import { ProdutoComponent } from './layout/produto/produto.component';
 import { NovoProdutoComponent } from './components/produto/novo-produto/novo-produto.component';
 import { PedidoComponent } from './layout/pedido/pedido.component';
@@ -35,6 +35,8 @@ import { FormularioPedidoComponent } from './layout/pedido/formulario-pedido/for
 import { NovoItemPedidoComponent } from './components/pedidos/novo-item-pedido/novo-item-pedido.component';
 import { RadioButtonModule } from 'primeng/radiobutton';
 import { InputMaskModule } from 'primeng/inputmask';
+import ptBr from '@angular/common/locales/pt';
+registerLocaleData(ptBr);
 
 @NgModule({
   declarations: [
@@ -76,6 +78,8 @@ import { InputMaskModule } from 'primeng/inputmask';
     ConfirmationService,
     MessageService,
     provideHttpClient(withFetch()),
+
+    { provide: LOCALE_ID, useValue: 'pt' },
   ],
   bootstrap: [AppComponent],
 })

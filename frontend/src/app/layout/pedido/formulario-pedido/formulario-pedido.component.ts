@@ -53,7 +53,7 @@ export class FormularioPedidoComponent {
   userForm = this.fb.group({
     cliente: 0,
     id: 0,
-    clienteNome: '',
+    clienteNome: ['', Validators.required],
     clienteTelefone: '',
     clienteCpfCnpj: '',
     clienteEndereco: '',
@@ -163,7 +163,7 @@ export class FormularioPedidoComponent {
   deleteDialog(event: Event, itemPedido: ItemPedido) {
     this.confirmationService.confirm({
       target: event.target as EventTarget,
-      message: `Deseja remover a pedido ${itemPedido.id}?`,
+      message: `Deseja remover  ${itemPedido.produto.nome}?`,
       header: 'Confirmação de remoção',
       icon: 'pi pi-info-circle',
       acceptButtonStyleClass: 'p-button-danger p-button-text',
