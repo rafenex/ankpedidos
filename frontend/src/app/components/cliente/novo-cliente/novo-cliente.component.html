@@ -7,14 +7,14 @@
     (onDragEnd)="closeDialog()"
   >
     <div class="flex flex-wrap gap-3">
-      <div *ngFor="let category of categories" class="field-checkbox">
+      <div *ngFor="let tipo of tiposCliente" class="field-checkbox">
         <p-radioButton
-          [inputId]="category.key"
+          [inputId]="tipo.key"
           name="category"
-          [value]="category"
+          [value]="tipo"
           [(ngModel)]="selectedDocType"
         ></p-radioButton>
-        <label [for]="category.key" class="ml-2">{{ category.name }}</label>
+        <label [for]="tipo.key" class="ml-2">{{ tipo.name }}</label>
       </div>
     </div>
     <form [formGroup]="userForm" (ngSubmit)="onSubmit()" novalidate>

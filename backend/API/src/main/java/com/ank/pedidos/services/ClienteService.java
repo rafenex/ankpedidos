@@ -36,6 +36,7 @@ public class ClienteService {
         cliente.setEndereco(request.getEndereco());
         cliente.setNome(request.getNome());
         cliente.setTelefone(request.getTelefone());
+        cliente.setTipo(request.getTipo());
         return ClienteMapper.INSTANCE.toResponse(clienteRepository.save(cliente));
     }
 

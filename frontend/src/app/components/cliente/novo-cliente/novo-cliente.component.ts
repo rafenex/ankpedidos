@@ -23,7 +23,7 @@ export class NovoClienteComponent {
   headerTitle: string = 'Novo Produto';
   buttonSaveTitle = 'Salvar';
   selectedDocType: any = { name: 'CNPJ', key: 'cnpj' };
-  categories: any[] = [
+  tiposCliente: any[] = [
     { name: 'CPF', key: 'cpf' },
     { name: 'CNPJ', key: 'cnpj' },
   ];
@@ -60,6 +60,7 @@ export class NovoClienteComponent {
   updateCliente() {
     let formData = this.userForm.value as any;
     formData.id = this.clienteEditInput.id;
+    formData.tipo = this.selectedDocType.name == 'CPF' ? 'PF' : 'PJ';
     formData.nome = formData.nome.toUpperCase();
     this.updateClienteEvent.emit(formData);
     this.closeDialog();
@@ -74,7 +75,6 @@ export class NovoClienteComponent {
   }
 
   ngOnInit(): void {
-    this.selectedDocType = this.categories[1];
     if (this.clienteEditInput.nome != undefined) {
       this.headerTitle = 'Editar Cliente';
       this.buttonSaveTitle = 'Editar';
@@ -84,6 +84,10 @@ export class NovoClienteComponent {
         endereco: this.clienteEditInput.endereco,
         telefone: this.clienteEditInput.telefone,
       });
+      this.selectedDocType =
+        this.clienteEditInput.tipo === 'PF'
+          ? this.tiposCliente[0]
+          : this.tiposCliente[1];
     }
   }
 }
