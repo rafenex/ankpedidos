@@ -37,6 +37,7 @@ export class FormularioPedidoComponent {
   errorMessage = 'Digite um nome válido';
   clientes$!: Observable<Cliente[]>;
   produtos$!: Observable<Produto[]>;
+  formDisable = false;
 
   constructor(
     private route: ActivatedRoute,
@@ -64,6 +65,7 @@ export class FormularioPedidoComponent {
     this.pedido.itemPedido = [];
     this.route.paramMap.subscribe((params: ParamMap) => {
       if (params.has('id')) {
+        this.formDisable = true;
         this.id = params.get('id');
         this.findById(this.id);
       }
@@ -187,5 +189,11 @@ export class FormularioPedidoComponent {
       0
     );
     return total;
+  }
+
+  backToPedidos() {
+    this.router.navigate(['/pedidos'], {
+      relativeTo: this.route,
+    });
   }
 }

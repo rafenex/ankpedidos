@@ -1,5 +1,5 @@
 <form [formGroup]="userForm" (ngSubmit)="onSubmit()" novalidate>
-  <div class="field">
+  <div class="field" *ngIf="!formDisable">
     <label for="categoria" class="block">Cliente</label>
     <p-dropdown
       *ngIf="clientes$ | async as clientes"
@@ -20,18 +20,9 @@
         pInputText
         placeholder="Nome"
         formControlName="clienteNome"
+        readonly
       />
-      <small
-        class="p-error block"
-        *ngIf="
-          userForm.get('clienteNome')?.invalid &&
-          userForm.get('clienteNome')?.dirty
-        "
-      >
-        {{ errorMessage }}</small
-      >
     </div>
-
     <div class="field">
       <label for="clienteCpfCnpj" class="block">CPF</label>
 
@@ -40,16 +31,8 @@
         pInputText
         placeholder="CPF"
         formControlName="clienteCpfCnpj"
+        readonly
       />
-      <small
-        class="p-error block"
-        *ngIf="
-          userForm.get('clienteCpfCnpj')?.invalid &&
-          userForm.get('clienteCpfCnpj')?.dirty
-        "
-      >
-        {{ errorMessage }}</small
-      >
     </div>
   </div>
   <div class="card flex flex-wrap gap-3">
@@ -61,6 +44,7 @@
         pInputText
         placeholder="Endereço"
         formControlName="clienteEndereco"
+        readonly
       />
     </div>
 
@@ -72,16 +56,8 @@
         pInputText
         placeholder="Telefone"
         formControlName="clienteTelefone"
+        readonly
       />
-      <small
-        class="p-error block"
-        *ngIf="
-          userForm.get('clienteTelefone')?.invalid &&
-          userForm.get('clienteTelefone')?.dirty
-        "
-      >
-        {{ errorMessage }}</small
-      >
     </div>
   </div>
 
@@ -94,7 +70,7 @@
         <th>R$</th>
         <th>Cor</th>
         <th>Total</th>
-        <th>Ações</th>
+        <th *ngIf="!formDisable">Ações</th>
       </tr>
     </ng-template>
     <ng-template pTemplate="body" let-itemPedido>
@@ -105,7 +81,7 @@
         <td>{{ itemPedido.preco }}</td>
         <td>{{ itemPedido.cor }}</td>
         <td>{{ itemPedido.total }}</td>
-        <td>
+        <td *ngIf="!formDisable">
           <span
             class="pi pi-list mr-3"
             style="color: green; cursor: pointer"
@@ -120,21 +96,23 @@
     </ng-template>
   </p-table>
 
-  <app-novo-item-pedido
-    *ngIf="produtos$ | async as produtos"
-    [produtos]="produtos"
-    (newItemPedidoEvent)="onAddItemPedido($event)"
-  ></app-novo-item-pedido>
+  <ng-container *ngIf="!formDisable">
+    <ng-container *ngIf="produtos$ | async as produtos">
+      <app-novo-item-pedido [produtos]="produtos"></app-novo-item-pedido>
+    </ng-container>
+  </ng-container>
   <div class="mt-3 mb-3">
     <div *ngIf="pedido.itemPedido.length > 0">Total: {{ totalPedido() }}</div>
   </div>
 
   <button
+    *ngIf="!formDisable"
     pButton
     type="submit"
     label="Salvar"
     [disabled]="userForm.invalid"
   ></button>
 </form>
+<button pButton (click)="backToPedidos()" label="Voltar"></button>
 <p-toast></p-toast>
 <p-confirmDialog rejectLabel="Não" acceptLabel="Sim"></p-confirmDialog>
