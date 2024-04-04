@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { MenuItem } from 'primeng/api';
+import { AuthHelper } from '../../services/auth-helpers';
 
 @Component({
   selector: 'app-header',
@@ -7,33 +8,50 @@ import { MenuItem } from 'primeng/api';
   styleUrl: './header.component.scss',
 })
 export class HeaderComponent {
-  items: MenuItem[] | undefined;
-  ngOnInit() {
-    this.items = [
-      {
-        label: 'Categorias',
-        icon: 'pi pi-fw pi-file',
-        routerLink: 'categorias',
-      },
-      {
-        label: 'Produtos',
-        icon: 'pi pi-fw pi-pencil',
-        routerLink: 'produtos',
-      },
-      {
-        label: 'Clientes',
-        icon: 'pi pi-fw pi-user',
-        routerLink: 'clientes',
-      },
-      {
-        label: 'Pedidos',
-        icon: 'pi pi-fw pi-calendar',
-        routerLink: 'pedidos',
-      },
-      {
-        label: 'Quit',
-        icon: 'pi pi-fw pi-power-off',
-      },
-    ];
+  constructor(private authHelper: AuthHelper) {}
+  items: MenuItem[] | undefined = [
+    {
+      label: 'Categorias',
+      icon: 'pi pi-fw pi-file',
+      routerLink: 'categorias',
+    },
+    {
+      label: 'Produtos',
+      icon: 'pi pi-fw pi-pencil',
+      routerLink: 'produtos',
+    },
+    {
+      label: 'Clientes',
+      icon: 'pi pi-fw pi-user',
+      routerLink: 'clientes',
+    },
+    {
+      label: 'Pedidos',
+      icon: 'pi pi-fw pi-calendar',
+      routerLink: 'pedidos',
+    },
+    this.authHelper.isAuthenticated()
+      ? {
+          label: 'Logout',
+          icon: 'pi pi-fw pi-power-off',
+          command: () => {
+            this.logout();
+          },
+        }
+      : {
+          label: 'Login',
+          icon: 'pi pi-fw pi-power-off',
+          routerLink: 'login',
+        },
+  ];
+
+  logout(): void {
+    if (window.confirm('Deseja realmente sair do sistema?')) {
+      if (typeof window !== 'undefined') {
+        localStorage.removeItem('access_token');
+
+        window.location.href = '/login';
+      }
+    }
   }
 }

@@ -12,6 +12,7 @@ import { MenubarModule } from 'primeng/menubar';
 import { ButtonModule } from 'primeng/button';
 import { DialogModule } from 'primeng/dialog';
 import {
+  HTTP_INTERCEPTORS,
   HttpClientModule,
   provideHttpClient,
   withFetch,
@@ -36,6 +37,9 @@ import { NovoItemPedidoComponent } from './components/pedidos/novo-item-pedido/n
 import { RadioButtonModule } from 'primeng/radiobutton';
 import { InputMaskModule } from 'primeng/inputmask';
 import ptBr from '@angular/common/locales/pt';
+import { LoginComponent } from './layout/login/login.component';
+import { AuthInterceptor } from './services/auth.interceptor';
+import { AuthHelper } from './services/auth-helpers';
 registerLocaleData(ptBr);
 
 @NgModule({
@@ -53,6 +57,7 @@ registerLocaleData(ptBr);
     NovoClienteComponent,
     FormularioPedidoComponent,
     NovoItemPedidoComponent,
+    LoginComponent,
   ],
   imports: [
     BrowserModule,
@@ -78,8 +83,11 @@ registerLocaleData(ptBr);
     ConfirmationService,
     MessageService,
     provideHttpClient(withFetch()),
-
+    { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
     { provide: LOCALE_ID, useValue: 'pt' },
+    {
+      provide: AuthHelper,
+    },
   ],
   bootstrap: [AppComponent],
 })

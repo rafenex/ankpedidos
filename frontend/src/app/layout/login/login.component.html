@@ -1,0 +1,51 @@
+<form [formGroup]="userForm" (ngSubmit)="login()" novalidate>
+  <div class="field">
+    <label for="email" class="block">Nome</label>
+    <input
+      type="text"
+      pInputText
+      placeholder="Usuário"
+      formControlName="email"
+    />
+    <small
+      class="p-error block"
+      *ngIf="userForm.get('email')?.touched && userForm.get('email')?.invalid"
+    >
+      {{ 
+          userForm.get('email')?.errors?.['required']
+          ? 'Esse campo é obrigatório.' 
+          : 'Digite um nome de usuário válido.'
+      }}
+    </small>
+  </div>
+
+  <div class="field">
+    <label for="password" class="block">Senha</label>
+    <input
+      type="text"
+      pInputText
+      placeholder="Senha"
+      formControlName="password"
+    />
+    <small
+      class="p-error block"
+      *ngIf="
+        userForm.get('password')?.touched && userForm.get('password')?.invalid
+      "
+    >
+      {{ 
+          userForm.get('password')?.errors?.['required']
+          ? 'Esse campo é obrigatório.' 
+          : 'Digite uma senha válido.'
+      }}
+    </small>
+  </div>
+
+  <button
+    pButton
+    type="submit"
+    label="Entrar"
+    [disabled]="userForm.invalid"
+  ></button>
+</form>
+<p-toast></p-toast>
