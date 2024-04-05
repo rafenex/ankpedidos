@@ -38,8 +38,8 @@ import { RadioButtonModule } from 'primeng/radiobutton';
 import { InputMaskModule } from 'primeng/inputmask';
 import ptBr from '@angular/common/locales/pt';
 import { LoginComponent } from './layout/login/login.component';
-import { AuthInterceptor } from './services/auth.interceptor';
-import { AuthHelper } from './services/auth-helpers';
+import { AuthInterceptor } from './interceptors/auth.interceptor';
+import { AuthHelper } from './interceptors/auth-helpers';
 registerLocaleData(ptBr);
 
 @NgModule({

@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { MenuItem } from 'primeng/api';
-import { AuthHelper } from '../../services/auth-helpers';
+import { AuthHelper } from '../../interceptors/auth-helpers';
 
 @Component({
   selector: 'app-header',

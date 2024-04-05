@@ -14,9 +14,7 @@ export class AuthInterceptor implements HttpInterceptor {
   constructor(private router: Router) {}
   intercept(request: HttpRequest<unknown>, next: HttpHandler) {
     let access_token;
-    if (typeof window !== 'undefined') {
       access_token = localStorage.getItem('access_token');
-    }
     if (access_token) {
       const headers = new HttpHeaders({
         Authorization: `Bearer ${localStorage.getItem('access_token')}`,
