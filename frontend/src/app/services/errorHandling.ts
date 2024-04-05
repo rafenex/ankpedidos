@@ -3,6 +3,7 @@ import { throwError } from 'rxjs';
 
 export function handleError(error: HttpErrorResponse) {
   if (error.status === 0) {
+    alert('oi')
     // A client-side or network error occurred. Handle it accordingly.
     console.error('An error occurred:', error.error);
   } else {
@@ -11,8 +12,10 @@ export function handleError(error: HttpErrorResponse) {
     console.error(
       `Backend returned code ${error.status}, body was: `,
       error.error
+      
     );
   }
+
   // Return an observable with a user-facing error message.
   return throwError(() => error);
 }

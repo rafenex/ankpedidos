@@ -1,8 +1,7 @@
 import { Component } from '@angular/core';
-import { ClienteService } from '../../services/cliente/cliente.service';
 import { Cliente } from '../../models/cliente/cliente';
-import { Observable } from 'rxjs';
 import { ConfirmationService, MessageService } from 'primeng/api';
+import { ApiService } from '../../services/api.service';
 
 @Component({
   selector: 'app-cliente',
@@ -11,11 +10,11 @@ import { ConfirmationService, MessageService } from 'primeng/api';
 })
 export class ClienteComponent {
   constructor(
-    private clienteService: ClienteService,
+    private apiService: ApiService,
     private messageService: MessageService,
     private confirmationService: ConfirmationService
   ) {}
-  clientes$!: Observable<Cliente[]>;
+  clientes: Cliente[] = [];
   displayedColumns = ['nome', 'cpfcnpj', 'endereco', 'telefone', 'acoes'];
   openDialog = false;
   clienteEdit = {} as Cliente;
@@ -29,7 +28,7 @@ export class ClienteComponent {
   }
 
   addCliente(cliente: Cliente) {
-    this.clienteService.addCliente(cliente).subscribe({
+    this.apiService.post(`/clientes`,cliente).subscribe({
       next: () => {
         this.messageService.add({
           severity: 'info',
@@ -49,7 +48,7 @@ export class ClienteComponent {
   }
 
   updateCliente(cliente: Cliente) {
-    this.clienteService.updateCliente(cliente).subscribe({
+    this.apiService.put(`/clientes`,cliente.id, cliente).subscribe({
       next: () => {
         this.messageService.add({
           severity: 'info',
@@ -69,11 +68,13 @@ export class ClienteComponent {
   }
 
   getClientes() {
-    this.clientes$ = this.clienteService.getClientes();
+    this.apiService.get<Cliente[]>(`/clientes`).subscribe((res: any) => {
+      this.clientes = res.content
+    })
   }
 
   deleteCliente(cliente: Cliente) {
-    this.clienteService.deleteCliente(cliente.id).subscribe({
+    this.apiService.delete(`/clientes`, cliente.id).subscribe({
       next: () => {
         this.messageService.add({
           severity: 'info',

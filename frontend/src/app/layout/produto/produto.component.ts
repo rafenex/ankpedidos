@@ -1,13 +1,11 @@
 import { Component } from '@angular/core';
-import { Observable } from 'rxjs';
-import { ProdutoService } from '../../services/produto/produto.service';
 import { Produto, ProdutoForm } from '../../models/produto/produto';
-import { CategoriaService } from '../../services/categoria/categoria.service';
+
 import {
-  CategoriaRequest,
   CategoriaResponse,
 } from '../../models/categoria/categoria';
 import { ConfirmationService, MessageService } from 'primeng/api';
+import { ApiService } from '../../services/api.service';
 
 @Component({
   selector: 'app-produto',
@@ -16,13 +14,12 @@ import { ConfirmationService, MessageService } from 'primeng/api';
 })
 export class ProdutoComponent {
   constructor(
-    private produtoService: ProdutoService,
-    private categoriaService: CategoriaService,
+    private apiService: ApiService,
     private confirmationService: ConfirmationService,
     private messageService: MessageService
   ) {}
   categorias = [] as CategoriaResponse[];
-  produtos$!: Observable<Produto[]>;
+  produtos:Produto[] = [];
   produtoEdit = {} as ProdutoForm;
   displayedColumns = [
     'referencia',
@@ -39,10 +36,14 @@ export class ProdutoComponent {
   }
 
   getProdutos() {
-    this.produtos$ = this.produtoService.getProdutos();
+    this.apiService.get<Produto[]>(`/produtos`).subscribe((res: any) =>{
+      this.produtos = res.content
+    })
   }
+
+
   addProduto(produto: Produto) {
-    this.produtoService.addProduto(produto).subscribe({
+    this.apiService.post(`/produtos`, produto).subscribe({
       next: () => {
         this.messageService.add({
           severity: 'info',
@@ -62,7 +63,7 @@ export class ProdutoComponent {
   }
 
   updateProduto(produto: Produto) {
-    this.produtoService.updateProduto(produto).subscribe({
+    this.apiService.put(`/produtos`, produto.id, produto).subscribe({
       next: () => {
         this.messageService.add({
           severity: 'info',
@@ -81,13 +82,12 @@ export class ProdutoComponent {
     });
   }
   getCategorias() {
-    this.categoriaService
-      .getCategorias()
-      .subscribe((res) => (this.categorias = res));
+    this.apiService.get<CategoriaResponse[]>('/categorias')
+      .subscribe((res: any) => (this.categorias = res.content));
   }
 
   deleteProduto(produto: Produto) {
-    this.produtoService.deleteProduto(produto.id).subscribe({
+    this.apiService.delete(`/produtos`,produto.id).subscribe({
       next: () => {
         this.messageService.add({
           severity: 'info',

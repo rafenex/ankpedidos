@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
 import { CategoriaResponse } from '../../models/categoria/categoria';
-import { CategoriaService } from '../../services/categoria/categoria.service';
 import { ConfirmationService, MessageService } from 'primeng/api';
 import { ApiService } from '../../services/api.service';
 

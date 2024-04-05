@@ -11,12 +11,8 @@ export class ApiService {
 
   constructor(private http: HttpClient) { }
 
-  get<T>(route: string, params?: any, responseType: 'json' | 'text' | 'blob' = 'json'): Observable<T>{
-    const options = {
-      params,
-      responseType: responseType as 'json'
-    };
-    return this.http.get<T>(this.apiUrl + route, options)
+  get<T>(route: string, params?: any): Observable<T>{
+    return this.http.get<T>(this.apiUrl + route)
   } 
 
   post<T>(route: string, data: unknown):Observable<T>{

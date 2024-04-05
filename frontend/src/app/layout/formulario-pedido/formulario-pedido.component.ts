@@ -10,9 +10,7 @@ import {
 import { FormBuilder, Validators } from '@angular/forms';
 import { Observable } from 'rxjs';
 import { Cliente } from '../../models/cliente/cliente';
-import { ClienteService } from '../../services/cliente/cliente.service';
 import { Produto } from '../../models/produto/produto';
-import { ProdutoService } from '../../services/produto/produto.service';
 import { ConfirmationService, MessageService } from 'primeng/api';
 import { ApiService } from '../../services/api.service';
 
@@ -35,16 +33,14 @@ export class FormularioPedidoComponent {
   } as Pedido;
   pedidoRequest = {} as PedidoRequest;
   errorMessage = 'Digite um nome válido';
-  clientes$!: Observable<Cliente[]>;
-  produtos$!: Observable<Produto[]>;
+  clientes: Cliente[] = [];
+  produtos: Produto[] = [];
   formDisable = false;
 
   constructor(
     private route: ActivatedRoute,
     private apiService: ApiService,
     private fb: FormBuilder,
-    private clienteService: ClienteService,
-    private produtoService: ProdutoService,
     private messageService: MessageService,
     private router: Router,
     private confirmationService: ConfirmationService
@@ -75,11 +71,15 @@ export class FormularioPedidoComponent {
   }
 
   getClientes() {
-    this.clientes$ = this.clienteService.getClientes();
+    this.apiService.get<Cliente[]>(`/clientes`).subscribe((res: any) =>{
+      this.clientes = res.content
+    })
   }
 
   getProdutos() {
-    this.produtos$ = this.produtoService.getProdutos();
+    this.apiService.get<Produto[]>(`/produtos`).subscribe((res: any) =>{
+      this.produtos = res.content
+    })
   }
 
   findById(id: number): void {
@@ -100,8 +100,8 @@ export class FormularioPedidoComponent {
   handleClienteForm(event: any) {
     const idCliente = event.value;
     let cliente = {} as Cliente;
-    this.clientes$.subscribe((clientes) => {
-      cliente = clientes.find((c) => c.id === idCliente) ?? ({} as Cliente);
+
+      cliente = this.clientes.find((c) => c.id === idCliente) ?? ({} as Cliente);
       this.userForm.patchValue({
         clienteNome: cliente.nome,
         clienteCpfCnpj: cliente.cpfcnpj,
@@ -109,7 +109,7 @@ export class FormularioPedidoComponent {
         clienteTelefone: cliente.telefone,
       });
       this.pedidoRequest.clienteId = idCliente;
-    });
+ ;
   }
 
   onAddItemPedido(itemPedido: ItemPedido) {

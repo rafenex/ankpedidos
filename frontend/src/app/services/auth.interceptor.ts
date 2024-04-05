@@ -28,6 +28,7 @@ export class AuthInterceptor implements HttpInterceptor {
       tap({
         error: (_error) => {
           if (_error.status == 401 || _error.status == 403) {
+    
             if (typeof window !== 'undefined') {
               localStorage.removeItem('access_token');
               localStorage.removeItem('auth');
