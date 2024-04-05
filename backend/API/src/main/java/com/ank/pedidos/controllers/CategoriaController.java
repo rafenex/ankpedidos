@@ -2,7 +2,11 @@ package com.ank.pedidos.controllers;
 
 import com.ank.pedidos.entities.Categoria;
 import com.ank.pedidos.services.CategoriaService;
+import org.springdoc.core.annotations.ParameterObject;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -23,8 +27,8 @@ public class CategoriaController {
     }
 
     @GetMapping
-    private ResponseEntity<List<Categoria>> findAll(){
-        return new ResponseEntity<>(categoriaService.findAll(),HttpStatus.OK);
+    private ResponseEntity<Page<Categoria>> findAll(@ParameterObject @PageableDefault(size = 5, page = 0) Pageable pageable){
+        return new ResponseEntity<>(categoriaService.findAll(pageable),HttpStatus.OK);
     }
 
     @GetMapping("/{id}")
