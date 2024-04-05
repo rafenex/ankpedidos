@@ -32,7 +32,7 @@ import { ClienteComponent } from './layout/cliente/cliente.component';
 import { DropdownModule } from 'primeng/dropdown';
 import { InputNumberModule } from 'primeng/inputnumber';
 import { NovoClienteComponent } from './components/cliente/novo-cliente/novo-cliente.component';
-import { FormularioPedidoComponent } from './layout/pedido/formulario-pedido/formulario-pedido.component';
+import { FormularioPedidoComponent } from './layout/formulario-pedido/formulario-pedido.component';
 import { NovoItemPedidoComponent } from './components/pedidos/novo-item-pedido/novo-item-pedido.component';
 import { RadioButtonModule } from 'primeng/radiobutton';
 import { InputMaskModule } from 'primeng/inputmask';

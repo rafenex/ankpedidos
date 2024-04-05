@@ -6,15 +6,15 @@ import {
   ItemPedidoRequest,
   Pedido,
   PedidoRequest,
-} from '../../../models/pedido/pedido';
+} from '../../models/pedido/pedido';
 import { FormBuilder, Validators } from '@angular/forms';
 import { Observable } from 'rxjs';
-import { Cliente } from '../../../models/cliente/cliente';
-import { ClienteService } from '../../../services/cliente/cliente.service';
-import { Produto } from '../../../models/produto/produto';
-import { ProdutoService } from '../../../services/produto/produto.service';
+import { Cliente } from '../../models/cliente/cliente';
+import { ClienteService } from '../../services/cliente/cliente.service';
+import { Produto } from '../../models/produto/produto';
+import { ProdutoService } from '../../services/produto/produto.service';
 import { ConfirmationService, MessageService } from 'primeng/api';
-import { ApiService } from '../../../services/api.service';
+import { ApiService } from '../../services/api.service';
 
 @Component({
   selector: 'app-formulario-pedido',
