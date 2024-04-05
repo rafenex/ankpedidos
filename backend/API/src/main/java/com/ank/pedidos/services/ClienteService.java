@@ -7,6 +7,9 @@ import com.ank.pedidos.controllers.spec.ClienteSpec;
 import com.ank.pedidos.entities.Cliente;
 import com.ank.pedidos.repositories.ClienteRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -18,8 +21,9 @@ public class ClienteService {
     @Autowired
     ClienteRepository clienteRepository;
 
-    public List<ClienteResponse> findAll(String nome, String cpf, String endereco, String telefone){
-        return ClienteMapper.INSTANCE.toResponse(clienteRepository.findAll(ClienteSpec.toSpec(nome, cpf, endereco, telefone)));
+    public Page<ClienteResponse> findAll(Pageable pageable, String nome, String cpf, String endereco, String telefone){
+        Specification<Cliente> spec = ClienteSpec.toSpec(nome, cpf, endereco, telefone);
+        return ClienteMapper.INSTANCE.toResponse(clienteRepository.findAll(spec,pageable));
     }
 
     public Cliente saveCliente(ClienteRequest clienteRequest){

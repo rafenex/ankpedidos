@@ -5,7 +5,11 @@ import com.ank.pedidos.controllers.dto.ClienteResponse;
 import com.ank.pedidos.entities.Cliente;
 import com.ank.pedidos.services.ClienteService;
 import jakarta.validation.Valid;
+import org.springdoc.core.annotations.ParameterObject;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -22,12 +26,13 @@ public class ClienteController {
     ClienteService clienteService;
 
     @GetMapping
-    private ResponseEntity<List<ClienteResponse>> findAll (
+    private ResponseEntity<Page<ClienteResponse>> findAll (
+            @ParameterObject @PageableDefault(size = 5, page = 0) Pageable pageable,
             @RequestParam (required = false) String nome,
             @RequestParam (required = false) String cpf,
             @RequestParam (required = false) String endereco,
             @RequestParam (required = false) String telefone){
-        return new ResponseEntity<>(clienteService.findAll(nome,cpf,endereco,telefone),HttpStatus.OK);
+        return new ResponseEntity<>(clienteService.findAll(pageable,nome,cpf,endereco,telefone),HttpStatus.OK);
     }
 
     @PostMapping
