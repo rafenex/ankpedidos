@@ -1,9 +1,9 @@
 import { Component } from '@angular/core';
-import { PedidoService } from '../../services/pedido/pedido.service';
 import { Pedido } from '../../models/pedido/pedido';
 import { Observable } from 'rxjs';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ConfirmationService, MessageService } from 'primeng/api';
+import { ApiService } from '../../services/api.service';
 
 @Component({
   selector: 'app-pedido',
@@ -12,18 +12,20 @@ import { ConfirmationService, MessageService } from 'primeng/api';
 })
 export class PedidoComponent {
   constructor(
-    private pedidoService: PedidoService,
+    private apiService: ApiService,
     private router: Router,
     private route: ActivatedRoute,
     private confirmationService: ConfirmationService,
     private messageService: MessageService
   ) {}
-  pedidos$!: Observable<Pedido[]>;
+  pedidos: Pedido[] = [];
   displayedColumns = ['id', 'clienteNome', 'clienteEndereco', 'data', 'total'];
   openDialog = false;
 
   getPedidos() {
-    this.pedidos$ = this.pedidoService.getPedidos();
+    this.apiService.get<Pedido[]>(`/pedidos`).subscribe((res : any) =>{
+      this.pedidos = res.content
+    })
   }
 
   onShow(pedido: Pedido) {
@@ -39,7 +41,7 @@ export class PedidoComponent {
   }
 
   deletePedido(pedido: Pedido) {
-    this.pedidoService.deletePedido(pedido.id).subscribe({
+    this.apiService.delete(`/pedidos`,pedido.id).subscribe({
       next: () => {
         this.messageService.add({
           severity: 'info',

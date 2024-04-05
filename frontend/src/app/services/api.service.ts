@@ -31,4 +31,6 @@ export class ApiService {
   delete(route: string, id: string | number, data?: unknown){
     return this.http.delete(`${this.apiUrl}${route}/${id}`, {body: data})
   }
+
+  
 }

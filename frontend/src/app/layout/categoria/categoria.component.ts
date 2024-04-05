@@ -29,7 +29,7 @@ export class CategoriaComponent {
   }
 
   getCategorias() {
-    this.apiService.get<CategoriaResponse[]>('/categorias').subscribe((res: any)=> {
+    this.apiService.get<CategoriaResponse[]>(`/categorias`).subscribe((res: any)=> {
       this.categorias = res.content
     })
   }

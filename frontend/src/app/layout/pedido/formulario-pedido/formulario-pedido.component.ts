@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute, ParamMap, Router } from '@angular/router';
 
-import { PedidoService } from '../../../services/pedido/pedido.service';
 import {
   ItemPedido,
   ItemPedidoRequest,
@@ -15,6 +14,7 @@ import { ClienteService } from '../../../services/cliente/cliente.service';
 import { Produto } from '../../../models/produto/produto';
 import { ProdutoService } from '../../../services/produto/produto.service';
 import { ConfirmationService, MessageService } from 'primeng/api';
+import { ApiService } from '../../../services/api.service';
 
 @Component({
   selector: 'app-formulario-pedido',
@@ -41,7 +41,7 @@ export class FormularioPedidoComponent {
 
   constructor(
     private route: ActivatedRoute,
-    private pedidoService: PedidoService,
+    private apiService: ApiService,
     private fb: FormBuilder,
     private clienteService: ClienteService,
     private produtoService: ProdutoService,
@@ -83,7 +83,7 @@ export class FormularioPedidoComponent {
   }
 
   findById(id: number): void {
-    this.pedidoService.findById(id).subscribe((response: Pedido) => {
+    this.apiService.get(`pedidos/${id}`).subscribe((response: any) => {
       this.pedido = response;
       this.userForm.setValue({
         id: this.pedido.id,
@@ -130,7 +130,7 @@ export class FormularioPedidoComponent {
       this.pedidoRequest.itemPedido.push(newItemPedido);
     });
 
-    this.pedidoService.savePedido(pedidoRequest).subscribe({
+    this.apiService.post('pedidos',pedidoRequest).subscribe({
       next: () => {
         this.messageService.add({
           severity: 'info',
