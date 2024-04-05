@@ -22,7 +22,11 @@ export class CategoriaService {
   };
 
   getCategorias(): Observable<CategoriaResponse[]> {
-    return this.http.get<CategoriaResponse[]>(`${this.URL}`);
+    return this.http.get<any>(`${this.URL}`).pipe(
+      map((response) => {
+        return response.content;
+      })
+    );
   }
 
   addCategoria(categoria: CategoriaRequest) {

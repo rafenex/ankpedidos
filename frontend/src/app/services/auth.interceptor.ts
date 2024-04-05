@@ -3,6 +3,7 @@ import {
   HttpHeaders,
   HttpInterceptor,
   HttpRequest,
+  HttpResponse,
 } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
@@ -24,15 +25,16 @@ export class AuthInterceptor implements HttpInterceptor {
     }
 
     return next.handle(request).pipe(
-      catchError((err) => {
-        if (err.status == 401 || err.status == 403) {
-          if (typeof window !== 'undefined') {
-            localStorage.removeItem('access_token');
-            localStorage.removeItem('auth');
-            this.router.navigate(['/login']);
+      tap({
+        error: (_error) => {
+          if (_error.status == 401 || _error.status == 403) {
+            if (typeof window !== 'undefined') {
+              localStorage.removeItem('access_token');
+              localStorage.removeItem('auth');
+              this.router.navigate(['/login']);
+            }
           }
-        }
-        return throwError(() => err);
+        },
       })
     );
   }

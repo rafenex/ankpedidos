@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
 import { CategoriaResponse } from '../../models/categoria/categoria';
 import { CategoriaService } from '../../services/categoria/categoria.service';
-import { Observable } from 'rxjs';
 import { ConfirmationService, MessageService } from 'primeng/api';
+import { ApiService } from '../../services/api.service';
 
 @Component({
   selector: 'app-categoria',
@@ -11,11 +11,11 @@ import { ConfirmationService, MessageService } from 'primeng/api';
 })
 export class CategoriaComponent {
   constructor(
-    private categoriaService: CategoriaService,
+    private apiService: ApiService,
     private confirmationService: ConfirmationService,
     private messageService: MessageService
   ) {}
-  categorias$!: Observable<CategoriaResponse[]>;
+  categorias: CategoriaResponse[] = [];
   categoriaEdit = {} as CategoriaResponse;
   displayedColumns = ['nome', 'acoes'];
   openDialog = false;
@@ -29,11 +29,13 @@ export class CategoriaComponent {
   }
 
   getCategorias() {
-    this.categorias$ = this.categoriaService.getCategorias();
+    this.apiService.get<CategoriaResponse[]>('/categorias').subscribe((res: any)=> {
+      this.categorias = res.content
+    })
   }
 
   updateCategoria(categoria: CategoriaResponse) {
-    this.categoriaService.updateCategoria(categoria).subscribe({
+    this.apiService.put('/categorias', categoria.id, categoria).subscribe({
       next: () => {
         this.messageService.add({
           severity: 'info',
@@ -53,7 +55,7 @@ export class CategoriaComponent {
   }
 
   addCategoria(categoria: CategoriaResponse) {
-    this.categoriaService.addCategoria(categoria).subscribe({
+    this.apiService.post('/categorias', categoria).subscribe({
       next: () => {
         this.messageService.add({
           severity: 'info',
@@ -73,7 +75,7 @@ export class CategoriaComponent {
   }
 
   deleteCategoria(categoria: CategoriaResponse) {
-    this.categoriaService.deleteCategoria(categoria.id).subscribe({
+    this.apiService.delete('/categorias', categoria.id).subscribe({
       next: () => {
         this.messageService.add({
           severity: 'info',
