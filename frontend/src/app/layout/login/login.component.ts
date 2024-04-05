@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AuthResponse } from '../../models/login/login';
 import { ApiService } from '../../services/api.service';
 import { Router } from '@angular/router';
+import { AuthHelper } from '../../services/auth-helpers';
 
 @Component({
   selector: 'app-login',
@@ -13,8 +14,15 @@ export class LoginComponent {
   constructor(
     private fb: FormBuilder,
     private apiService: ApiService,
-    private router: Router
+    private router: Router,
+    private authHelper: AuthHelper
   ) {}
+
+  isAuthenticated: boolean = false;
+
+  ngOnInit(): void {
+    this.isAuthenticated = this.authHelper.isAuthenticated();
+  }
 
   userForm = this.fb.group({
     email: ['', Validators.required],
@@ -36,6 +44,16 @@ export class LoginComponent {
             console.log(error);
           },
         });
+    }
+  }
+
+  logout(): void {
+    if (window.confirm('Deseja realmente sair do sistema?')) {
+      if (typeof window !== 'undefined') {
+        localStorage.removeItem('access_token');
+        localStorage.removeItem('auth');
+        window.location.href = '/login';
+      }
     }
   }
 }

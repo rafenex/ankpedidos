@@ -1,4 +1,9 @@
-<form [formGroup]="userForm" (ngSubmit)="login()" novalidate>
+<form
+  [formGroup]="userForm"
+  (ngSubmit)="login()"
+  novalidate
+  *ngIf="!isAuthenticated"
+>
   <div class="field">
     <label for="email" class="block">Nome</label>
     <input
@@ -49,3 +54,10 @@
   ></button>
 </form>
 <p-toast></p-toast>
+
+<p-button
+  (onClick)="logout()"
+  label="Sair"
+  severity="warning"
+  *ngIf="isAuthenticated"
+></p-button>
