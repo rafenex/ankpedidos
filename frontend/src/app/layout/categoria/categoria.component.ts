@@ -1,12 +1,12 @@
-import { Component } from '@angular/core';
-import { CategoriaResponse } from '../../models/categoria/categoria';
-import { ConfirmationService, MessageService } from 'primeng/api';
-import { ApiService } from '../../services/api.service';
+import { Component } from "@angular/core";
+import { CategoriaResponse } from "../../models/categoria/categoria";
+import { ConfirmationService, MessageService } from "primeng/api";
+import { ApiService } from "../../services/api.service";
 
 @Component({
-  selector: 'app-categoria',
-  templateUrl: './categoria.component.html',
-  styleUrl: './categoria.component.scss',
+  selector: "app-categoria",
+  templateUrl: "./categoria.component.html",
+  styleUrl: "./categoria.component.scss",
 })
 export class CategoriaComponent {
   constructor(
@@ -16,8 +16,11 @@ export class CategoriaComponent {
   ) {}
   categorias: CategoriaResponse[] = [];
   categoriaEdit = {} as CategoriaResponse;
-  displayedColumns = ['nome', 'acoes'];
+  displayedColumns = ["nome", "acoes"];
   openDialog = false;
+  page: number = 0;
+  size: number = 5;
+  totalElements: number = 0;
 
   showFormDialog(show: boolean, categoria?: CategoriaResponse) {
     this.categoriaEdit = {} as CategoriaResponse;
@@ -28,66 +31,71 @@ export class CategoriaComponent {
   }
 
   getCategorias() {
-    this.apiService.get<CategoriaResponse[]>(`/categorias`).subscribe((res: any)=> {
-      this.categorias = res.content
-    })
+    this.apiService
+      .get<CategoriaResponse[]>(
+        `/categorias?page=${this.page}&size=${this.size}`
+      )
+      .subscribe((res: any) => {
+        this.categorias = res.content;
+        this.totalElements = res.totalElements;
+      });
   }
 
   updateCategoria(categoria: CategoriaResponse) {
-    this.apiService.put('/categorias', categoria.id, categoria).subscribe({
+    this.apiService.put("/categorias", categoria.id, categoria).subscribe({
       next: () => {
         this.messageService.add({
-          severity: 'info',
-          summary: 'Confirmado',
-          detail: 'Categoria editada',
+          severity: "info",
+          summary: "Confirmado",
+          detail: "Categoria editada",
         });
         this.getCategorias();
       },
       error: (error) => {
         this.messageService.add({
-          severity: 'error',
-          summary: 'Erro: ' + error.status,
-          detail: 'Ocorreu um erro ao editar categoria',
+          severity: "error",
+          summary: "Erro: " + error.status,
+          detail: "Ocorreu um erro ao editar categoria",
         });
       },
     });
   }
 
   addCategoria(categoria: CategoriaResponse) {
-    this.apiService.post('/categorias', categoria).subscribe({
+    this.apiService.post("/categorias", categoria).subscribe({
       next: () => {
         this.messageService.add({
-          severity: 'info',
-          summary: 'Confirmado',
-          detail: 'Categoria adicionada',
+          severity: "info",
+          summary: "Confirmado",
+          detail: "Categoria adicionada",
         });
         this.getCategorias();
       },
       error: (error) => {
         this.messageService.add({
-          severity: 'error',
-          summary: 'Erro: ' + error.status,
-          detail: 'Ocorreu um erro ao adicionar categoria',
+          severity: "error",
+          summary: "Erro: " + error.status,
+          detail: "Ocorreu um erro ao adicionar categoria",
         });
       },
     });
   }
 
   deleteCategoria(categoria: CategoriaResponse) {
-    this.apiService.delete('/categorias', categoria.id).subscribe({
+    this.apiService.delete("/categorias", categoria.id).subscribe({
       next: () => {
         this.messageService.add({
-          severity: 'info',
-          summary: 'Confirmado',
-          detail: 'Categoria removida',
+          severity: "info",
+          summary: "Confirmado",
+          detail: "Categoria removida",
         });
         this.getCategorias();
       },
       error: (error) => {
         this.messageService.add({
-          severity: 'error',
-          summary: 'Erro: ' + error.status,
-          detail: 'Ocorreu um erro ao deletar categoria',
+          severity: "error",
+          summary: "Erro: " + error.status,
+          detail: "Ocorreu um erro ao deletar categoria",
         });
       },
     });
@@ -97,24 +105,30 @@ export class CategoriaComponent {
     this.confirmationService.confirm({
       target: event.target as EventTarget,
       message: `Deseja remover a categoria ${categoria.nome}?`,
-      header: 'Confirmação de remoção',
-      icon: 'pi pi-info-circle',
-      acceptButtonStyleClass: 'p-button-danger p-button-text',
-      rejectButtonStyleClass: 'p-button-text p-button-text',
-      acceptIcon: 'none',
-      rejectIcon: 'none',
+      header: "Confirmação de remoção",
+      icon: "pi pi-info-circle",
+      acceptButtonStyleClass: "p-button-danger p-button-text",
+      rejectButtonStyleClass: "p-button-text p-button-text",
+      acceptIcon: "none",
+      rejectIcon: "none",
 
       accept: () => {
         this.deleteCategoria(categoria);
       },
       reject: () => {
         this.messageService.add({
-          severity: 'error',
-          summary: 'Rejeitado',
-          detail: 'Você rejeitou a ação',
+          severity: "error",
+          summary: "Rejeitado",
+          detail: "Você rejeitou a ação",
         });
       },
     });
+  }
+
+  pageChange(event: any) {
+    this.page = event.first / event.rows;
+    this.size = event.rows;
+    this.getCategorias();
   }
 
   ngOnInit(): void {
