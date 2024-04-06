@@ -3,7 +3,9 @@ package com.ank.pedidos.services;
 import com.ank.pedidos.controllers.dto.ClienteRequest;
 import com.ank.pedidos.controllers.dto.ClienteResponse;
 import com.ank.pedidos.controllers.mapper.ClienteMapper;
+import com.ank.pedidos.controllers.spec.AppSpecification;
 import com.ank.pedidos.controllers.spec.ClienteSpec;
+import com.ank.pedidos.controllers.spec.Filter;
 import com.ank.pedidos.entities.Cliente;
 import com.ank.pedidos.repositories.ClienteRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,8 +21,9 @@ public class ClienteService {
     @Autowired
     ClienteRepository clienteRepository;
 
-    public Page<ClienteResponse> findAll(Pageable pageable, String nome, String cpf, String endereco, String telefone){
-        Specification<Cliente> spec = ClienteSpec.toSpec(nome, cpf, endereco, telefone);
+    public Page<ClienteResponse> findAll(Pageable pageable, Filter filter){
+        Specification<Cliente> spec = new AppSpecification<>(filter);
+
         return ClienteMapper.INSTANCE.toResponse(clienteRepository.findAll(spec,pageable));
     }
 

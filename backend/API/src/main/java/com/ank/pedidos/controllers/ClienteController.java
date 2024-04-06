@@ -2,6 +2,7 @@ package com.ank.pedidos.controllers;
 
 import com.ank.pedidos.controllers.dto.ClienteRequest;
 import com.ank.pedidos.controllers.dto.ClienteResponse;
+import com.ank.pedidos.controllers.spec.Filter;
 import com.ank.pedidos.entities.Cliente;
 import com.ank.pedidos.services.ClienteService;
 import jakarta.validation.Valid;
@@ -28,11 +29,8 @@ public class ClienteController {
     @GetMapping
     private ResponseEntity<Page<ClienteResponse>> findAll (
             @ParameterObject @PageableDefault(size = 5, page = 0) Pageable pageable,
-            @RequestParam (required = false) String nome,
-            @RequestParam (required = false) String cpf,
-            @RequestParam (required = false) String endereco,
-            @RequestParam (required = false) String telefone){
-        return new ResponseEntity<>(clienteService.findAll(pageable,nome,cpf,endereco,telefone),HttpStatus.OK);
+            @ParameterObject Filter filter){
+        return new ResponseEntity<>(clienteService.findAll(pageable,filter),HttpStatus.OK);
     }
 
     @PostMapping
