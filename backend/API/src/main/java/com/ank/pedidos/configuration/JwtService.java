@@ -40,7 +40,6 @@ public class JwtService {
             Map<String, Object> extraClaims,
             UserDetails userDetails
     ){
-        System.out.println(new Date(System.currentTimeMillis() + 1000 * 60 * 24).getMinutes());
         return Jwts
                 .builder()
                 .setClaims(extraClaims)

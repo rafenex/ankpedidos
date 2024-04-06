@@ -5,10 +5,10 @@ import java.util.List;
 public class Filter {
     private String field;
     private SearchOperator operator;
-    private String value;
-    private List<String> values;//Used in case of IN operator
+    private Object  value;
 
-    public Filter(String field, SearchOperator operator, String value) {
+
+    public Filter(String field, SearchOperator operator, Object  value) {
         this.field = field;
         this.operator = operator;
         this.value = value;
@@ -30,19 +30,12 @@ public class Filter {
         this.operator = operator;
     }
 
-    public String getValue() {
+    public Object  getValue() {
         return value;
     }
 
-    public void setValue(String value) {
+    public void setValue(Object  value) {
         this.value = value;
     }
 
-    public List<String> getValues() {
-        return values;
-    }
-
-    public void setValues(List<String> values) {
-        this.values = values;
-    }
 }
