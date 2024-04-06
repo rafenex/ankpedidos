@@ -3,7 +3,7 @@ package com.ank.pedidos.services;
 import com.ank.pedidos.controllers.dto.FiltroPedidoDto;
 import com.ank.pedidos.controllers.dto.PedidoRequest;
 import com.ank.pedidos.controllers.dto.PedidoResponse;
-import com.ank.pedidos.controllers.dto.mapper.PedidoMapper;
+import com.ank.pedidos.controllers.mapper.PedidoMapper;
 import com.ank.pedidos.controllers.spec.PedidoSpec;
 import com.ank.pedidos.entities.ItemPedido;
 import com.ank.pedidos.entities.Pedido;

@@ -1,9 +1,6 @@
-package com.ank.pedidos.controllers.dto.mapper;
+package com.ank.pedidos.controllers.mapper;
 
-import com.ank.pedidos.controllers.dto.ClienteRequest;
-import com.ank.pedidos.controllers.dto.ClienteResponse;
 import com.ank.pedidos.controllers.dto.PedidoResponse;
-import com.ank.pedidos.entities.Cliente;
 import com.ank.pedidos.entities.Pedido;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
@@ -12,7 +9,6 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Mapper
 public interface PedidoMapper {

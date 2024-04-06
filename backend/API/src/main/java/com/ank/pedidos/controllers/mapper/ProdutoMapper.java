@@ -1,12 +1,14 @@
-package com.ank.pedidos.controllers.dto.mapper;
+package com.ank.pedidos.controllers.mapper;
 
+import com.ank.pedidos.controllers.dto.ClienteRequest;
 import com.ank.pedidos.controllers.dto.ImageDataResponse;
 import com.ank.pedidos.controllers.dto.ProdutoRequest;
 import com.ank.pedidos.controllers.dto.ProdutoResponse;
+import com.ank.pedidos.entities.Categoria;
+import com.ank.pedidos.entities.Cliente;
 import com.ank.pedidos.entities.ImageData;
 import com.ank.pedidos.entities.Produto;
 import com.ank.pedidos.util.ImageUtil;
-import org.mapstruct.AfterMapping;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.MappingTarget;
@@ -43,6 +45,9 @@ public interface ProdutoMapper {
     ImageDataResponse mapImageDataToResponse(ImageData imageData);
 
     List<ProdutoResponse> toResponse(List<Produto> produtos);
+
+    @Mapping(target = "categoria", ignore = true)
+    void updateProdutoFromDto(ProdutoRequest produtoDto, @MappingTarget Produto produto);
 
 
 }

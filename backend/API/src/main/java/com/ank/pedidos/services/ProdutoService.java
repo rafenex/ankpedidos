@@ -3,7 +3,7 @@ package com.ank.pedidos.services;
 import com.ank.pedidos.controllers.dto.ImageUploadResponse;
 import com.ank.pedidos.controllers.dto.ProdutoRequest;
 import com.ank.pedidos.controllers.dto.ProdutoResponse;
-import com.ank.pedidos.controllers.dto.mapper.ProdutoMapper;
+import com.ank.pedidos.controllers.mapper.ProdutoMapper;
 import com.ank.pedidos.controllers.spec.ProdutoSpec;
 import com.ank.pedidos.entities.ImageData;
 import com.ank.pedidos.entities.Produto;
@@ -14,9 +14,9 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.awt.*;
 import java.io.IOException;
 import java.math.BigDecimal;
 import java.util.List;
@@ -57,13 +57,12 @@ public class ProdutoService {
         produtoRepository.deleteById(id);
     }
 
-    public Produto update(ProdutoRequest produto, Long id) {
-        Produto produtoToUpdate = produtoRepository.findById(id).orElseThrow();
-        produtoToUpdate.setNome(produto.getNome());
-        produtoToUpdate.setReferencia(produto.getReferencia());
-        produtoToUpdate.setCategoria(categoriaRepository.findById(produto.getCategoria()).orElseThrow());
-        produtoToUpdate.setValorPadrao(produto.getValorPadrao());
-        return produtoRepository.save(produtoToUpdate);
+    @Transactional
+    public Produto update(ProdutoRequest produtoRequest, Long id) {
+        Produto produto = produtoRepository.findById(id).orElseThrow();
+        ProdutoMapper.INSTANCE.updateProdutoFromDto(produtoRequest, produto);
+        produto.setCategoria(categoriaRepository.findById(produtoRequest.getCategoria()).orElseThrow());
+        return produtoRepository.save(produto);
     }
 
     public ProdutoResponse findById(Long id) {
