@@ -1,7 +1,9 @@
 package com.ank.pedidos.controllers.spec;
 
 
+import com.ank.pedidos.entities.Cliente;
 import com.ank.pedidos.entities.Produto;
+import jakarta.persistence.criteria.Join;
 import jakarta.persistence.criteria.Path;
 import jakarta.persistence.criteria.Predicate;
 import org.springframework.data.jpa.domain.Specification;
@@ -39,3 +41,8 @@ public class ProdutoSpec {
         };
     }
 }
+
+
+//    Join<Cliente, String> telefoneJoin = root.join("telefones");
+//    Predicate predicade = builder.like(telefoneJoin, "%" + filter.getTelefone() + "%");
+//                    predicates.add(predicade);

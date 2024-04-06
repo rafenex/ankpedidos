@@ -2,7 +2,7 @@ package com.ank.pedidos.controllers;
 
 import com.ank.pedidos.controllers.dto.ClienteRequest;
 import com.ank.pedidos.controllers.dto.ClienteResponse;
-import com.ank.pedidos.controllers.spec.Filter;
+import com.ank.pedidos.controllers.dto.FiltroClienteDto;
 import com.ank.pedidos.entities.Cliente;
 import com.ank.pedidos.services.ClienteService;
 import jakarta.validation.Valid;
@@ -14,10 +14,7 @@ import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.util.UriComponentsBuilder;
 
-import java.net.URI;
-import java.util.List;
 
 @RestController
 @RequestMapping("clientes")
@@ -29,7 +26,7 @@ public class ClienteController {
     @GetMapping
     private ResponseEntity<Page<ClienteResponse>> findAll (
             @ParameterObject @PageableDefault(size = 5, page = 0) Pageable pageable,
-            @ParameterObject Filter filter){
+            @ParameterObject FiltroClienteDto filter){
         return new ResponseEntity<>(clienteService.findAll(pageable,filter),HttpStatus.OK);
     }
 
