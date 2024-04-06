@@ -1,11 +1,14 @@
 package com.ank.pedidos.controllers.dto;
 
+import com.ank.pedidos.entities.TipoClienteEnum;
+
 public class FiltroClienteDto {
 
     String nome;
-    String cpf;
+    String cpfcnpj;
     String endereco;
     String telefone;
+    TipoClienteEnum tipo;
 
     public String getNome() {
         return nome;
@@ -15,12 +18,12 @@ public class FiltroClienteDto {
         this.nome = nome;
     }
 
-    public String getCpf() {
-        return cpf;
+    public String getCpfcnpj() {
+        return cpfcnpj;
     }
 
-    public void setCpf(String cpf) {
-        this.cpf = cpf;
+    public void setCpfcnpj(String cpfcnpj) {
+        this.cpfcnpj = cpfcnpj;
     }
 
     public String getEndereco() {
@@ -37,5 +40,13 @@ public class FiltroClienteDto {
 
     public void setTelefone(String telefone) {
         this.telefone = telefone;
+    }
+
+    public TipoClienteEnum getTipo() {
+        return tipo;
+    }
+
+    public void setTipo(TipoClienteEnum tipo) {
+        this.tipo = tipo;
     }
 }

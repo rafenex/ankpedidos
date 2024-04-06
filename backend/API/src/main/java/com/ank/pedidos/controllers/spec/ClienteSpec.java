@@ -19,9 +19,9 @@ public class ClienteSpec{
                 Predicate predicade = builder.like(camppoNome, "%" + filter.getNome() + "%");
                 predicates.add(predicade);
             }
-            if (filter.getCpf() != null) {
-                Path<String> campoCpf = root.get("cpf");
-                Predicate predicade = builder.like(campoCpf, "%" + filter.getCpf() + "%");
+            if (filter.getCpfcnpj() != null) {
+                Path<String> campoCpf = root.get("cpfcnpj");
+                Predicate predicade = builder.like(campoCpf, "%" + filter.getCpfcnpj() + "%");
                 predicates.add(predicade);
             }
             if (filter.getEndereco() != null) {
@@ -34,6 +34,12 @@ public class ClienteSpec{
                 Predicate predicade = builder.like(campoTelefone, "%" + filter.getTelefone() + "%");
                 predicates.add(predicade);
             }
+            if (filter.getTipo() != null) {
+                Path<Enum> campoTipo = root.get("tipo");
+                Predicate predicade = builder.equal(campoTipo, filter.getTipo());
+                predicates.add(predicade);
+            }
+
             return builder.and(predicates.toArray(new Predicate[0]));
 
         };
