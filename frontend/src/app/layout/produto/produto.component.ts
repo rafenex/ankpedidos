@@ -1,16 +1,14 @@
-import { Component } from '@angular/core';
-import { Produto, ProdutoForm } from '../../models/produto/produto';
+import { Component } from "@angular/core";
+import { Produto, ProdutoForm } from "../../models/produto/produto";
 
-import {
-  CategoriaResponse,
-} from '../../models/categoria/categoria';
-import { ConfirmationService, MessageService } from 'primeng/api';
-import { ApiService } from '../../services/api.service';
+import { CategoriaResponse } from "../../models/categoria/categoria";
+import { ConfirmationService, MessageService } from "primeng/api";
+import { ApiService } from "../../services/api.service";
 
 @Component({
-  selector: 'app-produto',
-  templateUrl: './produto.component.html',
-  styleUrl: './produto.component.scss',
+  selector: "app-produto",
+  templateUrl: "./produto.component.html",
+  styleUrl: "./produto.component.scss",
 })
 export class ProdutoComponent {
   constructor(
@@ -19,44 +17,57 @@ export class ProdutoComponent {
     private messageService: MessageService
   ) {}
   categorias = [] as CategoriaResponse[];
-  produtos:Produto[] = [];
+  produtos: Produto[] = [];
   produtoEdit = {} as ProdutoForm;
   displayedColumns = [
-    'referencia',
-    'nome',
-    'valorPadrao',
-    'categoria',
-    'acoes',
+    "referencia",
+    "nome",
+    "valorPadrao",
+    "categoria",
+    "acoes",
   ];
   openDialog = false;
+  params: any = {
+    referencia: null,
+    nome: null,
+    page: 0,
+    size: 5,
+  };
 
   ngOnInit(): void {
     this.getProdutos();
     this.getCategorias();
   }
 
-  getProdutos() {
-    this.apiService.get<Produto[]>(`/produtos`).subscribe((res: any) =>{
-      this.produtos = res.content
-    })
+  handleFilter() {
+    this.params.page = 0;
+    this.params.size = 5;
+    this.getProdutos();
   }
 
+  getProdutos() {
+    this.apiService
+      .get<Produto[]>(`/produtos?`, this.params)
+      .subscribe((res: any) => {
+        this.produtos = res.content;
+      });
+  }
 
   addProduto(produto: Produto) {
     this.apiService.post(`/produtos`, produto).subscribe({
       next: () => {
         this.messageService.add({
-          severity: 'info',
-          summary: 'Confirmado',
-          detail: 'Produto adicionado',
+          severity: "info",
+          summary: "Confirmado",
+          detail: "Produto adicionado",
         });
         this.getProdutos();
       },
       error: (error) => {
         this.messageService.add({
-          severity: 'error',
-          summary: 'Erro: ' + error.status,
-          detail: 'Ocorreu um erro ao adicionar produto',
+          severity: "error",
+          summary: "Erro: " + error.status,
+          detail: "Ocorreu um erro ao adicionar produto",
         });
       },
     });
@@ -66,41 +77,42 @@ export class ProdutoComponent {
     this.apiService.put(`/produtos`, produto.id, produto).subscribe({
       next: () => {
         this.messageService.add({
-          severity: 'info',
-          summary: 'Confirmado',
-          detail: 'Produto editado',
+          severity: "info",
+          summary: "Confirmado",
+          detail: "Produto editado",
         });
         this.getProdutos();
       },
       error: (error) => {
         this.messageService.add({
-          severity: 'error',
-          summary: 'Erro: ' + error.status,
-          detail: 'Ocorreu um erro ao editar produto',
+          severity: "error",
+          summary: "Erro: " + error.status,
+          detail: "Ocorreu um erro ao editar produto",
         });
       },
     });
   }
   getCategorias() {
-    this.apiService.get<CategoriaResponse[]>('/categorias')
+    this.apiService
+      .get<CategoriaResponse[]>("/categorias")
       .subscribe((res: any) => (this.categorias = res.content));
   }
 
   deleteProduto(produto: Produto) {
-    this.apiService.delete(`/produtos`,produto.id).subscribe({
+    this.apiService.delete(`/produtos`, produto.id).subscribe({
       next: () => {
         this.messageService.add({
-          severity: 'info',
-          summary: 'Confirmado',
-          detail: 'Produto removido',
+          severity: "info",
+          summary: "Confirmado",
+          detail: "Produto removido",
         });
         this.getProdutos();
       },
       error: (error) => {
         this.messageService.add({
-          severity: 'error',
-          summary: 'Erro: ' + error.status,
-          detail: 'Ocorreu um erro ao deletar produto',
+          severity: "error",
+          summary: "Erro: " + error.status,
+          detail: "Ocorreu um erro ao deletar produto",
         });
       },
     });
@@ -110,21 +122,21 @@ export class ProdutoComponent {
     this.confirmationService.confirm({
       target: event.target as EventTarget,
       message: `Deseja remover o produto ${produto.nome}?`,
-      header: 'Confirmação de remoção',
-      icon: 'pi pi-info-circle',
-      acceptButtonStyleClass: 'p-button-danger p-button-text',
-      rejectButtonStyleClass: 'p-button-text p-button-text',
-      acceptIcon: 'none',
-      rejectIcon: 'none',
+      header: "Confirmação de remoção",
+      icon: "pi pi-info-circle",
+      acceptButtonStyleClass: "p-button-danger p-button-text",
+      rejectButtonStyleClass: "p-button-text p-button-text",
+      acceptIcon: "none",
+      rejectIcon: "none",
 
       accept: () => {
         this.deleteProduto(produto);
       },
       reject: () => {
         this.messageService.add({
-          severity: 'error',
-          summary: 'Rejeitado',
-          detail: 'Você rejeitou a ação',
+          severity: "error",
+          summary: "Rejeitado",
+          detail: "Você rejeitou a ação",
         });
       },
     });
