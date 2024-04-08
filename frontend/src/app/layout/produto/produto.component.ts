@@ -27,6 +27,7 @@ export class ProdutoComponent {
     "acoes",
   ];
   openDialog = false;
+  totalElements: number = 0;
   params: any = {
     referencia: null,
     nome: null,
@@ -36,6 +37,12 @@ export class ProdutoComponent {
 
   ngOnInit(): void {
     this.getProdutos();
+    this.getCategorias();
+  }
+
+  pageChange(event: any) {
+    this.params.page = event.first / event.rows;
+    this.params.size = event.rows;
     this.getCategorias();
   }
 
@@ -50,6 +57,7 @@ export class ProdutoComponent {
       .get<Produto[]>(`/produtos?`, this.params)
       .subscribe((res: any) => {
         this.produtos = res.content;
+        this.totalElements = res.totalElements;
       });
   }
 
