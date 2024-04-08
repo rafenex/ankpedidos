@@ -1,12 +1,10 @@
 package com.ank.pedidos.controllers.spec;
 
-import com.ank.pedidos.controllers.dto.FiltroClienteDto;
+import com.ank.pedidos.controllers.dto.Filtro.FiltroClienteDto;
 import com.ank.pedidos.entities.Cliente;
-import com.ank.pedidos.entities.Produto;
 import jakarta.persistence.criteria.*;
 import org.springframework.data.jpa.domain.Specification;
 
-import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 

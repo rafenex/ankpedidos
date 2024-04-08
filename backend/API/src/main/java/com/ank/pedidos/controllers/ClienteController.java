@@ -2,7 +2,7 @@ package com.ank.pedidos.controllers;
 
 import com.ank.pedidos.controllers.dto.ClienteRequest;
 import com.ank.pedidos.controllers.dto.ClienteResponse;
-import com.ank.pedidos.controllers.dto.FiltroClienteDto;
+import com.ank.pedidos.controllers.dto.Filtro.FiltroClienteDto;
 import com.ank.pedidos.entities.Cliente;
 import com.ank.pedidos.services.ClienteService;
 import jakarta.validation.Valid;

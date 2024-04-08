@@ -1,4 +1,4 @@
-package com.ank.pedidos.controllers.dto;
+package com.ank.pedidos.controllers.dto.Filtro;
 
 public class FiltroCategoriaDto {
     private Long id;

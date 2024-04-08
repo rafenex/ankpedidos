@@ -1,6 +1,6 @@
 package com.ank.pedidos.services;
 
-import com.ank.pedidos.controllers.dto.FiltroCategoriaDto;
+import com.ank.pedidos.controllers.dto.Filtro.FiltroCategoriaDto;
 import com.ank.pedidos.controllers.spec.CategoriaSpec;
 import com.ank.pedidos.entities.Categoria;
 import com.ank.pedidos.repositories.CategoriaRepository;
@@ -9,7 +9,6 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
-import java.util.List;
 
 
 @Service

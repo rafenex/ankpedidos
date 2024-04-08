@@ -1,4 +1,4 @@
-package com.ank.pedidos.controllers.dto;
+package com.ank.pedidos.controllers.dto.Filtro;
 
 import java.math.BigDecimal;
 

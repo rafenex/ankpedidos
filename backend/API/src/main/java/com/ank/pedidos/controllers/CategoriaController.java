@@ -1,6 +1,6 @@
 package com.ank.pedidos.controllers;
 
-import com.ank.pedidos.controllers.dto.FiltroCategoriaDto;
+import com.ank.pedidos.controllers.dto.Filtro.FiltroCategoriaDto;
 import com.ank.pedidos.entities.Categoria;
 import com.ank.pedidos.services.CategoriaService;
 import org.springdoc.core.annotations.ParameterObject;
@@ -11,8 +11,6 @@ import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 @RestController
 @CrossOrigin

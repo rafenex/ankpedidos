@@ -1,6 +1,7 @@
 package com.ank.pedidos.controllers;
 
 import com.ank.pedidos.controllers.dto.*;
+import com.ank.pedidos.controllers.dto.Filtro.FiltroProdutoDto;
 import com.ank.pedidos.entities.Produto;
 import com.ank.pedidos.services.ImageDataService;
 import com.ank.pedidos.services.ProdutoService;

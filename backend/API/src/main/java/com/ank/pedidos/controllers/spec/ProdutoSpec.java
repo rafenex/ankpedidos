@@ -1,10 +1,8 @@
 package com.ank.pedidos.controllers.spec;
 
 
-import com.ank.pedidos.controllers.dto.FiltroProdutoDto;
-import com.ank.pedidos.entities.Cliente;
+import com.ank.pedidos.controllers.dto.Filtro.FiltroProdutoDto;
 import com.ank.pedidos.entities.Produto;
-import jakarta.persistence.criteria.Join;
 import jakarta.persistence.criteria.Path;
 import jakarta.persistence.criteria.Predicate;
 import org.springframework.data.jpa.domain.Specification;

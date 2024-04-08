@@ -1,6 +1,6 @@
 package com.ank.pedidos.services;
 
-import com.ank.pedidos.controllers.dto.FiltroPedidoDto;
+import com.ank.pedidos.controllers.dto.Filtro.FiltroPedidoDto;
 import com.ank.pedidos.controllers.dto.PedidoRequest;
 import com.ank.pedidos.controllers.dto.PedidoResponse;
 import com.ank.pedidos.controllers.mapper.PedidoMapper;
