@@ -43,7 +43,7 @@ export class ProdutoComponent {
   pageChange(event: any) {
     this.params.page = event.first / event.rows;
     this.params.size = event.rows;
-    this.getCategorias();
+    this.getProdutos();
   }
 
   handleFilter() {

@@ -1,6 +1,45 @@
+<div class="card flex gap-3">
+  <div class="field">
+    <input
+      type="text"
+      pInputText
+      placeholder="Cliente"
+      [(ngModel)]="params.cliente"
+    />
+  </div>
+  <div class="field">
+    <input
+      type="date"
+      pInputText
+      placeholder="De: "
+      [(ngModel)]="params.dataInicial"
+    />
+  </div>
+  <div class="field">
+    <input
+      type="date"
+      pInputText
+      placeholder="Até: "
+      [(ngModel)]="params.dataFinal"
+    />
+  </div>
+  <p-button
+    label="Pesquisar"
+    severity="warning"
+    (onClick)="handleFilter()"
+  ></p-button>
+</div>
 <p-table
   [value]="pedidos"
+  [paginator]="true"
+  [rows]="params.size"
+  [showCurrentPageReport]="true"
+  [totalRecords]="totalElements"
   [tableStyle]="{ 'min-width': '50rem' }"
+  currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+  [rowsPerPageOptions]="[5, 10, 20]"
+  [lazy]="true"
+  (onPage)="pageChange($event)"
 >
   <ng-template pTemplate="header">
     <tr>
