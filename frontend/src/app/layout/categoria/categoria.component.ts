@@ -18,8 +18,6 @@ export class CategoriaComponent {
   categoriaEdit = {} as CategoriaResponse;
   displayedColumns = ["nome", "acoes"];
   openDialog = false;
-  page: number = 0;
-  size: number = 5;
   totalElements: number = 0;
   params: any = {
     nome: null,
