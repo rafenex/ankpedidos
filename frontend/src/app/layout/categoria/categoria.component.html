@@ -1,3 +1,19 @@
+<div class="card flex gap-3">
+  <div class="field">
+    <input
+      type="text"
+      pInputText
+      placeholder="Nome"
+      [(ngModel)]="params.nome"
+    />
+  </div>
+
+  <p-button
+    label="Pesquisar"
+    severity="warning"
+    (onClick)="handleFilter()"
+  ></p-button>
+</div>
 <p-table
   [value]="categorias"
   [paginator]="true"

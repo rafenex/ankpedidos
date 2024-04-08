@@ -21,6 +21,11 @@ export class CategoriaComponent {
   page: number = 0;
   size: number = 5;
   totalElements: number = 0;
+  params: any = {
+    nome: null,
+    page: 0,
+    size: 5,
+  };
 
   showFormDialog(show: boolean, categoria?: CategoriaResponse) {
     this.categoriaEdit = {} as CategoriaResponse;
@@ -30,11 +35,15 @@ export class CategoriaComponent {
     this.openDialog = show;
   }
 
+  handleFilter() {
+    this.params.page = 0;
+    this.params.size = 5;
+    this.getCategorias();
+  }
+
   getCategorias() {
     this.apiService
-      .get<CategoriaResponse[]>(
-        `/categorias?page=${this.page}&size=${this.size}`
-      )
+      .get<CategoriaResponse[]>(`/categorias?`, this.params)
       .subscribe((res: any) => {
         this.categorias = res.content;
         this.totalElements = res.totalElements;
@@ -126,8 +135,8 @@ export class CategoriaComponent {
   }
 
   pageChange(event: any) {
-    this.page = event.first / event.rows;
-    this.size = event.rows;
+    this.params.page = event.first / event.rows;
+    this.params.size = event.rows;
     this.getCategorias();
   }
 
