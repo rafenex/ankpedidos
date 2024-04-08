@@ -1,7 +1,4 @@
-<p-table
-  [value]="produtos"
-  [tableStyle]="{ 'min-width': '50rem' }"
->
+<p-table [value]="produtos" [tableStyle]="{ 'min-width': '50rem' }">
   <ng-template pTemplate="header">
     <tr>
       <th>Ref</th>
@@ -15,7 +12,7 @@
     <tr>
       <td>{{ produto.referencia }}</td>
       <td>{{ produto.nome }}</td>
-      <td>{{ produto.valorPadrao }}</td>
+      <td>{{ produto.valorPadrao | currency : "BRL" }}</td>
       <td>{{ produto.categoria }}</td>
 
       <td>

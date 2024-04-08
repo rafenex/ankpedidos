@@ -2,7 +2,7 @@ package com.ank.pedidos.services;
 
 import com.ank.pedidos.controllers.dto.ClienteRequest;
 import com.ank.pedidos.controllers.dto.ClienteResponse;
-import com.ank.pedidos.controllers.dto.FiltroClienteDto;
+import com.ank.pedidos.controllers.dto.Filtro.FiltroClienteDto;
 import com.ank.pedidos.controllers.mapper.ClienteMapper;
 import com.ank.pedidos.controllers.spec.ClienteSpec;
 import com.ank.pedidos.entities.Cliente;

@@ -1,4 +1,4 @@
-package com.ank.pedidos.controllers.dto;
+package com.ank.pedidos.controllers.dto.Filtro;
 
 import com.ank.pedidos.entities.TipoClienteEnum;
 

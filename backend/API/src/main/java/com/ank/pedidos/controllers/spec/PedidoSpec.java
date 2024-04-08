@@ -1,6 +1,6 @@
 package com.ank.pedidos.controllers.spec;
 
-import com.ank.pedidos.controllers.dto.FiltroPedidoDto;
+import com.ank.pedidos.controllers.dto.Filtro.FiltroPedidoDto;
 import com.ank.pedidos.entities.Pedido;
 import jakarta.persistence.criteria.Path;
 import jakarta.persistence.criteria.Predicate;
