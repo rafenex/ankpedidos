@@ -24,7 +24,7 @@ public class CategoriaService {
     public Page<Categoria> findAll(FiltroCategoriaDto filtro,
                                    Pageable pageable){
         Specification<Categoria> spec = CategoriaSpec.toSpec(filtro);
-        return categoriaRepository.findAll(pageable);
+        return categoriaRepository.findAll(spec, pageable);
     }
 
     public void delete(Long id){
