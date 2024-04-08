@@ -1,5 +1,6 @@
 package com.ank.pedidos.controllers;
 
+import com.ank.pedidos.controllers.dto.FiltroCategoriaDto;
 import com.ank.pedidos.entities.Categoria;
 import com.ank.pedidos.services.CategoriaService;
 import org.springdoc.core.annotations.ParameterObject;
@@ -27,8 +28,9 @@ public class CategoriaController {
     }
 
     @GetMapping
-    private ResponseEntity<Page<Categoria>> findAll(@ParameterObject @PageableDefault(size = 5, page = 0) Pageable pageable){
-        return new ResponseEntity<>(categoriaService.findAll(pageable),HttpStatus.OK);
+    private ResponseEntity<Page<Categoria>> findAll(@ParameterObject FiltroCategoriaDto filtro,
+                                                    @ParameterObject @PageableDefault(size = 5, page = 0) Pageable pageable){
+        return new ResponseEntity<>(categoriaService.findAll(filtro, pageable),HttpStatus.OK);
     }
 
     @GetMapping("/{id}")

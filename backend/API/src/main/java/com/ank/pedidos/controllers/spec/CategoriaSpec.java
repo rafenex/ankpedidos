@@ -1,5 +1,6 @@
 package com.ank.pedidos.controllers.spec;
 
+import com.ank.pedidos.controllers.dto.FiltroCategoriaDto;
 import com.ank.pedidos.entities.Categoria;
 import com.ank.pedidos.entities.Cliente;
 import jakarta.persistence.criteria.Join;
@@ -11,17 +12,17 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class CategoriaSpec {
-    public static Specification<Categoria> toSpec(Long id, String nome) {
+    public static Specification<Categoria> toSpec(FiltroCategoriaDto filtro) {
         return (root, query, builder) -> {
             List<Predicate> predicates = new ArrayList<>();
-            if (nome != null) {
+            if (filtro.getNome() != null) {
                 Path<String> campoNome = root.get("nome");
-                Predicate predicade = builder.like(campoNome, "%" + nome + "%");
+                Predicate predicade = builder.like(campoNome, "%" + filtro.getNome() + "%");
                 predicates.add(predicade);
             }
-            if (id != null) {
+            if (filtro.getId() != null) {
                 Path<Long> campoId = root.get("id");
-                Predicate predicade = builder.equal(campoId, id);
+                Predicate predicade = builder.equal(campoId, filtro.getId());
                 predicates.add(predicade);
             }
 

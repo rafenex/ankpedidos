@@ -1,10 +1,13 @@
 package com.ank.pedidos.services;
 
+import com.ank.pedidos.controllers.dto.FiltroCategoriaDto;
+import com.ank.pedidos.controllers.spec.CategoriaSpec;
 import com.ank.pedidos.entities.Categoria;
 import com.ank.pedidos.repositories.CategoriaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 import java.util.List;
 
@@ -18,7 +21,9 @@ public class CategoriaService {
         return categoriaRepository.save(categoria);
     }
 
-    public Page<Categoria> findAll(Pageable pageable){
+    public Page<Categoria> findAll(FiltroCategoriaDto filtro,
+                                   Pageable pageable){
+        Specification<Categoria> spec = CategoriaSpec.toSpec(filtro);
         return categoriaRepository.findAll(pageable);
     }
 
