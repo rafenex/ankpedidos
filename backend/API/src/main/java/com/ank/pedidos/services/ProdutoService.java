@@ -1,5 +1,6 @@
 package com.ank.pedidos.services;
 
+import com.ank.pedidos.controllers.dto.FiltroProdutoDto;
 import com.ank.pedidos.controllers.dto.ImageUploadResponse;
 import com.ank.pedidos.controllers.dto.ProdutoRequest;
 import com.ank.pedidos.controllers.dto.ProdutoResponse;
@@ -38,13 +39,10 @@ public class ProdutoService {
     }
 
     public Page<ProdutoResponse> findAll(
-            String nome,
-            String referencia,
-            BigDecimal valor,
-            String categoria,
+            FiltroProdutoDto filtro,
             Pageable pageable
     ) {
-        Page<Produto> entityPage = produtoRepository.findAll(ProdutoSpec.toSpec(nome, referencia, valor , categoria), pageable);
+        Page<Produto> entityPage = produtoRepository.findAll(ProdutoSpec.toSpec(filtro), pageable);
         List<ProdutoResponse> dtoList = entityPage
                 .stream()
                 .map(ProdutoMapper.INSTANCE::toResponse)

@@ -1,8 +1,6 @@
 package com.ank.pedidos.controllers;
 
-import com.ank.pedidos.controllers.dto.ImageUploadResponse;
-import com.ank.pedidos.controllers.dto.ProdutoRequest;
-import com.ank.pedidos.controllers.dto.ProdutoResponse;
+import com.ank.pedidos.controllers.dto.*;
 import com.ank.pedidos.entities.Produto;
 import com.ank.pedidos.services.ImageDataService;
 import com.ank.pedidos.services.ProdutoService;
@@ -11,7 +9,7 @@ import org.springdoc.core.annotations.ParameterObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.web.PageableDefault;
+
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -19,8 +17,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
-import java.math.BigDecimal;
-import java.util.List;
+
 
 @RestController
 @RequestMapping("produtos")
@@ -34,13 +31,10 @@ public class ProdutoController {
 
     @GetMapping
     private ResponseEntity<Page<ProdutoResponse>> findAll(
-            Pageable pageable,
-            @RequestParam (required = false) String nome,
-            @RequestParam (required = false) String referencia,
-            @RequestParam (required = false) BigDecimal valor,
-            @RequestParam (required = false) String categoria
+            @ParameterObject Pageable pageable,
+            @ParameterObject FiltroProdutoDto filtro
             ){
-        return new ResponseEntity<>(produtoService.findAll(nome, referencia, valor, categoria, pageable), HttpStatus.OK) ;
+        return new ResponseEntity<>(produtoService.findAll(filtro, pageable), HttpStatus.OK) ;
     }
     @PostMapping
     private ResponseEntity<Produto> save(@RequestBody @Valid ProdutoRequest produtoRequest){
