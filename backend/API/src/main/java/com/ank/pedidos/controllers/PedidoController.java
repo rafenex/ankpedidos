@@ -1,10 +1,12 @@
 package com.ank.pedidos.controllers;
 
+import com.ank.pedidos.controllers.dto.FiltroCategoriaDto;
 import com.ank.pedidos.controllers.dto.FiltroPedidoDto;
 import com.ank.pedidos.controllers.dto.PedidoRequest;
 import com.ank.pedidos.controllers.dto.PedidoResponse;
 import com.ank.pedidos.entities.Pedido;
 import com.ank.pedidos.services.PedidoService;
+import org.springdoc.core.annotations.ParameterObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -25,7 +27,7 @@ public class PedidoController {
     PedidoService pedidoService;
 
     @GetMapping
-    private ResponseEntity<Page<PedidoResponse>> findAll(FiltroPedidoDto filtro,
+    private ResponseEntity<Page<PedidoResponse>> findAll(@ParameterObject FiltroPedidoDto filtro,
                                                          @PageableDefault(size = 10, page = 0) Pageable pageable) {
         return new ResponseEntity<>(pedidoService.listarPedidos(filtro,pageable), HttpStatus.OK);
     }
