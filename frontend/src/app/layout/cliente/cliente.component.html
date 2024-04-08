@@ -1,6 +1,30 @@
+<div class="card flex gap-3">
+  <div class="field">
+    <input
+      type="text"
+      pInputText
+      placeholder="Nome"
+      [(ngModel)]="params.nome"
+    />
+  </div>
+
+  <p-button
+    label="Pesquisar"
+    severity="warning"
+    (onClick)="handleFilter()"
+  ></p-button>
+</div>
 <p-table
   [value]="clientes"
+  [paginator]="true"
+  [rows]="params.size"
+  [showCurrentPageReport]="true"
+  [totalRecords]="totalElements"
   [tableStyle]="{ 'min-width': '50rem' }"
+  currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+  [rowsPerPageOptions]="[5, 10, 20]"
+  [lazy]="true"
+  (onPage)="pageChange($event)"
 >
   <ng-template pTemplate="header">
     <tr>

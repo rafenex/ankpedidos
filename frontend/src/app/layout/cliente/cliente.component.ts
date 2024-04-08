@@ -1,12 +1,12 @@
-import { Component } from '@angular/core';
-import { Cliente } from '../../models/cliente/cliente';
-import { ConfirmationService, MessageService } from 'primeng/api';
-import { ApiService } from '../../services/api.service';
+import { Component } from "@angular/core";
+import { Cliente } from "../../models/cliente/cliente";
+import { ConfirmationService, MessageService } from "primeng/api";
+import { ApiService } from "../../services/api.service";
 
 @Component({
-  selector: 'app-cliente',
-  templateUrl: './cliente.component.html',
-  styleUrl: './cliente.component.scss',
+  selector: "app-cliente",
+  templateUrl: "./cliente.component.html",
+  styleUrl: "./cliente.component.scss",
 })
 export class ClienteComponent {
   constructor(
@@ -15,9 +15,35 @@ export class ClienteComponent {
     private confirmationService: ConfirmationService
   ) {}
   clientes: Cliente[] = [];
-  displayedColumns = ['nome', 'cpfcnpj', 'endereco', 'telefone', 'acoes'];
+  displayedColumns = ["nome", "cpfcnpj", "endereco", "telefone", "acoes"];
   openDialog = false;
   clienteEdit = {} as Cliente;
+  totalElements: number = 0;
+  params: any = {
+    nome: null,
+    page: 0,
+    size: 5,
+  };
+
+  pageChange(event: any) {
+    this.params.page = event.first / event.rows;
+    this.params.size = event.rows;
+    this.getClientes();
+  }
+
+  handleFilter() {
+    this.params.page = 0;
+    this.params.size = 5;
+    this.getClientes();
+  }
+  getClientes() {
+    this.apiService
+      .get<Cliente[]>(`/clientes?`, this.params)
+      .subscribe((res: any) => {
+        this.clientes = res.content;
+        this.totalElements = res.totalElements;
+      });
+  }
 
   showFormDialog(show: boolean, cliente?: Cliente) {
     this.clienteEdit = {} as Cliente;
@@ -28,66 +54,60 @@ export class ClienteComponent {
   }
 
   addCliente(cliente: Cliente) {
-    this.apiService.post(`/clientes`,cliente).subscribe({
+    this.apiService.post(`/clientes`, cliente).subscribe({
       next: () => {
         this.messageService.add({
-          severity: 'info',
-          summary: 'Confirmado',
-          detail: 'Cliente adicionado',
+          severity: "info",
+          summary: "Confirmado",
+          detail: "Cliente adicionado",
         });
         this.getClientes();
       },
       error: (error) => {
         this.messageService.add({
-          severity: 'error',
-          summary: 'Erro: ' + error.status,
-          detail: 'Ocorreu um erro ao adicionar cliente',
+          severity: "error",
+          summary: "Erro: " + error.status,
+          detail: "Ocorreu um erro ao adicionar cliente",
         });
       },
     });
   }
 
   updateCliente(cliente: Cliente) {
-    this.apiService.put(`/clientes`,cliente.id, cliente).subscribe({
+    this.apiService.put(`/clientes`, cliente.id, cliente).subscribe({
       next: () => {
         this.messageService.add({
-          severity: 'info',
-          summary: 'Confirmado',
-          detail: 'Cliente editado',
+          severity: "info",
+          summary: "Confirmado",
+          detail: "Cliente editado",
         });
         this.getClientes();
       },
       error: (error) => {
         this.messageService.add({
-          severity: 'error',
-          summary: 'Erro: ' + error.status,
-          detail: 'Ocorreu um erro ao editar cliente',
+          severity: "error",
+          summary: "Erro: " + error.status,
+          detail: "Ocorreu um erro ao editar cliente",
         });
       },
     });
-  }
-
-  getClientes() {
-    this.apiService.get<Cliente[]>(`/clientes`).subscribe((res: any) => {
-      this.clientes = res.content
-    })
   }
 
   deleteCliente(cliente: Cliente) {
     this.apiService.delete(`/clientes`, cliente.id).subscribe({
       next: () => {
         this.messageService.add({
-          severity: 'info',
-          summary: 'Confirmado',
-          detail: 'Cliente removido',
+          severity: "info",
+          summary: "Confirmado",
+          detail: "Cliente removido",
         });
         this.getClientes();
       },
       error: (error) => {
         this.messageService.add({
-          severity: 'error',
-          summary: 'Erro: ' + error.status,
-          detail: 'Ocorreu um erro ao deletar cliente',
+          severity: "error",
+          summary: "Erro: " + error.status,
+          detail: "Ocorreu um erro ao deletar cliente",
         });
       },
     });
@@ -97,21 +117,21 @@ export class ClienteComponent {
     this.confirmationService.confirm({
       target: event.target as EventTarget,
       message: `Deseja remover o cliente ${cliente.nome}?`,
-      header: 'Confirmação de remoção',
-      icon: 'pi pi-info-circle',
-      acceptButtonStyleClass: 'p-button-danger p-button-text',
-      rejectButtonStyleClass: 'p-button-text p-button-text',
-      acceptIcon: 'none',
-      rejectIcon: 'none',
+      header: "Confirmação de remoção",
+      icon: "pi pi-info-circle",
+      acceptButtonStyleClass: "p-button-danger p-button-text",
+      rejectButtonStyleClass: "p-button-text p-button-text",
+      acceptIcon: "none",
+      rejectIcon: "none",
 
       accept: () => {
         this.deleteCliente(cliente);
       },
       reject: () => {
         this.messageService.add({
-          severity: 'error',
-          summary: 'Rejeitado',
-          detail: 'Você rejeitou a ação',
+          severity: "error",
+          summary: "Rejeitado",
+          detail: "Você rejeitou a ação",
         });
       },
     });
