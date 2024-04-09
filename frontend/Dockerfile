@@ -1,14 +1,26 @@
-# Estagio 1 - Responsável por gerar o build da nossa aplicação
-FROM node as node
-WORKDIR /app
-COPY package.json /app/
-RUN npm i npm@latest -g
-RUN npm install
-COPY ./ /app/
-ARG env=prod
-RUN npm run build
+FROM node:18.17.1-alpine As builder
 
-# Estagio 2 - Responsável por expor nossa aplicação
-FROM nginx
-COPY --from=node /app/dist /usr/share/nginx/html
-COPY ./nginx-custom.conf /etc/nginx/conf.d/default.conf
+WORKDIR /app
+
+COPY package.json package-lock.json ./
+
+RUN npm install
+
+COPY . .
+
+RUN npm run build --prod
+
+FROM nginx:1.15.8-alpine
+
+EXPOSE 8080
+
+COPY ./nginx/default.prod.conf /etc/nginx/conf.d/default.conf
+RUN chmod g+rwx /var/cache/nginx /var/run /var/log/nginx
+RUN sed -i.bak 's/listen\(.*\)80;/listen 8080;/' /etc/nginx/conf.d/default.conf
+RUN sed -i.bak 's/^user/#user/' /etc/nginx/nginx.conf
+
+COPY --from=builder /app/dist/comunicacao/ /usr/share/nginx/html
+COPY ./nginx/health/health.json /usr/share/nginx/html/health.json
+
+RUN addgroup nginx root
+USER nginx
