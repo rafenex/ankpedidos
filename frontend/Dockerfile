@@ -22,4 +22,3 @@ RUN sed -i.bak 's/^user/#user/' /etc/nginx/nginx.conf
 COPY --from=builder /app/dist/front-end/ /usr/share/nginx/html
 COPY ./nginx/health/health.json /usr/share/nginx/html/health.json
 
-RUN addgroup nginx root
