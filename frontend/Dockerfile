@@ -8,7 +8,7 @@ RUN npm install -g npm@10.5.1
 
 COPY . .
 
-RUN npm run build --prod
+RUN npm run build 
 
 FROM nginx:1.15.8-alpine
 
