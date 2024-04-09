@@ -1,7 +1,7 @@
 # ----------------------------
 # build from source
 # ----------------------------
-    FROM node:18 AS build
+    FROM node:18 AS builder
 
     WORKDIR /app
     
@@ -14,11 +14,11 @@
     # ----------------------------
     # run with nginx
     # ----------------------------
-    FROM nginx
-    
-    RUN rm /etc/nginx/conf.d/default.conf
-    COPY nginx.conf /etc/nginx/conf.d/
-    COPY --from=build /app/dist/front-end/ /usr/share/nginx/html/
-    
-    EXPOSE 80
-    
+    FROM nginx:alpine
+
+    WORKDIR /usr/share/nginx/html
+
+    RUN rm -rf ./*
+    COPY --from=builder /app/dist .
+
+    ENTRYPOINT [ "nginx", "-g", "daemon off"; ]
