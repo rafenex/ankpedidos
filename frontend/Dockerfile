@@ -17,7 +17,7 @@ RUN npm install -g @angular/cli@17.2.0
 COPY . /usr/src/app
 
 # start app
-CMD npm build-prod
+RUN npm run build
 
 # Stage 1, for copying the compiled app from the previous step and making it ready for production with Nginx
 FROM nginx:alpine
