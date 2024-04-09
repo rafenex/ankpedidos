@@ -1,24 +1,23 @@
 # ----------------------------
 # build from source
 # ----------------------------
-    FROM node:18 AS builder
+    FROM node:18 AS build
 
     WORKDIR /app
     
     COPY package*.json ./
-    RUN npm install
+    RUN npm ci
+    RUN npm instrall -f @angular/cli
     
     COPY . .
-    RUN npm run build
+
+    RUN npm run build 
     
     # ----------------------------
     # run with nginx
     # ----------------------------
     FROM nginx:alpine
 
-    WORKDIR /usr/share/nginx/html
-
-    RUN rm -rf ./*
-    COPY --from=builder /app/dist .
-
-    ENTRYPOINT [ "nginx", "-g", "daemon off"; ]
+    COPY ./nginx.conf /etc/nginx/conf.d/default.conf
+    COPY --from=build /app/dist/front-end/browser /usr/share/nginx/html
+    EXPOSE 80
