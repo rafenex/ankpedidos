@@ -22,5 +22,3 @@
     
     EXPOSE 80
     
-
-    # build from source
