@@ -2,10 +2,6 @@ version: "3.3"
 
 services:
   web:
-    build: "./front-end"
+    build: .
     ports:
       - 80:80
-  spring:
-    build: ./front-end
-    ports:
-      - 8080:8080
