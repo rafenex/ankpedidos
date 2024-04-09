@@ -1,13 +1,23 @@
-FROM node:20-alpine as angular
-WORKDIR /ng-app
-COPY package*.json .
-RUN npm ci
-COPY . .
-RUN npm run build
+# ----------------------------
+# build from source
+# ----------------------------
+    FROM node:18 AS build
 
-FROM nginx:alpine
-
-RUN mkdir -p /usr/share/nginx/html
-
-COPY --from=angular /ng-app/dist/front-end/browser /usr/share/nginx/html
-EXPOSE 80
+    WORKDIR /app
+    
+    COPY package*.json .
+    RUN npm install
+    
+    COPY . .
+    RUN npm run build
+    
+    # ----------------------------
+    # run with nginx
+    # ----------------------------
+    FROM nginx
+    
+    RUN rm /etc/nginx/conf.d/default.conf
+    COPY nginx.conf /etc/nginx/conf.d
+    COPY --from=build /app/dist/front-end /usr/share/nginx/html
+    
+    EXPOSE 80
