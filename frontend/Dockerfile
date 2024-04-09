@@ -6,6 +6,8 @@ COPY . .
 RUN npm run build
 
 FROM nginx:alpine
-ARG name
-COPY --from=angular /app/dist/front-end/browser /usr/share/nginx/html
+
+RUN mkdir -p /usr/share/nginx/html
+
+COPY --from=angular /ng-app/dist/front-end/browser /usr/share/nginx/html
 EXPOSE 80
