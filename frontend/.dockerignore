@@ -1,2 +1,4 @@
-node_moduloes
+node_modules
+dist
+.angular
 .git
