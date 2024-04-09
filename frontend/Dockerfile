@@ -5,7 +5,7 @@
 
     WORKDIR /app
     
-    COPY package*.json .
+    COPY package*.json ./
     RUN npm install
     
     COPY . .
@@ -22,3 +22,5 @@
     
     EXPOSE 80
     
+
+    # build from source
