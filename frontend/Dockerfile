@@ -7,7 +7,7 @@
     
     COPY package*.json ./
     RUN npm ci
-    RUN npm instrall -f @angular/cli
+    RUN npm install -f @angular/cli
     
     COPY . .
 
