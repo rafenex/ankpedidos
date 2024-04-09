@@ -23,4 +23,3 @@ COPY --from=builder /app/dist/comunicacao/ /usr/share/nginx/html
 COPY ./nginx/health/health.json /usr/share/nginx/html/health.json
 
 RUN addgroup nginx root
-USER nginx
