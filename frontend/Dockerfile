@@ -7,7 +7,7 @@ COPY package.json package-lock.json ./
 RUN npm install 
 
 COPY . .
-RUN npm install -g @angular/cli@versao_do_angular_cli
+RUN npm install -g @angular/cli@17.2.0
 RUN npm run build 
 
 FROM nginx:1.15.8-alpine
