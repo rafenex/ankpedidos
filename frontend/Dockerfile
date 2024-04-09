@@ -4,10 +4,10 @@ WORKDIR /app
 
 COPY package.json package-lock.json ./
 
-RUN npm install -g npm@10.5.1
+RUN npm install 
 
 COPY . .
-
+RUN npm install -g @angular/cli@versao_do_angular_cli
 RUN npm run build 
 
 FROM nginx:1.15.8-alpine
