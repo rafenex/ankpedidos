@@ -8,7 +8,7 @@ services:
     image: rafenex/pedidosback:1.0
     container_name: pedidoback
     networks:
-      - compose-bridge
+      - db_compose-bridge
     ports:
       - 8081:8080
     environment:
