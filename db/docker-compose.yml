@@ -19,7 +19,7 @@ services:
 
 networks:
   compose-bridge:
-    driver: bridge
+    name: compose-bridge
 
 volumes:
   mysql_data:
