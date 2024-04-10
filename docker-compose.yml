@@ -20,7 +20,7 @@ services:
 
   pedidoapi:
     build:
-      context: ./backend
+      context: ./backend/API
       dockerfile: ./backend/API/Dockerfile
     restart: always
     image: rafenex/pedidosback:1.0
