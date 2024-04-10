@@ -20,8 +20,7 @@ services:
 
   pedidoapi:
     build:
-      context: ./ankpedidos/backend/API
-      dockerfile: ./ankpedidos/backend/API/Dockerfile
+      context: ./backend/API
     restart: always
     image: rafenex/pedidosback:1.0
     container_name: pedidoback
@@ -39,7 +38,6 @@ services:
   front:
     build:
       context: ./frontend
-      dockerfile: ./frontend/Dockerfile 
     restart: always
     image: rafenex/pedidosfront:1.0
     container_name: pedidofront
