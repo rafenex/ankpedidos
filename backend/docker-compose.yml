@@ -1,5 +1,9 @@
 version: "3.3"
 
+networks:
+    compose-bridge:
+        external: true
+
 services:
   pedidoapi:
     build:
@@ -8,7 +12,7 @@ services:
     image: rafenex/pedidosback:1.0
     container_name: pedidoback
     networks:
-      - db_compose-bridge
+      - compose-bridge
     ports:
       - 8081:8080
     environment:
