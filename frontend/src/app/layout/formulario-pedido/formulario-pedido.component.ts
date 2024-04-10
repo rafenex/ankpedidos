@@ -133,7 +133,7 @@ export class FormularioPedidoComponent {
       this.pedidoRequest.itemPedido.push(newItemPedido);
     });
 
-    this.apiService.post("pedidos", pedidoRequest).subscribe({
+    this.apiService.post("/pedidos", pedidoRequest).subscribe({
       next: () => {
         this.messageService.add({
           severity: "info",
