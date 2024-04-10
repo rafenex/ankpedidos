@@ -1,9 +1,10 @@
-version: "3.3"
-
+version: "3.8"
 services:
-  app:
+  myapp:
     build:
       context: .
-      dockerfile: Dockerfile
+      args:
+        - name=front
+    image: front-img:1.0
     ports:
-      - 80:80
+      - "80:80"
