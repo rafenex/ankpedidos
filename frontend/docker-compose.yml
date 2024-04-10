@@ -1,5 +1,9 @@
 version: "3.3"
 
+networks:
+    compose-bridge:
+        external: true
+
 services:
   front:
     build:
