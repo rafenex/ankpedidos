@@ -17,9 +17,5 @@ services:
     volumes:
       - mysql_data:/var/lib/mysql
 
-networks:
-  compose-bridge:
-    name: compose-bridge
-
 volumes:
   mysql_data:
