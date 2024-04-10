@@ -1,6 +1,6 @@
-const serverUrl = 'http://localhost:8080';
+const serverUrl = "http://localhost:8081";
 
 export const enviroment = {
-    production: false,
-    apiUrl: `${serverUrl}`
-}
+  production: false,
+  apiUrl: `${serverUrl}`,
+};
