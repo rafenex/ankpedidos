@@ -17,6 +17,9 @@ export class ApiService {
     return this.http.get<T>(this.apiUrl + route + params);
   }
 
+  getById<T>(route: string): Observable<T> {
+    return this.http.get<T>(this.apiUrl + route);
+  }
   post<T>(route: string, data: unknown): Observable<T> {
     return this.http.post<T>(this.apiUrl + route, data);
   }

@@ -87,7 +87,8 @@ export class FormularioPedidoComponent {
   }
 
   findById(id: number): void {
-    this.apiService.get(`pedidos/${id}`).subscribe((response: any) => {
+    this.apiService.getById(`/pedidos/${id}`).subscribe((response: any) => {
+      console.log(response);
       this.pedido = response;
       this.userForm.setValue({
         id: this.pedido.id,
