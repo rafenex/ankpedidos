@@ -3,7 +3,7 @@ version: "3.3"
 services:
   front:
     build:
-      context: ./frontend
+      context: .
     restart: always
     image: rafenex/pedidosfront:1.0
     container_name: pedidofront
@@ -11,8 +11,4 @@ services:
       - compose-bridge
     ports:
       - "127.0.0.1:80:80"
-
-networks:
-  compose-bridge:
-    driver: bridge
 
