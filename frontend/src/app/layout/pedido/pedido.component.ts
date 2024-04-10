@@ -86,7 +86,7 @@ export class PedidoComponent {
   deleteDialog(event: Event, pedido: Pedido) {
     this.confirmationService.confirm({
       target: event.target as EventTarget,
-      message: `Deseja remover a pedido ${pedido.id}?`,
+      message: `Deseja remover o pedido ${pedido.id}?`,
       header: "Confirmação de remoção",
       icon: "pi pi-info-circle",
       acceptButtonStyleClass: "p-button-danger p-button-text",
