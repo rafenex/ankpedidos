@@ -1,8 +1,17 @@
 Projeto para cadastro de clientes, produtos e pedidos
 
+AWS
+EC2 
 
-API: Java - Spring Boot
+Java 17
+Spring Boot
+Spring Security
+Jwt
+Flyway
+Swagger
 
-Front: Angular
+Angular
+Typescript
+Nginx
 
-Banco de dados: Mysql
+Mysql
