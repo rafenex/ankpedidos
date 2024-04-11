@@ -1,8 +1,8 @@
 version: "3.3"
 
 networks:
-    compose-bridge:
-        external: true
+  compose-bridge:
+    external: true
 
 services:
   front:
@@ -14,5 +14,4 @@ services:
     networks:
       - compose-bridge
     ports:
-      - "127.0.0.1:80:80"
-
+      - 8080:8080
