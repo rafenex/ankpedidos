@@ -9,4 +9,5 @@ RUN npm run build
 FROM nginx:alpine
 ARG name
 COPY --from=angular /ng-app/dist/front-end/browser /usr/share/nginx/html
+COPY nginx.conf /etc/nginx/nginx.conf
 EXPOSE 80
