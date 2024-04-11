@@ -1,17 +1,16 @@
 version: "3.3"
 
-networks:
-  compose-bridge:
-    external: true
-
 services:
   front:
-    build:
-      context: .
-    restart: always
+    build: .
     image: rafenex/pedidosfront:1.0
     container_name: pedidofront
+    restart: always
     networks:
       - compose-bridge
     ports:
-      - 127.0.0.1:8080:8080
+      - "8080:8080"
+
+networks:
+  compose-bridge:
+    external: true
