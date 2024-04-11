@@ -1,38 +1,38 @@
-import { Component } from '@angular/core';
-import { ActivatedRoute, ParamMap, Router } from '@angular/router';
+import { Component } from "@angular/core";
+import { ActivatedRoute, ParamMap, Router } from "@angular/router";
 
 import {
   ItemPedido,
   ItemPedidoRequest,
   Pedido,
   PedidoRequest,
-} from '../../models/pedido/pedido';
-import { FormBuilder, Validators } from '@angular/forms';
-import { Observable } from 'rxjs';
-import { Cliente } from '../../models/cliente/cliente';
-import { Produto } from '../../models/produto/produto';
-import { ConfirmationService, MessageService } from 'primeng/api';
-import { ApiService } from '../../services/api.service';
+} from "../../models/pedido/pedido";
+import { FormBuilder, Validators } from "@angular/forms";
+import { Observable } from "rxjs";
+import { Cliente } from "../../models/cliente/cliente";
+import { Produto } from "../../models/produto/produto";
+import { ConfirmationService, MessageService } from "primeng/api";
+import { ApiService } from "../../services/api.service";
 
 @Component({
-  selector: 'app-formulario-pedido',
-  templateUrl: './formulario-pedido.component.html',
-  styleUrl: './formulario-pedido.component.scss',
+  selector: "app-formulario-pedido",
+  templateUrl: "./formulario-pedido.component.html",
+  styleUrl: "./formulario-pedido.component.scss",
 })
 export class FormularioPedidoComponent {
   id: any;
   pedido = {
     id: 0,
-    clienteNome: '',
-    clienteTelefone: '',
-    clienteCpfCnpj: '',
-    clienteEndereco: '',
+    clienteNome: "",
+    clienteTelefone: "",
+    clienteCpfCnpj: "",
+    clienteEndereco: "",
     itemPedido: [],
-    data: '',
+    data: "",
     total: 0,
   } as Pedido;
   pedidoRequest = {} as PedidoRequest;
-  errorMessage = 'Digite um nome válido';
+  errorMessage = "Digite um nome válido";
   clientes: Cliente[] = [];
   produtos: Produto[] = [];
   formDisable = false;
@@ -49,10 +49,10 @@ export class FormularioPedidoComponent {
   userForm = this.fb.group({
     cliente: 0,
     id: 0,
-    clienteNome: ['', Validators.required],
-    clienteTelefone: '',
-    clienteCpfCnpj: '',
-    clienteEndereco: '',
+    clienteNome: ["", Validators.required],
+    clienteTelefone: "",
+    clienteCpfCnpj: "",
+    clienteEndereco: "",
     total: 0,
   });
 
@@ -60,9 +60,9 @@ export class FormularioPedidoComponent {
     this.pedidoRequest.itemPedido = [];
     this.pedido.itemPedido = [];
     this.route.paramMap.subscribe((params: ParamMap) => {
-      if (params.has('id')) {
+      if (params.has("id")) {
         this.formDisable = true;
-        this.id = params.get('id');
+        this.id = params.get("id");
         this.findById(this.id);
       }
     });
@@ -71,19 +71,24 @@ export class FormularioPedidoComponent {
   }
 
   getClientes() {
-    this.apiService.get<Cliente[]>(`/clientes`).subscribe((res: any) =>{
-      this.clientes = res.content
-    })
+    this.apiService
+      .get<Cliente[]>(`/clientes?`, { page: 0, size: 1000 })
+      .subscribe((res: any) => {
+        this.clientes = res.content;
+      });
   }
 
   getProdutos() {
-    this.apiService.get<Produto[]>(`/produtos`).subscribe((res: any) =>{
-      this.produtos = res.content
-    })
+    this.apiService
+      .get<Produto[]>(`/produtos?`, { page: 0, size: 1000 })
+      .subscribe((res: any) => {
+        this.produtos = res.content;
+      });
   }
 
   findById(id: number): void {
-    this.apiService.get(`pedidos/${id}`).subscribe((response: any) => {
+    this.apiService.getById(`/pedidos/${id}`).subscribe((response: any) => {
+      console.log(response);
       this.pedido = response;
       this.userForm.setValue({
         id: this.pedido.id,
@@ -101,15 +106,14 @@ export class FormularioPedidoComponent {
     const idCliente = event.value;
     let cliente = {} as Cliente;
 
-      cliente = this.clientes.find((c) => c.id === idCliente) ?? ({} as Cliente);
-      this.userForm.patchValue({
-        clienteNome: cliente.nome,
-        clienteCpfCnpj: cliente.cpfcnpj,
-        clienteEndereco: cliente.endereco,
-        clienteTelefone: cliente.telefone,
-      });
-      this.pedidoRequest.clienteId = idCliente;
- ;
+    cliente = this.clientes.find((c) => c.id === idCliente) ?? ({} as Cliente);
+    this.userForm.patchValue({
+      clienteNome: cliente.nome,
+      clienteCpfCnpj: cliente.cpfcnpj,
+      clienteEndereco: cliente.endereco,
+      clienteTelefone: cliente.telefone,
+    });
+    this.pedidoRequest.clienteId = idCliente;
   }
 
   onAddItemPedido(itemPedido: ItemPedido) {
@@ -130,24 +134,24 @@ export class FormularioPedidoComponent {
       this.pedidoRequest.itemPedido.push(newItemPedido);
     });
 
-    this.apiService.post('pedidos',pedidoRequest).subscribe({
+    this.apiService.post("/pedidos", pedidoRequest).subscribe({
       next: () => {
         this.messageService.add({
-          severity: 'info',
-          summary: 'Confirmado',
-          detail: 'Pedido salvo',
+          severity: "info",
+          summary: "Confirmado",
+          detail: "Pedido salvo",
         });
         setTimeout(() => {
-          this.router.navigate(['/pedidos'], {
+          this.router.navigate(["/pedidos"], {
             relativeTo: this.route,
           });
         }, 1000);
       },
       error: (error) => {
         this.messageService.add({
-          severity: 'error',
-          summary: 'Erro: ' + error.status,
-          detail: 'Ocorreu um erro ao salvar pedido',
+          severity: "error",
+          summary: "Erro: " + error.status,
+          detail: "Ocorreu um erro ao salvar pedido",
         });
       },
     });
@@ -164,21 +168,21 @@ export class FormularioPedidoComponent {
     this.confirmationService.confirm({
       target: event.target as EventTarget,
       message: `Deseja remover  ${itemPedido.produto.nome}?`,
-      header: 'Confirmação de remoção',
-      icon: 'pi pi-info-circle',
-      acceptButtonStyleClass: 'p-button-danger p-button-text',
-      rejectButtonStyleClass: 'p-button-text p-button-text',
-      acceptIcon: 'none',
-      rejectIcon: 'none',
+      header: "Confirmação de remoção",
+      icon: "pi pi-info-circle",
+      acceptButtonStyleClass: "p-button-danger p-button-text",
+      rejectButtonStyleClass: "p-button-text p-button-text",
+      acceptIcon: "none",
+      rejectIcon: "none",
 
       accept: () => {
         this.deleteItemPedido(itemPedido);
       },
       reject: () => {
         this.messageService.add({
-          severity: 'error',
-          summary: 'Rejeitado',
-          detail: 'Você rejeitou a ação',
+          severity: "error",
+          summary: "Rejeitado",
+          detail: "Você rejeitou a ação",
         });
       },
     });
@@ -192,7 +196,7 @@ export class FormularioPedidoComponent {
   }
 
   backToPedidos() {
-    this.router.navigate(['/pedidos'], {
+    this.router.navigate(["/pedidos"], {
       relativeTo: this.route,
     });
   }

@@ -1,8 +1,8 @@
 FROM maven:3.8.4-openjdk-17 as builder
 WORKDIR /app
-COPY ./API/pom.xml /app/pom.xml
+COPY pom.xml /app/pom.xml
 RUN mvn verify clean --fail-never
-COPY ./API/src /app/src
+COPY src /app/src
 RUN mvn clean package
 
 FROM openjdk:17

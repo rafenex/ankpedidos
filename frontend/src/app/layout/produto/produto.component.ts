@@ -102,7 +102,7 @@ export class ProdutoComponent {
   }
   getCategorias() {
     this.apiService
-      .get<CategoriaResponse[]>("/categorias")
+      .get<CategoriaResponse[]>("/categorias?", { page: 0, size: 1000 })
       .subscribe((res: any) => (this.categorias = res.content));
   }
 
