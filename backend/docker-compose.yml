@@ -13,8 +13,7 @@ services:
       retries: 10
 
   app:
-    build:
-      context: .
+    image: rafenex/pedidos:1.0
     env_file: ./env/app.env
     restart: unless-stopped
     depends_on:
