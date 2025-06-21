@@ -1,5 +1,6 @@
 package com.ank.pedidos.exception;
 
+import com.ank.pedidos.exception.exceptions.EmailJaCadastradoException;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -35,6 +36,11 @@ public class CustomExceptionHandler {
     @ResponseStatus(HttpStatus.NOT_FOUND)
     public ApiErrorMessage handleMethodArgumentNotValidException(NoSuchElementException ex) {
         return new ApiErrorMessage(HttpStatus.NOT_FOUND, ex.getMessage());
+    }
+
+    @ExceptionHandler(EmailJaCadastradoException.class)
+    public ApiErrorMessage handleEmailJaCadastrado(EmailJaCadastradoException ex) {
+        return new ApiErrorMessage(HttpStatus.CONFLICT, ex.getMessage());
     }
 
 

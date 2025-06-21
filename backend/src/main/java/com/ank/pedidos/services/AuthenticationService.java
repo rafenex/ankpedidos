@@ -8,6 +8,7 @@ import com.ank.pedidos.controllers.dto.UserResponse;
 import com.ank.pedidos.controllers.mapper.UserMapper;
 import com.ank.pedidos.entities.Role;
 import com.ank.pedidos.entities.User;
+import com.ank.pedidos.exception.exceptions.EmailJaCadastradoException;
 import com.ank.pedidos.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -28,6 +29,9 @@ public class AuthenticationService {
     private AuthenticationManager authenticationManager;
 
     public UserResponse register(RegisterRequest request) {
+        if (userRepository.existsByEmail(request.getEmail())) {
+            throw new EmailJaCadastradoException("E-mail já está em uso");
+        }
         User user = new User();
         user.setFirstname(request.getFirstname());
         user.setLastname(request.getLastname());
