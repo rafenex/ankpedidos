@@ -1,4 +1,4 @@
-const serverUrl = "http://3.144.86.50:8081";
+const serverUrl = "http://app:8080";
 
 export const enviroment = {
   production: false,

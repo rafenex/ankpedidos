@@ -6,7 +6,7 @@ RUN npm ci
 COPY . .
 RUN npm run build
 
-FROM nginx:alpine
+FROM nginx:stable
 ARG name
 COPY --from=angular /ng-app/dist/front-end/browser /usr/share/nginx/html
 COPY nginx.conf /etc/nginx/nginx.conf
