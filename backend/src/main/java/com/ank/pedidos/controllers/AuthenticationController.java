@@ -6,6 +6,7 @@ import com.ank.pedidos.controllers.dto.RegisterRequest;
 import com.ank.pedidos.controllers.dto.UserResponse;
 import com.ank.pedidos.entities.User;
 import com.ank.pedidos.services.AuthenticationService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -22,7 +23,7 @@ public class AuthenticationController {
 
     @PostMapping("/register")
     public ResponseEntity<UserResponse> register(
-            @RequestBody RegisterRequest request
+            @Valid @RequestBody RegisterRequest request
     ){
         return ResponseEntity.ok(authenticationService.register(request));
     }
