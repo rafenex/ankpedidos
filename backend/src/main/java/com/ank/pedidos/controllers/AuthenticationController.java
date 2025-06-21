@@ -3,6 +3,8 @@ package com.ank.pedidos.controllers;
 import com.ank.pedidos.controllers.dto.AuthenticationRequest;
 import com.ank.pedidos.controllers.dto.AuthenticationResponse;
 import com.ank.pedidos.controllers.dto.RegisterRequest;
+import com.ank.pedidos.controllers.dto.UserResponse;
+import com.ank.pedidos.entities.User;
 import com.ank.pedidos.services.AuthenticationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -19,14 +21,14 @@ public class AuthenticationController {
     private AuthenticationService authenticationService;
 
     @PostMapping("/register")
-    public ResponseEntity<AuthenticationResponse> register(
+    public ResponseEntity<UserResponse> register(
             @RequestBody RegisterRequest request
     ){
         return ResponseEntity.ok(authenticationService.register(request));
     }
 
     @PostMapping("/authenticate")
-    public ResponseEntity<AuthenticationResponse> register(
+    public ResponseEntity<AuthenticationResponse> authenticate(
             @RequestBody AuthenticationRequest request
     ){
         return ResponseEntity.ok(authenticationService.authenticate(request));

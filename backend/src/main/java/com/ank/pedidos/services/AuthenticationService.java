@@ -4,6 +4,8 @@ import com.ank.pedidos.configuration.JwtService;
 import com.ank.pedidos.controllers.dto.AuthenticationRequest;
 import com.ank.pedidos.controllers.dto.AuthenticationResponse;
 import com.ank.pedidos.controllers.dto.RegisterRequest;
+import com.ank.pedidos.controllers.dto.UserResponse;
+import com.ank.pedidos.controllers.mapper.UserMapper;
 import com.ank.pedidos.entities.Role;
 import com.ank.pedidos.entities.User;
 import com.ank.pedidos.repositories.UserRepository;
@@ -25,19 +27,15 @@ public class AuthenticationService {
     @Autowired
     private AuthenticationManager authenticationManager;
 
-    public AuthenticationResponse register(RegisterRequest request) {
+    public UserResponse register(RegisterRequest request) {
         User user = new User();
         user.setFirstname(request.getFirstname());
         user.setLastname(request.getLastname());
         user.setEmail(request.getEmail());
         user.setPassword(passwordEncoder.encode(request.getPassword()));
         user.setRole(Role.USER);
-        userRepository.save(user);
+        return UserMapper.INSTANCE.toResponse(userRepository.save(user));
 
-        var jwtToken = jwtService.generateToken(user);
-        AuthenticationResponse response = new AuthenticationResponse();
-        response.setToken(jwtToken);
-        return response;
     }
 
     public AuthenticationResponse authenticate(AuthenticationRequest request) {
