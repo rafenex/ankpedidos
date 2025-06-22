@@ -1,13 +1,12 @@
-# syntax=docker/dockerfile:1
-FROM node:20-alpine as angular
-WORKDIR /ng-app
-COPY package*.json ./
-RUN npm ci
+FROM node:21 as builder
+WORKDIR /app
 COPY . .
-RUN npm run build
+RUN npm install
+RUN npm run build 
 
-FROM nginx:stable
-ARG name
-COPY --from=angular /ng-app/dist/front-end/browser /usr/share/nginx/html
+FROM nginx:alpine
+COPY --from=builder /app/dist/front-end/browser /usr/share/nginx/html
 COPY nginx.conf /etc/nginx/nginx.conf
+COPY mime.types /etc/nginx/mime.types
 EXPOSE 80
+CMD ["nginx", "-g", "daemon off;"]
