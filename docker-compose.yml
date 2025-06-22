@@ -15,7 +15,7 @@ services:
       timeout: 5s
       retries: 5
     networks:
-      - app-network
+      - pedidos-network
 
   app:
     build: ./backend
@@ -31,7 +31,7 @@ services:
     ports:
       - "8080:8080"
     networks:
-      - app-network
+      - pedidos-network
 
   frontend:
     build:
@@ -40,8 +40,8 @@ services:
     ports:
       - "4200:80"
     networks:
-      - app-network    
+      - pedidos-network  
 
 networks:
-  app-network:
+  pedidos-network:
     driver: bridge

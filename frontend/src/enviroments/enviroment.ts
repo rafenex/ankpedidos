@@ -1,6 +1,6 @@
-const serverUrl = "http://app:8080";
+const serverUrl = "/api";
 
 export const enviroment = {
   production: false,
-  apiUrl: `${serverUrl}`,
+  apiUrl: serverUrl,
 };
