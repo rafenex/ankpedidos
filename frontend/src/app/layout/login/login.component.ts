@@ -25,6 +25,8 @@ export class LoginComponent {
   }
 
   userForm = this.fb.group({
+    firstname: [''],
+    lastname: [''],
     email: ['', Validators.required],
     password: ['', Validators.required],
   });
@@ -33,6 +35,24 @@ export class LoginComponent {
     if (this.userForm.valid) {
       this.apiService
         .post<AuthResponse>('/auth/authenticate', {
+          ...this.userForm.value,
+        })
+        .subscribe({
+          next: (response) => {
+            localStorage.setItem('access_token', response.token);
+            this.router.navigate(['/pedidos']);
+          },
+          error: (error) => {
+            console.log(error);
+          },
+        });
+    }
+  }
+
+  createUser(){
+      if (this.userForm.valid) {
+      this.apiService
+        .post<AuthResponse>('/auth/register', {
           ...this.userForm.value,
         })
         .subscribe({

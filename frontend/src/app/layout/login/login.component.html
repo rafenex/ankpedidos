@@ -5,7 +5,23 @@
   *ngIf="!isAuthenticated"
 >
   <div class="field">
-    <label for="email" class="block">Nome</label>
+    <label for="firstname" class="block">Nome</label>
+    <input
+      type="text"
+      pInputText
+      placeholder="Nome"
+      formControlName="firstname"
+    />
+
+    <label for="lastname" class="block">Sobrenome</label>
+
+    <input
+      type="text"
+      pInputText
+      placeholder="Sobrenome"
+      formControlName="lastname"
+    />
+    <label for="email" class="block">Email</label>
     <input
       type="text"
       pInputText
@@ -50,6 +66,13 @@
     pButton
     type="submit"
     label="Entrar"
+    [disabled]="userForm.invalid"
+  ></button>
+
+  <button
+    pButton
+    (click)="createUser()"
+    label="Criar"
     [disabled]="userForm.invalid"
   ></button>
 </form>
