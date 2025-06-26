@@ -1,6 +1,4 @@
-const serverUrl = "http://localhost:8080";
-
-export const enviroment = {
+export const environment = {
   production: false,
-  apiUrl: serverUrl,
+  apiUrl: 'http://localhost:8080',      // ou proxy /api, como preferir
 };

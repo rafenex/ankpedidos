@@ -15,31 +15,34 @@ services:
     networks:
       - pedidos-network
     
+
   backend:
-    build: ./backend
+    image: openjdk:17-jdk-alpine
     container_name: pedidos-api
     ports:
       - "8080:8080"
+    volumes:
+      - ./backend/pedidos/pedidos-0.0.1-SNAPSHOT.jar:/app/pedidos-0.0.1-SNAPSHOT.jar
+    command: ["java", "-jar", "/app/pedidos-0.0.1-SNAPSHOT.jar"]
     environment:
       SPRING_DATASOURCE_URL: jdbc:mysql://mysql-db:3306/pedidosank?useSSL=false&serverTimezone=UTC&allowPublicKeyRetrieval=true
       SPRING_DATASOURCE_USERNAME: root
       SPRING_DATASOURCE_PASSWORD: root
-    depends_on:
-      - mysql-db
     restart: unless-stopped
     networks:
       - pedidos-network
 
-  frontend:
-    build: ./frontend
-    container_name: pedidos-app
+  nginx-proxy:
+    image: nginx:alpine
     ports:
-      - "4200:80"
-    depends_on:
-      - backend
-    restart: unless-stopped
-    networks:
+      - "80:80"
+    volumes:
+      - ./nginx/default.conf:/etc/nginx/conf.d/default.conf
+      - ./frontend/pedidos/browser:/usr/share/nginx/html
+    depends_on: [backend]
+    networks: 
       - pedidos-network
+    restart: unless-stopped
 
 networks:
   pedidos-network:
