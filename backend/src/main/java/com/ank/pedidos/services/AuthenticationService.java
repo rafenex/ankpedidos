@@ -9,6 +9,7 @@ import com.ank.pedidos.controllers.mapper.UserMapper;
 import com.ank.pedidos.entities.Role;
 import com.ank.pedidos.entities.User;
 import com.ank.pedidos.exception.exceptions.EmailJaCadastradoException;
+import com.ank.pedidos.producers.UserProducer;
 import com.ank.pedidos.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -27,6 +28,8 @@ public class AuthenticationService {
     private JwtService jwtService;
     @Autowired
     private AuthenticationManager authenticationManager;
+    @Autowired
+    UserProducer userProducer;
 
     public UserResponse register(RegisterRequest request) {
         if (userRepository.existsByEmail(request.getEmail())) {
@@ -38,7 +41,9 @@ public class AuthenticationService {
         user.setEmail(request.getEmail());
         user.setPassword(passwordEncoder.encode(request.getPassword()));
         user.setRole(Role.USER);
-        return UserMapper.INSTANCE.toResponse(userRepository.save(user));
+        UserResponse response = UserMapper.INSTANCE.toResponse(userRepository.save(user));
+        userProducer.publishMessageEmail(response);
+        return  response;
 
     }
 
